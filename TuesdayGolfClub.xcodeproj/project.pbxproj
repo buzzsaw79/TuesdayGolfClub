@@ -8,22 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		3024A37D1D7175E90005804F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A37C1D7175E90005804F /* AppDelegate.swift */; };
-		3024A37F1D7175E90005804F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A37E1D7175E90005804F /* ViewController.swift */; };
 		3024A3821D7175E90005804F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3024A3801D7175E90005804F /* Main.storyboard */; };
 		3024A3851D7175E90005804F /* TuesdayGolfClub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3024A3831D7175E90005804F /* TuesdayGolfClub.xcdatamodeld */; };
 		3024A3871D7175E90005804F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3024A3861D7175E90005804F /* Assets.xcassets */; };
 		3024A38A1D7175E90005804F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3024A3881D7175E90005804F /* LaunchScreen.storyboard */; };
+		3024A3931D75812D0005804F /* MemberGolferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */; };
+		3024A3961D7598800005804F /* Golfer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A3941D7598800005804F /* Golfer+CoreDataProperties.swift */; };
+		3024A3971D7598800005804F /* Golfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A3951D7598800005804F /* Golfer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3024A3791D7175E90005804F /* TuesdayGolfClub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TuesdayGolfClub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3024A37C1D7175E90005804F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3024A37E1D7175E90005804F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3024A3811D7175E90005804F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3024A3841D7175E90005804F /* TuesdayGolfClub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TuesdayGolfClub.xcdatamodel; sourceTree = "<group>"; };
 		3024A3861D7175E90005804F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3024A3891D7175E90005804F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3024A38B1D7175E90005804F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberGolferTableViewController.swift; sourceTree = "<group>"; };
+		3024A3941D7598800005804F /* Golfer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Golfer+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3024A3951D7598800005804F /* Golfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Golfer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,25 @@
 		3024A37B1D7175E90005804F /* TuesdayGolfClub */ = {
 			isa = PBXGroup;
 			children = (
-				3024A37C1D7175E90005804F /* AppDelegate.swift */,
-				3024A37E1D7175E90005804F /* ViewController.swift */,
+				3024A3941D7598800005804F /* Golfer+CoreDataProperties.swift */,
+				3024A3951D7598800005804F /* Golfer.swift */,
+				3024A3911D71766F0005804F /* Supporting Files */,
 				3024A3801D7175E90005804F /* Main.storyboard */,
+				3024A3831D7175E90005804F /* TuesdayGolfClub.xcdatamodeld */,
+				3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */,
+			);
+			path = TuesdayGolfClub;
+			sourceTree = "<group>";
+		};
+		3024A3911D71766F0005804F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3024A37C1D7175E90005804F /* AppDelegate.swift */,
 				3024A3861D7175E90005804F /* Assets.xcassets */,
 				3024A3881D7175E90005804F /* LaunchScreen.storyboard */,
 				3024A38B1D7175E90005804F /* Info.plist */,
-				3024A3831D7175E90005804F /* TuesdayGolfClub.xcdatamodeld */,
 			);
-			path = TuesdayGolfClub;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +152,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3024A37F1D7175E90005804F /* ViewController.swift in Sources */,
+				3024A3961D7598800005804F /* Golfer+CoreDataProperties.swift in Sources */,
+				3024A3931D75812D0005804F /* MemberGolferTableViewController.swift in Sources */,
+				3024A3971D7598800005804F /* Golfer.swift in Sources */,
 				3024A37D1D7175E90005804F /* AppDelegate.swift in Sources */,
 				3024A3851D7175E90005804F /* TuesdayGolfClub.xcdatamodeld in Sources */,
 			);
