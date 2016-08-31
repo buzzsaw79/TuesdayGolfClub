@@ -143,9 +143,17 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
 //        let cell = tableView.dequeueReusableCellWithIdentifier("golferCell")!
         let cell:MemberTableViewCell! = tableView.dequeueReusableCellWithIdentifier("golferCell", forIndexPath: indexPath) as! MemberTableViewCell
 
-//         Configure the cell...
-//        cell.textLabel?.text = golfer.name
+//      Configure the cell...
         cell.memberNamelabel?.text = golfer.name
+        
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = UIColor.evenCellColour()
+            cell.memberNamelabel.textColor = UIColor.evenCellTextColour()
+        } else {
+            cell.backgroundColor = UIColor.oddCellColour()
+            cell.memberNamelabel.textColor = UIColor.oddCellTextColour()
+        }
+        
 
         return cell
     }

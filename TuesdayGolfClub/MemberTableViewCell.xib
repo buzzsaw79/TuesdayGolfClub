@@ -15,44 +15,50 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="64.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head2" translatesAutoresizingMaskIntoConstraints="NO" id="CaC-mV-i57">
-                        <rect key="frame" x="7" y="5" width="49" height="55"/>
+                    <stackView opaque="NO" contentMode="scaleAspectFill" alignment="bottom" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bXz-1b-ZH0">
+                        <rect key="frame" x="8" y="8" width="284" height="55"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="251" image="head2" translatesAutoresizingMaskIntoConstraints="NO" id="CaC-mV-i57">
+                                <rect key="frame" x="0.0" y="0.0" width="49" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="HS9-aI-aEJ"/>
+                                    <constraint firstAttribute="height" constant="55" id="YOf-Ek-da1"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keith Bamford" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sE-a6-ZjM">
+                                <rect key="frame" x="65" y="23" width="167" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Ifa-E5-M5C"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="0.93333339689999995" green="0.32941177490000001" blue="0.15686275059999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" misplaced="YES" text="18.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CX-Ov-V6R">
+                                <rect key="frame" x="248" y="22" width="36" height="34"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="width" constant="49" id="HS9-aI-aEJ"/>
-                            <constraint firstAttribute="height" constant="55" id="YOf-Ek-da1"/>
+                            <constraint firstItem="CaC-mV-i57" firstAttribute="centerY" secondItem="bXz-1b-ZH0" secondAttribute="centerY" id="BXK-8S-g8X"/>
+                            <constraint firstAttribute="trailing" secondItem="CaC-mV-i57" secondAttribute="trailing" constant="244" id="pjk-YJ-g3o"/>
                         </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="18.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CX-Ov-V6R">
-                        <rect key="frame" x="245" y="15" width="45" height="33.5"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                        <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Keith Bamford" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sE-a6-ZjM">
-                        <rect key="frame" x="64" y="16" width="138" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="32" id="Ifa-E5-M5C"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="24"/>
-                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="pjk-YJ-g3o"/>
+                            </mask>
+                        </variation>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="CaC-mV-i57" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-1" id="0Jp-sN-JbZ"/>
-                    <constraint firstItem="CaC-mV-i57" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="3cL-ZA-4rQ"/>
-                    <constraint firstItem="6sE-a6-ZjM" firstAttribute="leading" secondItem="CaC-mV-i57" secondAttribute="trailing" constant="8" id="86k-Ts-hfw"/>
-                    <constraint firstItem="5CX-Ov-V6R" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="RZv-vv-lE9"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="CaC-mV-i57" secondAttribute="leading" id="UJm-cA-vpF"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="5CX-Ov-V6R" secondAttribute="trailing" constant="1" id="oYg-Lo-ZTW"/>
-                    <constraint firstItem="6sE-a6-ZjM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xXO-FS-a51"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="bXz-1b-ZH0" secondAttribute="trailing" id="B3Y-z7-Jeg"/>
+                    <constraint firstItem="bXz-1b-ZH0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Fmj-gA-hEe"/>
+                    <constraint firstItem="bXz-1b-ZH0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="l3a-Xn-ukp"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="bXz-1b-ZH0" secondAttribute="bottom" id="lLR-vq-oQ0"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="UJm-cA-vpF"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="memberHandicapLabel" destination="5CX-Ov-V6R" id="LAA-md-Cjp"/>

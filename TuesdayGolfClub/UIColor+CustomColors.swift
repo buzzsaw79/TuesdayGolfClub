@@ -20,6 +20,12 @@ extension UIColor {
     public class func oddCellColour() -> UIColor {
         return UIColor(red: 0.537, green: 0.675, blue: 0.463, alpha: 1.0) // Pale Green
     }
+    public class func oddCellTextColour() -> UIColor {
+        return UIColor(red: 0.958, green: 0.952, blue: 0.852, alpha: 1) // Green
+    }
+    public class func evenCellTextColour() -> UIColor {
+        return UIColor(red: 0.357, green: 0.495, blue: 0.283, alpha: 1.0) // Pale Green
+    }
     
     public class func footerColour() -> UIColor {
         return UIColor(red: 0.424, green: 0.443, blue: 0.337, alpha: 1.0) // Reed Green
