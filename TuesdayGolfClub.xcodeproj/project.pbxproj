@@ -60,12 +60,10 @@
 		3024A37B1D7175E90005804F /* TuesdayGolfClub */ = {
 			isa = PBXGroup;
 			children = (
-				3024A3941D7598800005804F /* Golfer+CoreDataProperties.swift */,
-				3024A3951D7598800005804F /* Golfer.swift */,
+				3024A3981D7655DA0005804F /* Model */,
+				3024A3991D7655FD0005804F /* View */,
+				3024A39A1D76560A0005804F /* Controller */,
 				3024A3911D71766F0005804F /* Supporting Files */,
-				3024A3801D7175E90005804F /* Main.storyboard */,
-				3024A3831D7175E90005804F /* TuesdayGolfClub.xcdatamodeld */,
-				3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */,
 			);
 			path = TuesdayGolfClub;
 			sourceTree = "<group>";
@@ -79,6 +77,32 @@
 				3024A38B1D7175E90005804F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3024A3981D7655DA0005804F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3024A3831D7175E90005804F /* TuesdayGolfClub.xcdatamodeld */,
+				3024A3941D7598800005804F /* Golfer+CoreDataProperties.swift */,
+				3024A3951D7598800005804F /* Golfer.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3024A3991D7655FD0005804F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3024A3801D7175E90005804F /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		3024A39A1D76560A0005804F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
