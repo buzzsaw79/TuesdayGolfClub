@@ -73,6 +73,10 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         } catch let error as NSError {
             print("Unable to perform Golfer fetch: \(error.localizedDescription)")
         }
+        
+        // registering cell nib
+        let memTVCNib = UINib(nibName: "MemberTableViewCell", bundle: nil)
+        tableView.registerNib(memTVCNib, forCellReuseIdentifier: "golferCell")
 
 
     }
@@ -136,16 +140,22 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         
         let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
-        let cell = tableView.dequeueReusableCellWithIdentifier("golferCell")!
+//        let cell = tableView.dequeueReusableCellWithIdentifier("golferCell")!
+        let cell:MemberTableViewCell! = tableView.dequeueReusableCellWithIdentifier("golferCell", forIndexPath: indexPath) as! MemberTableViewCell
 
 //         Configure the cell...
-        cell.textLabel?.text = golfer.name
+//        cell.textLabel?.text = golfer.name
+        cell.memberNamelabel?.text = golfer.name
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 65
     }
     
     
