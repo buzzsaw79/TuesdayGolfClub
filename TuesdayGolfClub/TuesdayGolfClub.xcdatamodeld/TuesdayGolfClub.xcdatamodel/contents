@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15G31" minimumToolsVersion="Automatic">
     <entity name="Golfer" representedClassName=".Golfer" syncable="YES">
+        <attribute name="clubHandicap" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="playingHandicap" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="surname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tuesdayHandicap" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <fetchedProperty name="fullName" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Golfer" predicateString="&quot;%@ %@&quot;, firstName, surname"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="Tournee" syncable="YES">
+        <attribute name="course" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Golfer" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="Golfer" positionX="-272" positionY="-27" width="128" height="164"/>
+        <element name="Tournee" positionX="-54" positionY="0" width="128" height="75"/>
     </elements>
 </model>
