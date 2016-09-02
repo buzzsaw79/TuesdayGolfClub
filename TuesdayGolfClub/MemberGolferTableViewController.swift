@@ -20,22 +20,33 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     var fetchedResultsController: NSFetchedResultsController!
     
+    var fetchRequest: NSFetchRequest?
+    
     //MARK: -
     //MARK: IBActions
     
     @IBAction func addGolfer(sender: UIBarButtonItem) {
+        
         // Create AlertController
         let alert = UIAlertController(title: "Add Golfer", message: nil, preferredStyle: .Alert)
+        
         // Add Textfield to Alert
         alert.addTextFieldWithConfigurationHandler { (golferName) -> Void in
             golferName.placeholder = "Enter Golfer Name"
+        }
+        
+        // Add another Textfield to Alert
+        alert.addTextFieldWithConfigurationHandler { (golferHandicap) -> Void in
+            golferHandicap.placeholder = "Enter Golfer Handicap"
         }
         // the add action for the textfield
         let addAction = UIAlertAction(title: "Add", style: .Default) { _ in
             let entity = NSEntityDescription.entityForName("Golfer", inManagedObjectContext: self.context)
             let golfer = Golfer(entity: entity!, insertIntoManagedObjectContext: self.context)
-            let textField = alert.textFields?.first
-            golfer.name = textField?.text
+            let nameTextField = alert.textFields?.first
+            let handicapTextField = alert.textFields?.last
+            golfer.name = nameTextField?.text
+            golfer.clubHandicap = NSDecimalNumber(string: handicapTextField?.text) ?? 0.0
             
             do {
                 try self.context.save()
@@ -77,13 +88,17 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         // registering cell nib
         let memTVCNib = UINib(nibName: "MemberTableViewCell", bundle: nil)
         tableView.registerNib(memTVCNib, forCellReuseIdentifier: "golferCell")
-
+        
+        printDatabaseStatistics(fetchGolferRequest)
+        fetchRequest = fetchGolferRequest
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.printDatabaseStatistics(self.fetchRequest!)
+        
     }
     
     //MARK: -
@@ -95,6 +110,8 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.endUpdates()
+        self.printDatabaseStatistics(self.fetchRequest!)
+
     }
     
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
@@ -146,13 +163,14 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
 //      Configure the cell...
         cell.memberNamelabel?.text = golfer.name
         
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = UIColor.evenCellColour()
-            cell.memberNamelabel.textColor = UIColor.evenCellTextColour()
-        } else {
-            cell.backgroundColor = UIColor.oddCellColour()
-            cell.memberNamelabel.textColor = UIColor.oddCellTextColour()
-        }
+        // Alternate rows different background colour
+//        if indexPath.row % 2 == 0 {
+//            cell.backgroundColor = UIColor.evenCellColour()
+//            cell.memberNamelabel.textColor = UIColor.evenCellTextColour()
+//        } else {
+//            cell.backgroundColor = UIColor.oddCellColour()
+//            cell.memberNamelabel.textColor = UIColor.oddCellTextColour()
+//        }
         
 
         return cell
@@ -220,5 +238,33 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: -
+    //MARK: Helper Functions
+    private func printDatabaseStatistics(request: NSFetchRequest) -> [Golfer]? {
+        
+        var golfers: [Golfer]?
+        
+        context.performBlock {
+            if let results = try? self.context.executeFetchRequest(request) {
+                print("\(results.count) Golfers")
+                print("in managedObjectContext \(self.context)")
+                
+                for aGolfer in results {
+                    let golfer = aGolfer as! Golfer
+                    print("\(golfer.name!) \(golfer.clubHandicap!)")
+                    golfers?.append(golfer)
+                    
+                }
+                
+                
+            }
+            
+            let tourneeCount = self.context.countForFetchRequest(NSFetchRequest(entityName: "Tournee"), error: nil)
+            print("\(tourneeCount) Tournees" )
+        }
+        
+        return golfers
+    }
 
 }

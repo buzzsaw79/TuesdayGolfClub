@@ -23,7 +23,10 @@ class MemberTableViewCell: UITableViewCell {
         print("MTVCell called awakefromNib")
         
         self.backgroundColor = UIColor.evenCellColour()
+        memberNamelabel.textColor = UIColor.evenCellTextColour()
+        memberHandicapLabel.textColor = UIColor.richRed()
         
+        // Make a circular image
         memberImage.layer.cornerRadius = memberImage.frame.size.width / 2
         memberImage.clipsToBounds = true
         
