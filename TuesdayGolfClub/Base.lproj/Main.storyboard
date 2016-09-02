@@ -31,6 +31,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tuesday Club Members" id="kog-VH-QHH">
+                        <barButtonItem key="leftBarButtonItem" title="Play" id="lGC-jC-Hdw">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="addPlayers:" destination="GiR-bo-tYP" id="Kog-lx-oB6"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ye6-ya-dBI">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

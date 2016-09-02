@@ -22,7 +22,7 @@ class MemberTableViewCell: UITableViewCell {
         // Initialization code
         print("MTVCell called awakefromNib")
         
-        self.backgroundColor = UIColor.evenCellColour()
+//        self.backgroundColor = UIColor.evenCellColour()
         memberNamelabel.textColor = UIColor.evenCellTextColour()
         memberHandicapLabel.textColor = UIColor.richRed()
         
@@ -36,6 +36,11 @@ class MemberTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        if(!selected) {
+            self.contentView.backgroundColor = UIColor.evenCellColour()
+        } else {
+            self.contentView.backgroundColor = UIColor.redColor()
+        }
     }
     
 }

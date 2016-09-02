@@ -22,8 +22,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     var fetchRequest: NSFetchRequest?
     
+    var players = [Golfer]()
+    
     //MARK: -
     //MARK: IBActions
+    @IBAction func addPlayers(sender: UIBarButtonItem) {
+        printGolfersAndPlayers()
+    }
     
     @IBAction func addGolfer(sender: UIBarButtonItem) {
         
@@ -73,7 +78,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         super.viewDidLoad()
         
         let fetchGolferRequest = NSFetchRequest(entityName: "Golfer")
-        let fetchGolferSort = NSSortDescriptor(key: "name", ascending: true)
+        let fetchGolferSort = NSSortDescriptor(key: "clubHandicap", ascending: true)
         fetchGolferRequest.sortDescriptors = [fetchGolferSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchGolferRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
@@ -89,8 +94,11 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         let memTVCNib = UINib(nibName: "MemberTableViewCell", bundle: nil)
         tableView.registerNib(memTVCNib, forCellReuseIdentifier: "golferCell")
         
-        printDatabaseStatistics(fetchGolferRequest)
+//        printDatabaseStatistics(fetchGolferRequest)
+        
         fetchRequest = fetchGolferRequest
+        
+        printGolfersAndPlayers()
 
     }
 
@@ -110,8 +118,6 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.endUpdates()
-        self.printDatabaseStatistics(self.fetchRequest!)
-
     }
     
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
@@ -178,7 +184,26 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let alert = UIAlertController(title: "Cell Selected", message: "you selected a cell", preferredStyle: .Alert)
+        // the cancel action for the textfield
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        // add the actions to the alert
+        alert.addAction(cancelAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+
+        let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
+        players.append(golfer)
+
+    
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
+
+        let index = players.indexOf(golfer)
+        players.removeAtIndex(index!)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -267,5 +292,33 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         return golfers
     }
+    
+    
+    private func printGolfersAndPlayers() {
+        
+        context.performBlock {
+            if let results = try? self.context.executeFetchRequest(self.fetchRequest!) {
+                print("\(results.count) Golfers")
+                print("in managedObjectContext \(self.context)")
+                
+                for aGolfer in results {
+                    let golfer = aGolfer as! Golfer
+                    print("\(golfer.name!) \(golfer.clubHandicap!)")
+                    
+                }
+   
+            }
+        }
+        
+        print("Players: \(self.players)")
+        
+    }
+    
+    
+    
+    
+    
+    
+    
 
 }
