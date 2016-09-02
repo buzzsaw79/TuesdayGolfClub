@@ -51,7 +51,20 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             let nameTextField = alert.textFields?.first
             let handicapTextField = alert.textFields?.last
             golfer.name = nameTextField?.text
+            
+            
+            
             golfer.clubHandicap = NSDecimalNumber(string: handicapTextField?.text) ?? 0.0
+            golfer.playingHandicap = golfer.clubHandicap?.decimalNumberByRoundingAccordingToBehavior(nil)
+            
+            
+            if let fullName = golfer.name?.componentsSeparatedByString(" ") {
+                
+                golfer.firstName = fullName.first!
+                golfer.surname = fullName.last!
+                
+            }
+            
             
             do {
                 try self.context.save()
@@ -78,7 +91,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         super.viewDidLoad()
         
         let fetchGolferRequest = NSFetchRequest(entityName: "Golfer")
-        let fetchGolferSort = NSSortDescriptor(key: "clubHandicap", ascending: true)
+        let fetchGolferSort = NSSortDescriptor(key: "surname", ascending: true)
         fetchGolferRequest.sortDescriptors = [fetchGolferSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchGolferRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
@@ -167,6 +180,8 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         let cell:MemberTableViewCell! = tableView.dequeueReusableCellWithIdentifier("golferCell", forIndexPath: indexPath) as! MemberTableViewCell
 
 //      Configure the cell...
+        
+        
         cell.memberNamelabel?.text = golfer.name
         cell.memberHandicapLabel?.text = String(golfer.clubHandicap ?? 0.0)
         
