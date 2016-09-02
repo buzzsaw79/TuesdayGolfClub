@@ -18,6 +18,7 @@
 		3024A39D1D76577E0005804F /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A39B1D76577E0005804F /* MemberTableViewCell.swift */; };
 		3024A39E1D76577E0005804F /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3024A39C1D76577E0005804F /* MemberTableViewCell.xib */; };
 		3024A3A01D7657C30005804F /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A39F1D7657C30005804F /* UIColor+CustomColors.swift */; };
+		30C988941D79DB49009EC210 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988931D79DB49009EC210 /* PlayersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		3024A39B1D76577E0005804F /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		3024A39C1D76577E0005804F /* MemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
 		3024A39F1D7657C30005804F /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
+		30C988931D79DB49009EC210 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		3024A39A1D76560A0005804F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				30C988931D79DB49009EC210 /* PlayersTableViewController.swift */,
 				3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */,
 			);
 			name = Controller;
@@ -190,6 +193,7 @@
 				3024A39D1D76577E0005804F /* MemberTableViewCell.swift in Sources */,
 				3024A3931D75812D0005804F /* MemberGolferTableViewController.swift in Sources */,
 				3024A3A01D7657C30005804F /* UIColor+CustomColors.swift in Sources */,
+				30C988941D79DB49009EC210 /* PlayersTableViewController.swift in Sources */,
 				3024A3971D7598800005804F /* Golfer.swift in Sources */,
 				3024A37D1D7175E90005804F /* AppDelegate.swift in Sources */,
 				3024A3851D7175E90005804F /* TuesdayGolfClub.xcdatamodeld in Sources */,
@@ -344,6 +348,7 @@
 				3024A3901D7175E90005804F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

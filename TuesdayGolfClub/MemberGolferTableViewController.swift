@@ -270,15 +270,16 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
+        let playersController = segue.destinationViewController as! PlayersTableViewController
         // Pass the selected object to the new view controller.
+        playersController.playersArray = self.players
     }
-    */
+ 
     
     //MARK: -
     //MARK: Helper Functions
