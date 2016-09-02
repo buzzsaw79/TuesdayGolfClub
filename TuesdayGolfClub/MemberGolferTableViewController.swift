@@ -162,6 +162,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
 
 //      Configure the cell...
         cell.memberNamelabel?.text = golfer.name
+        cell.memberHandicapLabel?.text = String(golfer.clubHandicap ?? 0.0)
         
         // Alternate rows different background colour
 //        if indexPath.row % 2 == 0 {

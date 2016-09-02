@@ -14,9 +14,14 @@ extension UIColor {
     public class func grassGreenColour() -> UIColor {
         return UIColor(red: 0.4, green: 0.54, blue: 0.19, alpha: 1.0) // Another Green
     }
+//    public class func evenCellColour() -> UIColor {
+//        return UIColor(red: 0.918, green: 0.902, blue: 0.792, alpha: 1) // Oyster White
+//    }
+    
     public class func evenCellColour() -> UIColor {
-        return UIColor(red: 0.918, green: 0.902, blue: 0.792, alpha: 1) // Oyster White
+        return UIColor(red: 0.958, green: 0.942, blue: 0.832, alpha: 0.8) // Oyster White
     }
+    
     public class func oddCellColour() -> UIColor {
         return UIColor(red: 0.537, green: 0.675, blue: 0.463, alpha: 1.0) // Pale Green
     }

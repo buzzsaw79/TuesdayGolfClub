@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Member Golfers-->
+        <!--Tuesday Club Members-->
         <scene sceneID="kdA-Uo-8fC">
             <objects>
                 <tableViewController id="GiR-bo-tYP" customClass="MemberGolferTableViewController" customModule="TuesdayGolfClub" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,8 +30,9 @@
                             <outlet property="delegate" destination="GiR-bo-tYP" id="bxQ-CV-l3t"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Member Golfers" id="kog-VH-QHH">
+                    <navigationItem key="navigationItem" title="Tuesday Club Members" id="kog-VH-QHH">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ye6-ya-dBI">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="addGolfer:" destination="GiR-bo-tYP" id="PdC-fl-CTe"/>
                             </connections>
@@ -50,6 +51,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tz0-ub-hd1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.50661264350000001" green="0.53798076920000004" blue="0.25207632369999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
