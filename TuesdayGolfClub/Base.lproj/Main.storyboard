@@ -35,7 +35,6 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="addPlayers:" destination="GiR-bo-tYP" id="Kog-lx-oB6"/>
-                                <segue destination="tCd-4p-MAa" kind="show" identifier="getPlayers" id="a68-FM-4R4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ye6-ya-dBI">
@@ -45,15 +44,18 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="tCd-4p-MAa" kind="show" identifier="getPlayers" id="R4i-b9-6Sh"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHp-2t-haT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1280" y="402"/>
         </scene>
-        <!--Players Table View Controller-->
+        <!--Players-->
         <scene sceneID="h5t-yr-7E6">
             <objects>
-                <tableViewController id="tCd-4p-MAa" customClass="PlayersTableViewController" customModule="TuesdayGolfClub" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Players" id="tCd-4p-MAa" customClass="PlayersTableViewController" customModule="TuesdayGolfClub" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ErH-MV-hOc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -18,8 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blue-sky" translatesAutoresizingMaskIntoConstraints="NO" id="bBP-6X-sCM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blue-sky" translatesAutoresizingMaskIntoConstraints="NO" id="bBP-6X-sCM">
                                 <rect key="frame" x="20" y="20" width="560" height="427"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="427" id="9kj-7T-dXF"/>
+                                </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ballBunker" translatesAutoresizingMaskIntoConstraints="NO" id="FpN-2B-L3M">
                                 <rect key="frame" x="20" y="440" width="560" height="160"/>
@@ -34,8 +37,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="T7z-rp-d3F" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="51B-XD-Pwe"/>
+                            <constraint firstAttribute="trailing" secondItem="bBP-6X-sCM" secondAttribute="trailing" constant="20" symbolic="YES" id="Cx8-G3-cCq"/>
                             <constraint firstItem="FpN-2B-L3M" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="U3e-jD-WXz"/>
+                            <constraint firstItem="bBP-6X-sCM" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="cxw-24-AYy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FpN-2B-L3M" secondAttribute="trailing" id="pJM-aZ-oHE"/>
+                            <constraint firstItem="bBP-6X-sCM" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="20" symbolic="YES" id="sww-Hl-Q83"/>
                             <constraint firstItem="T7z-rp-d3F" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="u0r-mY-az4"/>
                             <constraint firstItem="FpN-2B-L3M" firstAttribute="top" secondItem="T7z-rp-d3F" secondAttribute="bottom" constant="8" symbolic="YES" id="uvx-u7-whP"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="FpN-2B-L3M" secondAttribute="bottom" id="yCe-dn-D0T"/>

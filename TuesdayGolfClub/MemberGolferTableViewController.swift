@@ -27,6 +27,23 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     //MARK: -
     //MARK: IBActions
     @IBAction func addPlayers(sender: UIBarButtonItem) {
+        
+        let entity = NSEntityDescription.entityForName("Tournee", inManagedObjectContext: self.context)
+        let tournee = Tournee(entity: entity!, insertIntoManagedObjectContext: self.context)
+        
+        tournee.date = NSDate()
+        
+        
+        do {
+            try self.context.save()
+        } catch let error as NSError {
+            print("Error saving tournee \(error.localizedDescription)")
+        }
+        
+        performSegueWithIdentifier("getPlayers", sender: tournee)
+        
+        
+        
         printGolfersAndPlayers()
     }
     
@@ -37,6 +54,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         // Add Textfield to Alert
         alert.addTextFieldWithConfigurationHandler { (golferName) -> Void in
+            
             golferName.placeholder = "Enter Golfer Name"
         }
         
@@ -200,13 +218,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let alert = UIAlertController(title: "Cell Selected", message: "you selected a cell", preferredStyle: .Alert)
-        // the cancel action for the textfield
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        // add the actions to the alert
-        alert.addAction(cancelAction)
-        self.presentViewController(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "Cell Selected", message: "you selected a cell", preferredStyle: .Alert)
+//        // the cancel action for the textfield
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+//        
+//        // add the actions to the alert
+//        alert.addAction(cancelAction)
+//        self.presentViewController(alert, animated: true, completion: nil)
 
         let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
         players.append(golfer)
@@ -215,6 +233,11 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let cell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        cell.textLabel?.textColor = UIColor.redColor()
+        cell.setNeedsDisplay()
+        
         let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
 
         let index = players.indexOf(golfer)
@@ -275,9 +298,37 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "getPlayers" {
+        
         let playersController = segue.destinationViewController as! PlayersTableViewController
         // Pass the selected object to the new view controller.
+        
+            if let tournee = sender as! Tournee? {
+                
+                
+                
+            }
+        
+//        let fetchTourneeRequest = NSFetchRequest(entityName: "Tournee")
+//        let fetchTourneeSort = NSSortDescriptor(key: "date", ascending: true)
+//        fetchTourneeRequest.sortDescriptors = [fetchTourneeSort]
+//        
+//        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchTourneeRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+//        fetchedResultsController.delegate = self
+//        
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch let error as NSError {
+//            print("Unable to perform Tournee fetch: \(error.localizedDescription)")
+//        }
+//        
+        
+        
+        
         playersController.playersArray = self.players
+            
+        }
     }
  
     
