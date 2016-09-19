@@ -21,6 +21,8 @@
 		30C988941D79DB49009EC210 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988931D79DB49009EC210 /* PlayersTableViewController.swift */; };
 		30C988971D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988951D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift */; };
 		30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988961D7A0E7C009EC210 /* Tournee.swift */; };
+		30C988A01D824583009EC210 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C9889F1D824583009EC210 /* Alert.swift */; };
+		30C988A21D82C571009EC210 /* today.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988A11D82C571009EC210 /* today.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		30C988931D79DB49009EC210 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 		30C988951D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tournee+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		30C988961D7A0E7C009EC210 /* Tournee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tournee.swift; sourceTree = "<group>"; };
+		30C9889F1D824583009EC210 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		30C988A11D82C571009EC210 /* today.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = today.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 		3024A3911D71766F0005804F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				30C988A11D82C571009EC210 /* today.swift */,
+				30C9889F1D824583009EC210 /* Alert.swift */,
 				3024A39F1D7657C30005804F /* UIColor+CustomColors.swift */,
 				3024A37C1D7175E90005804F /* AppDelegate.swift */,
 				3024A3861D7175E90005804F /* Assets.xcassets */,
@@ -202,7 +208,9 @@
 				30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */,
 				30C988941D79DB49009EC210 /* PlayersTableViewController.swift in Sources */,
 				30C988971D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift in Sources */,
+				30C988A21D82C571009EC210 /* today.swift in Sources */,
 				3024A3971D7598800005804F /* Golfer.swift in Sources */,
+				30C988A01D824583009EC210 /* Alert.swift in Sources */,
 				3024A37D1D7175E90005804F /* AppDelegate.swift in Sources */,
 				3024A3851D7175E90005804F /* TuesdayGolfClub.xcdatamodeld in Sources */,
 			);

@@ -91,6 +91,10 @@
                             <outlet property="delegate" destination="tCd-4p-MAa" id="vvh-7n-PCh"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="JZi-5E-4Q7"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngV-sF-WQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -104,7 +108,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tz0-ub-hd1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.50661264350000001" green="0.53798076920000004" blue="0.25207632369999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.46666669849999998" green="0.83921575550000005" blue="0.066666670139999995" alpha="1" colorSpace="deviceRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>

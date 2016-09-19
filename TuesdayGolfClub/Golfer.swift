@@ -12,6 +12,20 @@ import CoreData
 
 class Golfer: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
-
+    class func golferInTournee(tournee: Tournee, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
+        
+        let golferRequest = NSFetchRequest(entityName: "Golfer")
+        
+        if let golfer = tournee.hasEntrants?.allObjects[0] as! Golfer? {
+        
+        golferRequest.predicate = NSPredicate(format: "membershipNumber = %@", golfer.membershipNumber!)
+        
+        
+        }
+        
+        
+        
+        
+        return nil
+    }
 }

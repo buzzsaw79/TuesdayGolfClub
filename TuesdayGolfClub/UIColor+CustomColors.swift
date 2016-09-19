@@ -41,7 +41,9 @@ extension UIColor {
     }
     
     public class func headerColour() -> UIColor {
-        return UIColor(red: 0.298, green: 0.569, blue: 0.255, alpha: 1.0)
+//        return UIColor(red: 0.298, green: 0.569, blue: 0.255, alpha: 1.0)
+        
+        return UIColor(red:0.18, green:0.80, blue:0.44, alpha:1.0)
     }
     
     public class func richRed() -> UIColor {

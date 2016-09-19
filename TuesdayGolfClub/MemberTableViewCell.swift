@@ -35,15 +35,17 @@ class MemberTableViewCell: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        print("--- MemberTableViewCell.setSelected called ---")
+//        print("--- MemberTableViewCell.setSelected called ---")
 
         // Configure the view for the selected state
         if(!selected) {
             self.contentView.backgroundColor = UIColor.evenCellColour()
             memberNamelabel.textColor = UIColor.evenCellTextColour()
+            self.memberHandicapLabel.textColor = UIColor.richRed()
         } else {
             self.contentView.backgroundColor = UIColor.redColor()
             self.memberNamelabel.textColor = UIColor.whiteColor()
+            self.memberHandicapLabel.textColor = UIColor.whiteColor()
         }
     }
     

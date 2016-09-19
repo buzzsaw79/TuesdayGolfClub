@@ -31,7 +31,11 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         let entity = NSEntityDescription.entityForName("Tournee", inManagedObjectContext: self.context)
         let tournee = Tournee(entity: entity!, insertIntoManagedObjectContext: self.context)
         
+        tournee.course = "Mackintosh"
         tournee.date = NSDate()
+        tournee.day = NSDate.todayAsString()
+        tournee.hasEntrants?.addObjectsFromArray(self.players)
+        
         
         
         do {
@@ -71,9 +75,11 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             golfer.name = nameTextField?.text
             
             
-            
+            golfer.membershipNumber = "123456"
             golfer.clubHandicap = NSDecimalNumber(string: handicapTextField?.text) ?? 0.0
             golfer.playingHandicap = golfer.clubHandicap?.decimalNumberByRoundingAccordingToBehavior(nil)
+            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
+            
             
             
             if let fullName = golfer.name?.componentsSeparatedByString(" ") {
@@ -130,6 +136,10 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         fetchRequest = fetchGolferRequest
         
         printGolfersAndPlayers()
+        print("printTourness() called ---->")
+        printTournees()
+        
+        print("adding romanNumerals[\"IV\"] = 123 into romanNumerals")
 
     }
 
@@ -137,6 +147,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         super.viewDidAppear(animated)
         
         self.printDatabaseStatistics(self.fetchRequest!)
+        self.printTournees()
         
     }
     
@@ -306,7 +317,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
             if let tournee = sender as! Tournee? {
                 
-                
+                tournee.hasEntrants?.addObjectsFromArray(self.players)
                 
             }
         
@@ -377,15 +388,40 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             }
         }
         
+        
+        
         print("Players: \(self.players)")
         
     }
     
     
-    
-    
-    
-    
-    
+    private func printTournees() {
+        
+        let request = NSFetchRequest(entityName: "Tournee")
+        
+        context.performBlock {
+            if let results = try? self.context.executeFetchRequest(request) {
+                print("\(results.count) Tournees")
+                print("in managedObjectContext \(self.context)")
+                
+                for aTournee in results {
+                    let tournee = aTournee as! Tournee
+                    
+                    
+                    print("\(tournee.day!) \(tournee.course!) \(tournee.hasEntrants)")
+                    
+                    for object in tournee.hasEntrants! {
+                        print("Golfer in hasEntrants \(object)")
+                    }
+                    
+                }
+                
+            }
+        }
+        
+        
+        
+    }
+     
 
 }
