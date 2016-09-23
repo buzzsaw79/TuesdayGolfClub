@@ -67,41 +67,68 @@ class PlayersTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("playerCell", forIndexPath: indexPath)
 
-        
-        switch indexPath.section {
-        case 0:
-//            print("Switch \(indexPath.section)")
-            if indexPath.row % 2 == 0 {
-                cell.backgroundColor = UIColor.oddCellColour()
-                cell.textLabel!.textColor = UIColor.oddCellTextColour()
-                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
-            } else {
-                cell.backgroundColor = UIColor.evenCellColour()
-                cell.textLabel!.textColor = UIColor.evenCellTextColour()
-                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
-            }
-        case 1:
-//            print("Switch \(indexPath.section)")
-            if indexPath.row % 2 == 0 {
-                cell.backgroundColor = UIColor.evenCellColour()
-                cell.textLabel!.textColor = UIColor.evenCellTextColour()
-                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
-            } else {
-                cell.backgroundColor = UIColor.oddCellColour()
-                cell.textLabel!.textColor = UIColor.oddCellTextColour()
-                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
-            }
-        case 2:
-            print("Switch \(indexPath.section)")
-        case 3:
-            print("Switch \(indexPath.section)")
-        case 4:
-            print("Switch \(indexPath.section)")
-        case 5:
-            print("Switch \(indexPath.section)")
-        default:
-            print("Switch \(indexPath.section)")
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = UIColor.evenCellColour()
+            cell.textLabel!.textColor = UIColor.evenCellTextColour()
+            cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
+        } else {
+            cell.backgroundColor = UIColor.oddCellColour()
+            cell.textLabel!.textColor = UIColor.oddCellTextColour()
+            cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
         }
+        
+//        switch indexPath.section {
+//        case 0:
+////            print("Switch \(indexPath.section)")
+//            if indexPath.row % 2 == 0 {
+//                cell.backgroundColor = UIColor.oddCellColour()
+//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
+//            } else {
+//                cell.backgroundColor = UIColor.evenCellColour()
+//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
+//            }
+//        case 1:
+////            print("Switch \(indexPath.section)")
+//            if indexPath.row % 2 == 0 {
+//                cell.backgroundColor = UIColor.evenCellColour()
+//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
+//            } else {
+//                cell.backgroundColor = UIColor.oddCellColour()
+//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
+//            }
+//        case 2:
+////            print("Switch \(indexPath.section)")
+//            if indexPath.row % 2 == 0 {
+//                cell.backgroundColor = UIColor.evenCellColour()
+//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
+//            } else {
+//                cell.backgroundColor = UIColor.oddCellColour()
+//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
+//            }
+//        case 3:
+////            print("Switch \(indexPath.section)")
+//            if indexPath.row % 2 == 0 {
+//                cell.backgroundColor = UIColor.evenCellColour()
+//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
+//            } else {
+//                cell.backgroundColor = UIColor.oddCellColour()
+//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
+//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
+//            }
+//        case 4:
+//            print("Switch \(indexPath.section)")
+//        case 5:
+//            print("Switch \(indexPath.section)")
+//        default:
+//            print("Switch \(indexPath.section)")
+//        }
         if !playersArray.isEmpty {
             let randomIndex = Int(arc4random_uniform(UInt32(playersArray.count)))
             let golfer = playersArray.removeAtIndex(randomIndex)
@@ -115,10 +142,23 @@ class PlayersTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        tableView.headerViewForSection(section)?.textLabel?.textColor = UIColor.whiteColor()
+        var headerTitleString = ""
+        switch section {
+        case 0:
+            headerTitleString = "First Group"
+        case 1:
+            headerTitleString = "Second Group"
+        case 2:
+            headerTitleString = "Third Group"
+        case 3:
+            headerTitleString = "Forth Group"
+        default:
+            headerTitleString = "Another Group"
+        }
         
-        let groupNumberString = String(section+1)
-        return "Group \(groupNumberString)"
+//        tableView.headerViewForSection(section)?.textLabel?.textColor = UIColor.whiteColor()
+        
+        return headerTitleString
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -171,19 +211,50 @@ class PlayersTableViewController: UITableViewController {
      }
      */
     
-    /*
+    
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "enterScore" {
+            if let enterScoreVC = segue.destinationViewController as?EnterScoreViewController {
+                
+                let playerCell = sender as! UITableViewCell
+                
+//                enterScoreVC.playerNameLabel.text? = playerCell.textLabel!.text!
+                
+                
+                enterScoreVC.playerName = playerCell.textLabel!.text!
+                
+                print(playerCell.textLabel!.text!)
+            }
+            
+        }
+     
+        print(sender.debugDescription)
+        
      }
-     */
+    
     
     
     //MARK: -
     //MARK: Helper Functions
+    
+    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = UIColor.evenCellColour()
+            cell.textLabel!.textColor = UIColor.evenCellTextColour()
+            cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
+        } else {
+            cell.backgroundColor = UIColor.oddCellColour()
+            cell.textLabel!.textColor = UIColor.oddCellTextColour()
+            cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
+        }
+        
+        return cell
+        
+    }
 
     func populateGroups() {
         
@@ -205,7 +276,7 @@ class PlayersTableViewController: UITableViewController {
         case 18: theGroups = [[1,2,3],[4,5,6],[7,8,9,10],[11,12,13,14],[15,16,17,18]]   // 2x3, 3x4
         default: break
         }
-        let groupCount = theGroups.count
+//        let groupCount = theGroups.count
         
     }
 }

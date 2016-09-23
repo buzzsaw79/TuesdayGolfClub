@@ -84,6 +84,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="gHW-0n-A08" kind="show" identifier="enterScore" id="FZE-oJ-Akl"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -99,6 +102,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngV-sF-WQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1970" y="402"/>
+        </scene>
+        <!--Enter Score View Controller-->
+        <scene sceneID="oWB-Rq-YEI">
+            <objects>
+                <viewController id="gHW-0n-A08" customClass="EnterScoreViewController" customModule="TuesdayGolfClub" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jIK-dU-YzY"/>
+                        <viewControllerLayoutGuide type="bottom" id="ROV-Yw-I31"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qng-o7-mTC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter  Score" textAlignment="center" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="MDM-YP-KBD">
+                                <rect key="frame" x="20" y="101" width="120" height="120"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="64"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUM-xA-ZkH">
+                                <rect key="frame" x="20" y="72" width="120" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZr-ao-dPC">
+                                <rect key="frame" x="20" y="229" width="120" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButton" destination="gHW-0n-A08" eventType="touchUpInside" id="PJl-WT-awa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="playerNameLabel" destination="BUM-xA-ZkH" id="KYq-JI-zym"/>
+                        <outlet property="playerScoreTextField" destination="MDM-YP-KBD" id="4s1-MP-AaN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P2I-n5-kuD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2630" y="402"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FAW-Fy-YvB">

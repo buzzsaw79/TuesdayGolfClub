@@ -18,6 +18,7 @@
 		3024A39D1D76577E0005804F /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A39B1D76577E0005804F /* MemberTableViewCell.swift */; };
 		3024A39E1D76577E0005804F /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3024A39C1D76577E0005804F /* MemberTableViewCell.xib */; };
 		3024A3A01D7657C30005804F /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A39F1D7657C30005804F /* UIColor+CustomColors.swift */; };
+		309D02D21D8FE71200853626 /* EnterScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309D02D11D8FE71200853626 /* EnterScoreViewController.swift */; };
 		30C988941D79DB49009EC210 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988931D79DB49009EC210 /* PlayersTableViewController.swift */; };
 		30C988971D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988951D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift */; };
 		30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988961D7A0E7C009EC210 /* Tournee.swift */; };
@@ -39,6 +40,7 @@
 		3024A39B1D76577E0005804F /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		3024A39C1D76577E0005804F /* MemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
 		3024A39F1D7657C30005804F /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
+		309D02D11D8FE71200853626 /* EnterScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterScoreViewController.swift; sourceTree = "<group>"; };
 		30C988931D79DB49009EC210 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 		30C988951D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tournee+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		30C988961D7A0E7C009EC210 /* Tournee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tournee.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				30C988931D79DB49009EC210 /* PlayersTableViewController.swift */,
 				3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */,
+				309D02D11D8FE71200853626 /* EnterScoreViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				30C988A01D824583009EC210 /* Alert.swift in Sources */,
 				3024A37D1D7175E90005804F /* AppDelegate.swift in Sources */,
 				3024A3851D7175E90005804F /* TuesdayGolfClub.xcdatamodeld in Sources */,
+				309D02D21D8FE71200853626 /* EnterScoreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
