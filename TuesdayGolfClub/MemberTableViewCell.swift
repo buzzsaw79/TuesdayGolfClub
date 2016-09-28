@@ -20,7 +20,7 @@ class MemberTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        print("MTVCell called awakefromNib")
+//        print("MTVCell called awakefromNib")
         
 //        self.backgroundColor = UIColor.evenCellColour()
         memberNamelabel.textColor = UIColor.evenCellTextColour()

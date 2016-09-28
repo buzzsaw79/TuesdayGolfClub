@@ -28,4 +28,19 @@ class Golfer: NSManagedObject {
         
         return nil
     }
+    
+    
+    class func fetchGolferWithName(name: String, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
+        
+        
+        
+        
+        let golferNameRequest = NSFetchRequest(entityName: "Golfer")
+        golferNameRequest.predicate = NSPredicate(format: "name = %@", name)
+        
+        if let golfer = (try? context.executeFetchRequest(golferNameRequest))?.last as? Golfer {
+            return golfer
+        }
+        return nil
+    }
 }

@@ -7,45 +7,61 @@
 //
 
 import UIKit
+import CoreData
 
 class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var picker = UIPickerView()
+    private var picker = UIPickerView()
     
     var scoreData = [Int]()
     
+    var playerName: String?
+    
+    var players = [[Golfer]]()
 
     @IBOutlet weak var playerNameLabel: UILabel!
     @IBOutlet weak var playerScoreTextField: UITextField!
     
     @IBAction func saveButton() {
         
-        self.navigationController?.popViewControllerAnimated(true)
+//        self.navigationController?.popViewControllerAnimated(true)
         
         print("Save button pressed!")
         print("\(playerName!) -- score: \(playerScoreTextField.text!)")
+        
+        let aScore = playerScoreTextField.text!
+        
+        
         
     }
     
     
     
-    var playerName: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let reducedTextRect = CGRectMake(playerScoreTextField.frame.minX, playerScoreTextField.frame.minY, playerScoreTextField.frame.width, playerScoreTextField.frame.height/4)
 
         // Do any additional setup after loading the view.
         playerNameLabel.text = playerName
         
         playerScoreTextField.delegate = self
+        playerScoreTextField.adjustsFontSizeToFitWidth = true
+        playerScoreTextField.placeholder = "Enter Score Here"
+        playerScoreTextField.drawPlaceholderInRect(reducedTextRect)
+        
+        
+        
         picker.dataSource = self
         picker.delegate = self
-        picker.showsSelectionIndicator = true
         
         for index in 13...48 {
             scoreData.append(index)
         }
         
+        picker.selectRow(scoreData.count/2, inComponent: 0, animated: true)
         playerScoreTextField.inputView = picker
     }
 
@@ -82,11 +98,20 @@ class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerV
         // Pass the selected object to the new view controller.
         
         let playersVC = segue.destinationViewController as! PlayersTableViewController
+        print("\(playersVC.groups.debugDescription)")
+        
+        
+        if segue.identifier == "back2" {
+            
+        
         
 //        playersVC.tableView.
         print("EnterScoreView prepareForSegue Sender: \(sender)")
+            
+            
+            playersVC.playersArray.count
         
-        
+        }
         
     }
    

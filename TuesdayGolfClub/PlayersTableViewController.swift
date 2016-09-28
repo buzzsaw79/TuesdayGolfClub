@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class PlayersTableViewController: UITableViewController {
     
@@ -18,6 +19,11 @@ class PlayersTableViewController: UITableViewController {
     
     var theGroups = [[Int]]()
     
+    lazy var context: NSManagedObjectContext = {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return appDelegate.managedObjectContext
+    }()
+    
     
     //MARK: -
     //MARK: View Controller Lifecycle
@@ -25,19 +31,9 @@ class PlayersTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.title = "Playing Groups"
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        
-//        for player in playersArray {
-//            
-//        }
-        
-        
-        self.populateGroups()
+        groups = self.randomiseGolfers(playersArray)
+//        self.populateGroups(playersArray)
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,6 +42,11 @@ class PlayersTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("didSelectRowAtIndexPath")
+    }
+    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -58,7 +59,7 @@ class PlayersTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         
         
-        print("theGroups[\(section)]: \(theGroups[section].debugDescription)")
+//        print("theGroups[\(section)]: \(theGroups[section].debugDescription)")
         return theGroups[section].count
         
     }
@@ -79,49 +80,13 @@ class PlayersTableViewController: UITableViewController {
         
 //        switch indexPath.section {
 //        case 0:
-////            print("Switch \(indexPath.section)")
-//            if indexPath.row % 2 == 0 {
-//                cell.backgroundColor = UIColor.oddCellColour()
-//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
-//            } else {
-//                cell.backgroundColor = UIColor.evenCellColour()
-//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
-//            }
+//            print("Switch \(indexPath.section)")
 //        case 1:
-////            print("Switch \(indexPath.section)")
-//            if indexPath.row % 2 == 0 {
-//                cell.backgroundColor = UIColor.evenCellColour()
-//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
-//            } else {
-//                cell.backgroundColor = UIColor.oddCellColour()
-//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
-//            }
+//            print("Switch \(indexPath.section)")
 //        case 2:
-////            print("Switch \(indexPath.section)")
-//            if indexPath.row % 2 == 0 {
-//                cell.backgroundColor = UIColor.evenCellColour()
-//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
-//            } else {
-//                cell.backgroundColor = UIColor.oddCellColour()
-//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
-//            }
+//            print("Switch \(indexPath.section)")
 //        case 3:
-////            print("Switch \(indexPath.section)")
-//            if indexPath.row % 2 == 0 {
-//                cell.backgroundColor = UIColor.evenCellColour()
-//                cell.textLabel!.textColor = UIColor.evenCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
-//            } else {
-//                cell.backgroundColor = UIColor.oddCellColour()
-//                cell.textLabel!.textColor = UIColor.oddCellTextColour()
-//                cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
-//            }
+//            print("Switch \(indexPath.section)")
 //        case 4:
 //            print("Switch \(indexPath.section)")
 //        case 5:
@@ -129,9 +94,14 @@ class PlayersTableViewController: UITableViewController {
 //        default:
 //            print("Switch \(indexPath.section)")
 //        }
+        
+        
         if !playersArray.isEmpty {
             let randomIndex = Int(arc4random_uniform(UInt32(playersArray.count)))
-            let golfer = playersArray.removeAtIndex(randomIndex)
+            
+            let golfer = groups[indexPath.section][indexPath.row]
+            
+//            let golfer = playersArray.removeAtIndex(randomIndex)
             cell.textLabel?.text = golfer.name
             cell.detailTextLabel?.text = String(golfer.playingHandicap!)
         }
@@ -217,23 +187,31 @@ class PlayersTableViewController: UITableViewController {
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "enterScore" {
-            if let enterScoreVC = segue.destinationViewController as?EnterScoreViewController {
+            if let enterScoreVC = segue.destinationViewController as? EnterScoreViewController {
                 
                 let playerCell = sender as! UITableViewCell
                 
-//                enterScoreVC.playerNameLabel.text? = playerCell.textLabel!.text!
+//                let testContext = playersArray.first?.managedObjectContext
                 
+                let golfer = Golfer.fetchGolferWithName(playerCell.textLabel!.text!, inManagedObjectContext: self.context)
                 
-                enterScoreVC.playerName = playerCell.textLabel!.text!
+//                enterScoreVC.playerName = playerCell.textLabel!.text!
+                enterScoreVC.playerName = golfer?.name
+                
                 
                 print(playerCell.textLabel!.text!)
+                print("golfer \(golfer.debugDescription)")
             }
             
         }
      
-        print(sender.debugDescription)
+        print("PTVC prepareForSegue: \(sender.debugDescription)")
         
      }
+    
+    @IBAction func back2(segue: UIStoryboardSegue) {
+        print("Unwinding")
+    }
     
     
     
@@ -256,9 +234,9 @@ class PlayersTableViewController: UITableViewController {
         
     }
 
-    func populateGroups() {
+    func populateGroups(players:[Golfer]) {
         
-        switch self.playersArray.count {
+        switch players.count {
         case 4: theGroups = [[1,2],[3,4]]   // 2x2
         case 5: theGroups = [[1,2],[3,4,5]]     // 1x2, 1x3
         case 6: theGroups = [[1,2,3],[4,5,6]]   // 2x3
@@ -276,7 +254,54 @@ class PlayersTableViewController: UITableViewController {
         case 18: theGroups = [[1,2,3],[4,5,6],[7,8,9,10],[11,12,13,14],[15,16,17,18]]   // 2x3, 3x4
         default: break
         }
-//        let groupCount = theGroups.count
-        
     }
+    
+    
+
+    
+    func randomiseGolfers(players:[Golfer]) -> [[Golfer]] {
+        
+        self.populateGroups(players)
+        
+        // Copy passed in array to make it mutable
+        var golfers = players
+        
+        // Create empty array of golfer arrays
+        var playingGroups = [[Golfer]]()
+        
+//        var playingGroups = [[Golfer]](count:theGroups.count, repeatedValue:[Golfer](count:Constants.numbers.maxGolfersInGroup,
+//            repeatedValue:Golfer()))
+        
+        
+        if !golfers.isEmpty {
+            
+            for (outerIndex, aGroup) in theGroups.enumerate() {
+                
+                playingGroups.append([Golfer]())
+                
+                for (_, _) in aGroup.enumerate() {
+                    
+                    // get random golfer from array
+                    let randomIndex = Int(arc4random_uniform(UInt32(golfers.count)))
+                    let golfer = golfers.removeAtIndex(randomIndex)
+                    
+                    print("randomiseGolfers() -> \(golfer.name)\(golfer.clubHandicap)")
+                    
+                    // Multi-Dimensional Array Population
+                    playingGroups[outerIndex].append(golfer)
+                    
+                }
+            }
+            
+        }
+        
+        
+        print("🔬 playingGroups: \(playingGroups)")
+        return playingGroups
+    }
+    
+    
+
+    
+    
 }

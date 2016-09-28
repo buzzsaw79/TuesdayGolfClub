@@ -31,7 +31,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         let entity = NSEntityDescription.entityForName("Tournee", inManagedObjectContext: self.context)
         let tournee = Tournee(entity: entity!, insertIntoManagedObjectContext: self.context)
         
-        tournee.course = "Mackintosh"
+        tournee.course = Constants.courses.mack  //"Mackintosh"
         tournee.date = NSDate()
         tournee.day = NSDate.todayAsString()
         tournee.hasEntrants?.addObjectsFromArray(self.players)
@@ -136,18 +136,17 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         fetchRequest = fetchGolferRequest
         
         printGolfersAndPlayers()
-        print("printTourness() called ---->")
-        printTournees()
-        
-        print("adding romanNumerals[\"IV\"] = 123 into romanNumerals")
+//        print("printTourness() called ---->")
+//        printTournees()
+        print("***** MemberGolferTableViewController - \(Constants.courses.but) ****")
 
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.printDatabaseStatistics(self.fetchRequest!)
-        self.printTournees()
+//        self.printDatabaseStatistics(self.fetchRequest!)
+//        self.printTournees()
         
     }
     
@@ -320,21 +319,11 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                 tournee.hasEntrants?.addObjectsFromArray(self.players)
                 
             }
-        
-//        let fetchTourneeRequest = NSFetchRequest(entityName: "Tournee")
-//        let fetchTourneeSort = NSSortDescriptor(key: "date", ascending: true)
-//        fetchTourneeRequest.sortDescriptors = [fetchTourneeSort]
-//        
-//        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchTourneeRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-//        fetchedResultsController.delegate = self
-//        
-//        do {
-//            try fetchedResultsController.performFetch()
-//        } catch let error as NSError {
-//            print("Unable to perform Tournee fetch: \(error.localizedDescription)")
-//        }
-//        
-        
+            do {
+       try self.context.save()
+            } catch let err as NSError {
+                print("CoreData error whilst saving: ERROR:- \(err)")
+            }
         
         
         playersController.playersArray = self.players
@@ -390,7 +379,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         
         
-        print("Players: \(self.players)")
+//        print("Players: \(self.players)")
         
     }
     

@@ -11,6 +11,28 @@ import Foundation
 import UIKit
 import CoreData
 
+
+
+
+struct Constants {
+    
+    struct golferNames {
+        static let alan = "Alan Bromley"
+        static let bernie = "Bernard Bull"
+        static let keith = "Keith Bamford"
+        static let mick = "Mick Clarke"
+    }
+    
+    struct courses {
+        static let mack = "Mackintosh"
+        static let but = "Button"
+    }
+    
+    struct numbers {
+        static let maxGolfersInGroup = 4
+    }
+}
+
 class alert: NSObject {
     
     
