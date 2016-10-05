@@ -9,7 +9,12 @@
 import UIKit
 import CoreData
 
-class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    //MARK: -
+    //MARK: Properties
+    
+    private let grid = 2
     
     private var picker = UIPickerView()
     
@@ -19,6 +24,7 @@ class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerV
     
     var players = [[Golfer]]()
 
+    @IBOutlet weak var enterScoreCollectionView: UICollectionView!
     @IBOutlet weak var playerNameLabel: UILabel!
     @IBOutlet weak var playerScoreTextField: UITextField!
     
@@ -34,10 +40,9 @@ class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerV
         
         
     }
-    
-    
-    
-    
+
+    //MARK: -
+    //MARK: ViewController LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,12 +68,66 @@ class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerV
         
         picker.selectRow(scoreData.count/2, inComponent: 0, animated: true)
         playerScoreTextField.inputView = picker
+        
+        
+        
+        enterScoreCollectionView.delegate = self
+        enterScoreCollectionView.dataSource = self
+        
+        
+        // DEBUG
+        
+        print("#### enterScoreVC Players array:\(players)")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK: -
+    //MARK: UICollectionViewDataSource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return players.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return players[section].count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = enterScoreCollectionView.dequeueReusableCellWithReuseIdentifier(Constants.Storyboard.EnterScoreCellIdentifier, forIndexPath: indexPath) as! EnterScoreCollectionViewCell
+        
+        
+        let golfer = self.players[indexPath.section][indexPath.row]
+        
+        cell.playerNameLabel.text = golfer.name
+        cell.scoreTextField.text = "36"
+        
+        return cell
+    }
+    
+    //MARK: -
+    //MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let cellSize = CGSizeMake(128.0, 128.0)
+        return cellSize
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 8.0
+    }
+    
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+//        return 8.0
+//    }
+    
     
     //MARK: -
     //MARK: PickerView Delegate

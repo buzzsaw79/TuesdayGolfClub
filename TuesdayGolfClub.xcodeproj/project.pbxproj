@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		302208AB1DA4F0E50039AECE /* EnterScoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302208AA1DA4F0E50039AECE /* EnterScoreCollectionViewCell.swift */; };
 		3024A37D1D7175E90005804F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024A37C1D7175E90005804F /* AppDelegate.swift */; };
 		3024A3821D7175E90005804F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3024A3801D7175E90005804F /* Main.storyboard */; };
 		3024A3851D7175E90005804F /* TuesdayGolfClub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3024A3831D7175E90005804F /* TuesdayGolfClub.xcdatamodeld */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		302208AA1DA4F0E50039AECE /* EnterScoreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterScoreCollectionViewCell.swift; sourceTree = "<group>"; };
 		3024A3791D7175E90005804F /* TuesdayGolfClub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TuesdayGolfClub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3024A37C1D7175E90005804F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3024A3811D7175E90005804F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				3024A39B1D76577E0005804F /* MemberTableViewCell.swift */,
 				3024A39C1D76577E0005804F /* MemberTableViewCell.xib */,
 				3024A3801D7175E90005804F /* Main.storyboard */,
+				302208AA1DA4F0E50039AECE /* EnterScoreCollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			files = (
 				3024A3961D7598800005804F /* Golfer+CoreDataProperties.swift in Sources */,
 				3024A39D1D76577E0005804F /* MemberTableViewCell.swift in Sources */,
+				302208AB1DA4F0E50039AECE /* EnterScoreCollectionViewCell.swift in Sources */,
 				3024A3931D75812D0005804F /* MemberGolferTableViewController.swift in Sources */,
 				3024A3A01D7657C30005804F /* UIColor+CustomColors.swift in Sources */,
 				30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */,

@@ -10,7 +10,12 @@ import Foundation
 import CoreData
 
 
+
 class Golfer: NSManagedObject {
+    
+    //MARK: -
+    //MARK: Init
+    
 
     class func golferInTournee(tournee: Tournee, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
         

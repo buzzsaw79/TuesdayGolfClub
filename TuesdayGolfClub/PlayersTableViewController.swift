@@ -197,6 +197,7 @@ class PlayersTableViewController: UITableViewController {
                 
 //                enterScoreVC.playerName = playerCell.textLabel!.text!
                 enterScoreVC.playerName = golfer?.name
+                enterScoreVC.players = groups
                 
                 
                 print(playerCell.textLabel!.text!)

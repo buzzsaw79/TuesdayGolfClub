@@ -31,6 +31,10 @@ struct Constants {
     struct numbers {
         static let maxGolfersInGroup = 4
     }
+    
+    struct Storyboard {
+        static let EnterScoreCellIdentifier = "EnterScoreCell"
+    }
 }
 
 class alert: NSObject {
