@@ -126,6 +126,8 @@ class PlayersTableViewController: UITableViewController {
             headerTitleString = "Another Group"
         }
         
+        
+        
 //        tableView.headerViewForSection(section)?.textLabel?.textColor = UIColor.whiteColor()
         
         return headerTitleString

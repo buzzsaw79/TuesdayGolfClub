@@ -103,16 +103,44 @@ class EnterScoreViewController: UIViewController, UITextFieldDelegate, UIPickerV
         let golfer = self.players[indexPath.section][indexPath.row]
         
         cell.playerNameLabel.text = golfer.name
-        cell.scoreTextField.text = "36"
+        
         
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "EnterScoreHeaderView", forIndexPath: indexPath) as! EnterScoreHeaderView
+        
+        
+        var headerTitleString = ""
+        switch indexPath.section {
+        case 0:
+            headerTitleString = "First Group"
+        case 1:
+            headerTitleString = "Second Group"
+        case 2:
+            headerTitleString = "Third Group"
+        case 3:
+            headerTitleString = "Forth Group"
+        default:
+            headerTitleString = "Another Group"
+        }
+        
+        
+        headerView.sectionHeaderTitle.text = headerTitleString
+ 
+        return headerView
     }
     
     //MARK: -
     //MARK: UICollectionViewDelegateFlowLayout
     
+    
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let cellSize = CGSizeMake(128.0, 128.0)
+        
+        let aSize = (self.view.bounds.width - 24.0)/2
+        let cellSize = CGSizeMake(aSize, aSize)
         return cellSize
     }
     

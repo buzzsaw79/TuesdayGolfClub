@@ -15,10 +15,21 @@ class EnterScoreCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var scoreTextField: UITextField!
     
-    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        let attribs = super.preferredLayoutAttributesFittingAttributes(layoutAttributes)
-        return attribs
+    
+    
+    
+}
+
+class EnterScoreHeaderView: UICollectionReusableView {
+    
+    
+    @IBOutlet weak var sectionHeaderTitle: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.backgroundColor = UIColor.eggShell()
+        
+        sectionHeaderTitle.text = "Groupie"
     }
-    
-    
 }
