@@ -30,6 +30,8 @@ class MemberTableViewCell: UITableViewCell {
         memberImage.layer.cornerRadius = memberImage.frame.size.width / 2
         memberImage.clipsToBounds = true
         
+        
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

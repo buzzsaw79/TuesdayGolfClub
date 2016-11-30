@@ -24,17 +24,20 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     var players = [Golfer]()
     
+    var tournee: Tournee!
+    
     //MARK: -
     //MARK: IBActions
     @IBAction func addPlayers(sender: UIBarButtonItem) {
         
-        let entity = NSEntityDescription.entityForName("Tournee", inManagedObjectContext: self.context)
-        let tournee = Tournee(entity: entity!, insertIntoManagedObjectContext: self.context)
+        // Create new Tournee
+        let entity = NSEntityDescription.entityForName(Constants.Entity.tourneeEntityString, inManagedObjectContext: self.context)
+        self.tournee = Tournee(entity: entity!, insertIntoManagedObjectContext: self.context)
         
-        tournee.course = Constants.courses.mack  //"Mackintosh"
-        tournee.date = NSDate()
-        tournee.day = NSDate.todayAsString()
-        tournee.hasEntrants?.addObjectsFromArray(self.players)
+        self.tournee.course = Constants.courses.mack  //"Mackintosh"
+        self.tournee.date = NSDate()
+        self.tournee.day = NSDate.todayAsString()
+        self.tournee.mutableSetValueForKey("hasEntrants").addObjectsFromArray(self.players)
         
         
         
@@ -44,7 +47,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             print("Error saving tournee \(error.localizedDescription)")
         }
         
-        performSegueWithIdentifier("getPlayers", sender: tournee)
+        performSegueWithIdentifier("getPlayers", sender: self.tournee)
         
         
         
@@ -68,7 +71,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         }
         // the add action for the textfield
         let addAction = UIAlertAction(title: "Add", style: .Default) { _ in
-            let entity = NSEntityDescription.entityForName("Golfer", inManagedObjectContext: self.context)
+            let entity = NSEntityDescription.entityForName(Constants.Entity.golferEntityString, inManagedObjectContext: self.context)
             let golfer = Golfer(entity: entity!, insertIntoManagedObjectContext: self.context)
             let nameTextField = alert.textFields?.first
             let handicapTextField = alert.textFields?.last
@@ -78,7 +81,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             golfer.membershipNumber = "123456"
             golfer.clubHandicap = NSDecimalNumber(string: handicapTextField?.text) ?? 0.0
             golfer.playingHandicap = golfer.clubHandicap?.decimalNumberByRoundingAccordingToBehavior(nil)
-            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
+//            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
             
             
             
@@ -114,7 +117,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fetchGolferRequest = NSFetchRequest(entityName: "Golfer")
+        let fetchGolferRequest = NSFetchRequest(entityName: Constants.Entity.golferEntityString)
         let fetchGolferSort = NSSortDescriptor(key: "surname", ascending: true)
         fetchGolferRequest.sortDescriptors = [fetchGolferSort]
         
@@ -227,14 +230,6 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-//        let alert = UIAlertController(title: "Cell Selected", message: "you selected a cell", preferredStyle: .Alert)
-//        // the cancel action for the textfield
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-//        
-//        // add the actions to the alert
-//        alert.addAction(cancelAction)
-//        self.presentViewController(alert, animated: true, completion: nil)
 
         let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
         players.append(golfer)
@@ -316,8 +311,10 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
             if let tournee = sender as! Tournee? {
                 
-                tournee.hasEntrants?.addObjectsFromArray(self.players)
+                tournee.mutableSetValueForKey("hasEntrants").addObjectsFromArray(self.players)
                 
+            } else {
+                print("Can't cast BarButtonItem as Tournee")
             }
             do {
        try self.context.save()
@@ -327,7 +324,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         
         playersController.playersArray = self.players
-            
+        playersController.todaysTournee = self.tournee
         }
     }
  
@@ -377,7 +374,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             }
         }
         
-        
+        printTournees()
         
 //        print("Players: \(self.players)")
         
@@ -398,6 +395,14 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                     
                     
                     print("\(tournee.day!) \(tournee.course!) \(tournee.hasEntrants)")
+                    
+                    self.context.deleteObject(tournee)
+                    // Delete Tournee's
+//                    do {
+//                        try self.context.save()
+//                    } catch {
+//                        print("Couldn't save after deleting tournees")
+//                    }
                     
                     for object in tournee.hasEntrants! {
                         print("Golfer in hasEntrants \(object)")

@@ -24,6 +24,8 @@ class PlayersTableViewController: UITableViewController {
         return appDelegate.managedObjectContext
     }()
     
+    var todaysTournee: Tournee!
+    
     
     //MARK: -
     //MARK: View Controller Lifecycle
@@ -77,23 +79,7 @@ class PlayersTableViewController: UITableViewController {
             cell.textLabel!.textColor = UIColor.oddCellTextColour()
             cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
         }
-        
-//        switch indexPath.section {
-//        case 0:
-//            print("Switch \(indexPath.section)")
-//        case 1:
-//            print("Switch \(indexPath.section)")
-//        case 2:
-//            print("Switch \(indexPath.section)")
-//        case 3:
-//            print("Switch \(indexPath.section)")
-//        case 4:
-//            print("Switch \(indexPath.section)")
-//        case 5:
-//            print("Switch \(indexPath.section)")
-//        default:
-//            print("Switch \(indexPath.section)")
-//        }
+
         
         
         if !playersArray.isEmpty {
@@ -125,11 +111,6 @@ class PlayersTableViewController: UITableViewController {
         default:
             headerTitleString = "Another Group"
         }
-        
-        
-        
-//        tableView.headerViewForSection(section)?.textLabel?.textColor = UIColor.whiteColor()
-        
         return headerTitleString
     }
     
@@ -140,11 +121,7 @@ class PlayersTableViewController: UITableViewController {
         headerView.textLabel?.textAlignment = .Center
         headerView.textLabel?.textColor = UIColor.whiteColor()
         headerView.backgroundView?.backgroundColor = UIColor.headerColour()
-        
-        
-        
-//        view.tintColor = UIColor.headerColour()
-//        view.textLabel?.textColor = UIColor.whiteColor()
+
     }
     
    
@@ -188,15 +165,17 @@ class PlayersTableViewController: UITableViewController {
     
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
+        print("Prepare for Seque")
+        
         if segue.identifier == "enterScore" {
             if let enterScoreVC = segue.destinationViewController as? EnterScoreViewController {
-                
+                print("Destination ViewController as EnterScoreViewController")
                 let playerCell = sender as! UITableViewCell
-                
+                print("Player Cell")
 //                let testContext = playersArray.first?.managedObjectContext
                 
                 let golfer = Golfer.fetchGolferWithName(playerCell.textLabel!.text!, inManagedObjectContext: self.context)
-                
+                print("Golfer Set")
 //                enterScoreVC.playerName = playerCell.textLabel!.text!
                 enterScoreVC.playerName = golfer?.name
                 enterScoreVC.players = groups
@@ -237,9 +216,10 @@ class PlayersTableViewController: UITableViewController {
         
     }
 
-    func populateGroups(players:[Golfer]) {
+    func populateGroups(players:Int) {
         
-        switch players.count {
+        switch players {
+        case 3: theGroups = [[1,2,3]]
         case 4: theGroups = [[1,2],[3,4]]   // 2x2
         case 5: theGroups = [[1,2],[3,4,5]]     // 1x2, 1x3
         case 6: theGroups = [[1,2,3],[4,5,6]]   // 2x3
@@ -264,18 +244,14 @@ class PlayersTableViewController: UITableViewController {
     
     func randomiseGolfers(players:[Golfer]) -> [[Golfer]] {
         
-        self.populateGroups(players)
+        self.populateGroups(players.count)
         
         // Copy passed in array to make it mutable
         var golfers = players
         
         // Create empty array of golfer arrays
         var playingGroups = [[Golfer]]()
-        
-//        var playingGroups = [[Golfer]](count:theGroups.count, repeatedValue:[Golfer](count:Constants.numbers.maxGolfersInGroup,
-//            repeatedValue:Golfer()))
-        
-        
+
         if !golfers.isEmpty {
             
             for (outerIndex, aGroup) in theGroups.enumerate() {
@@ -288,7 +264,8 @@ class PlayersTableViewController: UITableViewController {
                     let randomIndex = Int(arc4random_uniform(UInt32(golfers.count)))
                     let golfer = golfers.removeAtIndex(randomIndex)
                     
-                    print("randomiseGolfers() -> \(golfer.name)\(golfer.clubHandicap)")
+                    // DEBUG - Check array has golfers in it
+                    print("randomiseGolfers() -> \(golfer.name!) \(golfer.clubHandicap!)")
                     
                     // Multi-Dimensional Array Population
                     playingGroups[outerIndex].append(golfer)
@@ -298,7 +275,7 @@ class PlayersTableViewController: UITableViewController {
             
         }
         
-        
+        // DEBUG - Check playingGroups is properly populated
         print("🔬 playingGroups: \(playingGroups)")
         return playingGroups
     }

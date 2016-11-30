@@ -21,6 +21,7 @@ struct Constants {
         static let bernie = "Bernard Bull"
         static let keith = "Keith Bamford"
         static let mick = "Mick Clarke"
+        static let mario = "Mario DeAbreu"
     }
     
     struct courses {
@@ -34,6 +35,11 @@ struct Constants {
     
     struct Storyboard {
         static let EnterScoreCellIdentifier = "EnterScoreCell"
+    }
+    
+    struct Entity {
+        static let golferEntityString = "Golfer"
+        static let tourneeEntityString = "Tournee"
     }
 }
 

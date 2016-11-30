@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZY9-8s-SO2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZY9-8s-SO2">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -132,7 +132,7 @@
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="MDM-YP-KBD">
                                 <rect key="frame" x="20" y="389" width="92" height="92"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="54"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -145,13 +145,16 @@
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YVc-MH-onV">
                                 <rect key="frame" x="0.0" y="80" width="600" height="430"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="wKI-1q-h45">
                                     <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="50" height="57"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                                 </collectionViewFlowLayout>
+                                <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grass1" id="RkY-mJ-v5a">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EnterScoreCell" id="VE3-6c-qsb" customClass="EnterScoreCollectionViewCell" customModule="TuesdayGolfClub" customModuleProvider="target">
                                         <rect key="frame" x="8" y="65" width="200" height="200"/>
@@ -160,20 +163,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="36" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Uur-bY-oYJ">
-                                                    <rect key="frame" x="51.5" y="51.5" width="97.5" height="97.5"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grass" translatesAutoresizingMaskIntoConstraints="NO" id="eQF-dJ-qpZ">
+                                                    <rect key="frame" x="8" y="8" width="184" height="184"/>
+                                                </imageView>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Uur-bY-oYJ">
+                                                    <rect key="frame" x="59" y="59" width="82" height="82"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Uur-bY-oYJ" secondAttribute="height" multiplier="1:1" id="cZb-q7-860"/>
                                                     </constraints>
-                                                    <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="48"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="VE3-6c-qsb" id="A2F-6c-Qjc"/>
+                                                    </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Player Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erl-MH-9Re">
                                                     <rect key="frame" x="8" y="8" width="184" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.15686274509803921" green="0.30980392156862746" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -181,14 +190,23 @@
                                         </view>
                                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="eQF-dJ-qpZ" firstAttribute="trailing" secondItem="VE3-6c-qsb" secondAttribute="trailingMargin" id="6VV-Wg-FrA"/>
+                                            <constraint firstItem="eQF-dJ-qpZ" firstAttribute="leading" secondItem="VE3-6c-qsb" secondAttribute="leadingMargin" id="FIj-qs-Ypa"/>
                                             <constraint firstItem="Uur-bY-oYJ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="VE3-6c-qsb" secondAttribute="leadingMargin" constant="46" id="GwW-Nr-IvK"/>
                                             <constraint firstItem="erl-MH-9Re" firstAttribute="centerX" secondItem="Uur-bY-oYJ" secondAttribute="centerX" id="H8u-2m-Xnq"/>
                                             <constraint firstItem="Uur-bY-oYJ" firstAttribute="centerY" secondItem="VE3-6c-qsb" secondAttribute="centerY" id="MAT-0r-4MN"/>
+                                            <constraint firstItem="eQF-dJ-qpZ" firstAttribute="top" secondItem="VE3-6c-qsb" secondAttribute="topMargin" id="b7Q-f4-uLv"/>
                                             <constraint firstItem="Uur-bY-oYJ" firstAttribute="centerX" secondItem="VE3-6c-qsb" secondAttribute="centerX" id="h7E-0B-7PR"/>
+                                            <constraint firstItem="eQF-dJ-qpZ" firstAttribute="bottom" secondItem="VE3-6c-qsb" secondAttribute="bottomMargin" id="k07-GC-N3b"/>
                                             <constraint firstItem="erl-MH-9Re" firstAttribute="top" secondItem="VE3-6c-qsb" secondAttribute="topMargin" id="tzT-e6-lbD"/>
                                             <constraint firstItem="erl-MH-9Re" firstAttribute="leading" secondItem="VE3-6c-qsb" secondAttribute="leadingMargin" id="xTL-HA-2aG"/>
                                         </constraints>
                                         <size key="customSize" width="200" height="200"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="GwW-Nr-IvK"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="playerNameLabel" destination="erl-MH-9Re" id="XDm-OR-vQ5"/>
                                             <outlet property="scoreTextField" destination="Uur-bY-oYJ" id="Scr-XY-Vus"/>
@@ -199,14 +217,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="grass_fringe" translatesAutoresizingMaskIntoConstraints="NO" id="phn-6p-F5o">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
+                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnN-7q-mUx">
-                                            <rect key="frame" x="256.5" y="9.5" width="87" height="38.5"/>
+                                            <rect key="frame" x="256" y="9" width="87" height="38.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.63137254899999995" green="0.82524985210000001" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.63137254899999995" green="0.81568627449999997" blue="0.80339017069999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="QnN-7q-mUx" firstAttribute="centerY" secondItem="Q6s-Wl-EQD" secondAttribute="centerY" id="TZQ-d2-6Vb"/>
                                         <constraint firstItem="QnN-7q-mUx" firstAttribute="centerX" secondItem="Q6s-Wl-EQD" secondAttribute="centerX" id="acp-r8-0Pt"/>
@@ -229,8 +250,6 @@
                     </view>
                     <connections>
                         <outlet property="enterScoreCollectionView" destination="YVc-MH-onV" id="fcp-kA-Ida"/>
-                        <outlet property="playerNameLabel" destination="BUM-xA-ZkH" id="KYq-JI-zym"/>
-                        <outlet property="playerScoreTextField" destination="MDM-YP-KBD" id="4s1-MP-AaN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P2I-n5-kuD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -261,4 +280,9 @@
             <point key="canvasLocation" x="468" y="402"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="grass" width="271" height="186"/>
+        <image name="grass1" width="284" height="177"/>
+        <image name="grass_fringe" width="4101" height="725"/>
+    </resources>
 </document>

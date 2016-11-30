@@ -47,7 +47,10 @@ class Tournee: NSManagedObject {
             tournee.day = tournee.todayAsString()
             
             for golfer in golfers {
-                tournee.hasEntrants?.addObject(golfer)
+                //tournee.mutableSetValueForKey("hasEntrants").addObject(golfer)
+                // company.mutableSetValueForKey("hasEntrants").addObject(employees)
+                golfer.playsInA = tournee
+
             }
             
             do {
@@ -56,6 +59,7 @@ class Tournee: NSManagedObject {
                 print("Unable to save within tourneeWithGolfers: \(error)")
             }
             
+            print("TOURNEE: \(tournee.hasEntrants)")
             return tournee
   
         }
@@ -67,12 +71,12 @@ class Tournee: NSManagedObject {
     
     class func tourneeContainingGolfer(golfer:Golfer) -> Tournee? {
         
+        var tourneeGolfer = golfer
         
         
         
         
-        
-        
+//        let aNewTournee = Tournee(entity: <#T##NSEntityDescription#>, insertIntoManagedObjectContext: <#T##NSManagedObjectContext?#>)
         return nil
     }
     
