@@ -51,43 +51,27 @@ class PlayersTableViewController: UITableViewController {
     
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return theGroups.count
     }
     
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
-        
-//        print("theGroups[\(section)]: \(theGroups[section].debugDescription)")
         return theGroups[section].count
-        
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("playerCell", forIndexPath: indexPath)
 
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = UIColor.evenCellColour()
-            cell.textLabel!.textColor = UIColor.evenCellTextColour()
-            cell.detailTextLabel!.textColor = UIColor.evenCellTextColour()
-        } else {
-            cell.backgroundColor = UIColor.oddCellColour()
-            cell.textLabel!.textColor = UIColor.oddCellTextColour()
-            cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
-        }
-
+        configureCell(cell, indexPath: indexPath)
+        
         
         
         if !playersArray.isEmpty {
-            let randomIndex = Int(arc4random_uniform(UInt32(playersArray.count)))
-            
+
             let golfer = groups[indexPath.section][indexPath.row]
             
-//            let golfer = playersArray.removeAtIndex(randomIndex)
             cell.textLabel?.text = golfer.name
             cell.detailTextLabel?.text = String(golfer.playingHandicap!)
         }
@@ -193,6 +177,7 @@ class PlayersTableViewController: UITableViewController {
     
     @IBAction func back2(segue: UIStoryboardSegue) {
         print("Unwinding")
+        tableView.reloadData()
     }
     
     
@@ -265,7 +250,7 @@ class PlayersTableViewController: UITableViewController {
                     let golfer = golfers.removeAtIndex(randomIndex)
                     
                     // DEBUG - Check array has golfers in it
-                    print("randomiseGolfers() -> \(golfer.name!) \(golfer.clubHandicap!)")
+                    // print("randomiseGolfers() -> \(golfer.name!) \(golfer.clubHandicap!)")
                     
                     // Multi-Dimensional Array Population
                     playingGroups[outerIndex].append(golfer)
@@ -276,7 +261,7 @@ class PlayersTableViewController: UITableViewController {
         }
         
         // DEBUG - Check playingGroups is properly populated
-        print("🔬 playingGroups: \(playingGroups)")
+        //print("🔬 playingGroups: \(playingGroups)")
         return playingGroups
     }
     

@@ -21,15 +21,18 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var enterScoreCollectionView: UICollectionView!
     
     @IBAction func saveButton() {
-        
+        // DEBUG
         print("Save button pressed!")
+        
+       let indexPaths = enterScoreCollectionView.indexPathsForVisibleItems()
    
     }
     
+    // Called when navigation controller Back button pressed
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         
         if let controller = viewController as? PlayersTableViewController {
-        print("Did we press he BACK buton?")
+        print("Did we press the BACK buton?")
             
             let noOfGroups = controller.groups.count
             print("Number of groups is: \(noOfGroups)")
@@ -110,7 +113,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        let aSize = (self.view.bounds.width - 24.0)/2
+        let aSize = (self.view.bounds.width - 24.0)/4
         let cellSize = CGSizeMake(aSize, aSize)
         return cellSize
     }
@@ -129,30 +132,41 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         CVCCount = CVCCount + 1
         
-        print("\(CVCCount)About to display EnterScoreCollectionViewCell: \(cell)")
+        // DEBUG
+        //print("\(CVCCount)About to display EnterScoreCollectionViewCell: \(cell)")
     }
     
     // MARK:
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "back2" {
-//            
-//            let playersVC = segue.destinationViewController as! PlayersTableViewController
-//            print("\(playersVC.groups.debugDescription)")
-//            
-//            print("%%%%%% EnterScoreViewController prepareForSegue Sender: \(sender!) %%%%%%")
-//
-//            playersVC.playersArray.count
-//            
-//        } else {
-//            if segue.identifier == "Show" {
-//                print("%%%%%% EnterScoreViewController prepareForSegue SHOW %%%%%%")
-//            }
-//        }
         
-        
-        print("%%%%%% EnterScoreViewController prepareForSegue Sender: \(sender!) %%%%%%")
+        if segue.identifier == "back2" {
+            // Triggered by Unwind segue when "Save" button clicked
+            
+            // DEBUG
+            print("BACK BACK")
+            
+            // Get score data from collectionview cells
+            let playersVC = segue.destinationViewController as! PlayersTableViewController
+            let indexPaths = enterScoreCollectionView.indexPathsForVisibleItems()
+            
+            for aPath in indexPaths {
+                let cell = enterScoreCollectionView.cellForItemAtIndexPath(aPath) as! EnterScoreCollectionViewCell
+                let score = cell.scoreTextField.text
+                
+                if let targetCell = playersVC.tableView.cellForRowAtIndexPath(aPath) {
+                    targetCell.detailTextLabel?.text = score
+                    // DEBUG
+                    print("SCORE: \(targetCell.detailTextLabel?.text)")
+                    playersVC.tableView.reloadData()
+                }
+            }
+            
+            
+        }
+        // DEBUG
+        //print("%%%%%% EnterScoreViewController prepareForSegue Sender: \(sender!) %%%%%%")
         
     }
     

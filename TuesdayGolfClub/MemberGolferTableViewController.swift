@@ -38,7 +38,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         self.tournee.date = NSDate()
         self.tournee.day = NSDate.todayAsString()
         self.tournee.mutableSetValueForKey("hasEntrants").addObjectsFromArray(self.players)
+        self.tournee.entryFee = 9
+        self.tournee.playerScore = [:]
+        self.tournee.completed = NSNumber(bool: false)
         
+        
+        // DEBUG
+        print("Tournee ID: \(self.tournee.objectID)")
         
         
         do {
@@ -134,22 +140,16 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         let memTVCNib = UINib(nibName: "MemberTableViewCell", bundle: nil)
         tableView.registerNib(memTVCNib, forCellReuseIdentifier: "golferCell")
         
-//        printDatabaseStatistics(fetchGolferRequest)
-        
         fetchRequest = fetchGolferRequest
         
         printGolfersAndPlayers()
-//        print("printTourness() called ---->")
-//        printTournees()
-        print("***** MemberGolferTableViewController - \(Constants.courses.but) ****")
+
 
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-//        self.printDatabaseStatistics(self.fetchRequest!)
-//        self.printTournees()
         
     }
     
@@ -331,32 +331,6 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     //MARK: -
     //MARK: Helper Functions
-    private func printDatabaseStatistics(request: NSFetchRequest) -> [Golfer]? {
-        
-        var golfers: [Golfer]?
-        
-        context.performBlock {
-            if let results = try? self.context.executeFetchRequest(request) {
-                print("\(results.count) Golfers")
-                print("in managedObjectContext \(self.context)")
-                
-                for aGolfer in results {
-                    let golfer = aGolfer as! Golfer
-                    print("\(golfer.name!) \(golfer.clubHandicap!)")
-                    golfers?.append(golfer)
-                    
-                }
-                
-                
-            }
-            
-            let tourneeCount = self.context.countForFetchRequest(NSFetchRequest(entityName: "Tournee"), error: nil)
-            print("\(tourneeCount) Tournees" )
-        }
-        
-        return golfers
-    }
-    
     
     private func printGolfersAndPlayers() {
         
@@ -370,13 +344,10 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                     print("\(golfer.name!) \(golfer.clubHandicap!)")
                     
                 }
-   
             }
         }
         
         printTournees()
-        
-//        print("Players: \(self.players)")
         
     }
     
@@ -387,25 +358,30 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         context.performBlock {
             if let results = try? self.context.executeFetchRequest(request) {
-                print("\(results.count) Tournees")
-                print("in managedObjectContext \(self.context)")
+                // DEBUG
+                print("\(results.count) Tournees in managedObjectContext \(self.context)")
+                
                 
                 for aTournee in results {
                     let tournee = aTournee as! Tournee
                     
                     
                     print("\(tournee.day!) \(tournee.course!) \(tournee.hasEntrants)")
-                    
-                    self.context.deleteObject(tournee)
+
                     // Delete Tournee's
+                    //self.context.deleteObject(tournee)
+
 //                    do {
 //                        try self.context.save()
 //                    } catch {
 //                        print("Couldn't save after deleting tournees")
 //                    }
                     
-                    for object in tournee.hasEntrants! {
-                        print("Golfer in hasEntrants \(object)")
+                    for object  in tournee.hasEntrants!  {
+                        if let golfer = object as? Golfer  {
+                            // DEBUG
+                            print("Golfer in hasEntrants \(golfer)")
+                        }
                     }
                     
                 }
