@@ -28,7 +28,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     //MARK: -
     //MARK: IBActions
-    @IBAction func addPlayers(sender: UIBarButtonItem) {
+    @IBAction func startTournee(sender: UIBarButtonItem) {
         
         // Create new Tournee
         let entity = NSEntityDescription.entityForName(Constants.Entity.tourneeEntityString, inManagedObjectContext: self.context)
@@ -39,12 +39,16 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         self.tournee.day = NSDate.todayAsString()
         self.tournee.mutableSetValueForKey("hasEntrants").addObjectsFromArray(self.players)
         self.tournee.entryFee = 9
-        self.tournee.playerScore = [:]
+        self.tournee.scores = [:]
         self.tournee.completed = NSNumber(bool: false)
+        
+        let prizeFundInt = (tournee.hasEntrants?.count)! * Int(self.tournee.entryFee!)
+        
+        self.tournee.prizeFund = NSDecimalNumber.init(integer: prizeFundInt)
         
         
         // DEBUG
-        print("Tournee ID: \(self.tournee.objectID)")
+//        print("Tournee ID: \(self.tournee.objectID)")
         
         
         do {
@@ -55,9 +59,10 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         performSegueWithIdentifier("getPlayers", sender: self.tournee)
         
+        // DEBUG
+        //printTournees()
+//        printGolfersAndPlayers()
         
-        
-        printGolfersAndPlayers()
     }
     
     @IBAction func addGolfer(sender: UIBarButtonItem) {
@@ -124,7 +129,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         super.viewDidLoad()
         
         let fetchGolferRequest = NSFetchRequest(entityName: Constants.Entity.golferEntityString)
-        let fetchGolferSort = NSSortDescriptor(key: "surname", ascending: true)
+        let fetchGolferSort = NSSortDescriptor(key: "clubHandicap", ascending: true)
         fetchGolferRequest.sortDescriptors = [fetchGolferSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchGolferRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
@@ -142,8 +147,9 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         fetchRequest = fetchGolferRequest
         
-        printGolfersAndPlayers()
-
+        // DEBUG
+//        printGolfersAndPlayers()
+//        printTournees()
 
     }
 
@@ -205,26 +211,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
+        // Get Golfer object
         let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
-//        let cell = tableView.dequeueReusableCellWithIdentifier("golferCell")!
         let cell:MemberTableViewCell! = tableView.dequeueReusableCellWithIdentifier("golferCell", forIndexPath: indexPath) as! MemberTableViewCell
 
-//      Configure the cell...
-        
-        
+        //Configure the cell...
         cell.memberNamelabel?.text = golfer.name
         cell.memberHandicapLabel?.text = String(golfer.clubHandicap ?? 0.0)
-        
-        // Alternate rows different background colour
-//        if indexPath.row % 2 == 0 {
-//            cell.backgroundColor = UIColor.evenCellColour()
-//            cell.memberNamelabel.textColor = UIColor.evenCellTextColour()
-//        } else {
-//            cell.backgroundColor = UIColor.oddCellColour()
-//            cell.memberNamelabel.textColor = UIColor.oddCellTextColour()
-//        }
-        
 
         return cell
     }
@@ -253,19 +246,6 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         return 65
     }
     
-    
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    
-    // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         switch editingStyle {
@@ -281,6 +261,20 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             break
         }
     }
+    
+ 
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    
+    // Override to support editing the table view.
+    
     
 
     /*
@@ -305,26 +299,18 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "getPlayers" {
-        
-        let playersController = segue.destinationViewController as! PlayersTableViewController
-        // Pass the selected object to the new view controller.
-        
-            if let tournee = sender as! Tournee? {
-                
-                tournee.mutableSetValueForKey("hasEntrants").addObjectsFromArray(self.players)
-                
-            } else {
-                print("Can't cast BarButtonItem as Tournee")
-            }
+            
+            let playersController = segue.destinationViewController as! PlayersTableViewController
+            
             do {
-       try self.context.save()
+                try self.context.save()
             } catch let err as NSError {
                 print("CoreData error whilst saving: ERROR:- \(err)")
             }
-        
-        
-        playersController.playersArray = self.players
-        playersController.todaysTournee = self.tournee
+            
+            playersController.playersArray = self.players
+            playersController.todaysTournee = self.tournee
+            
         }
     }
  
@@ -347,10 +333,8 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             }
         }
         
-        printTournees()
         
     }
-    
     
     private func printTournees() {
         
@@ -365,24 +349,24 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                 for aTournee in results {
                     let tournee = aTournee as! Tournee
                     
-                    
+                    // DEBUG
                     print("\(tournee.day!) \(tournee.course!) \(tournee.hasEntrants)")
 
                     // Delete Tournee's
-                    //self.context.deleteObject(tournee)
-
+//                    self.context.deleteObject(tournee)
+//
 //                    do {
 //                        try self.context.save()
 //                    } catch {
 //                        print("Couldn't save after deleting tournees")
 //                    }
                     
-                    for object  in tournee.hasEntrants!  {
-                        if let golfer = object as? Golfer  {
-                            // DEBUG
-                            print("Golfer in hasEntrants \(golfer)")
-                        }
-                    }
+//                    for object  in tournee.hasEntrants!  {
+//                        if let golfer = object as? Golfer  {
+//                            // DEBUG
+//                            print("Golfer in hasEntrants \(golfer)")
+//                        }
+//                    }
                     
                 }
                 

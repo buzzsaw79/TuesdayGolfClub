@@ -19,7 +19,8 @@ extension Golfer {
     @NSManaged var membershipNumber: String?
     @NSManaged var name: String?
     @NSManaged var playingHandicap: NSNumber?
-    @NSManaged var scores: NSObject?
+    @NSManaged var scores: [String:Int]?
+    // @NSManaged var scores: NSObject?
     @NSManaged var surname: String?
     @NSManaged var tuesdayHandicap: NSNumber?
     @NSManaged var playsInA: Tournee?

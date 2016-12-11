@@ -20,7 +20,7 @@ extension Tournee {
     @NSManaged var entryFee: NSDecimalNumber?
     @NSManaged var par3Winners: NSObject?
     @NSManaged var prizeFund: NSDecimalNumber?
-    @NSManaged var scores: NSObject?
+    @NSManaged var scores: [Golfer:Int]?
     @NSManaged var completed: NSNumber?
     @NSManaged var hasEntrants: NSSet?
 

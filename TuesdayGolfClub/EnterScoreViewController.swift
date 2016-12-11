@@ -22,22 +22,16 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     @IBAction func saveButton() {
         // DEBUG
-        print("Save button pressed!")
+//        print("Save button pressed!")
         
-       let indexPaths = enterScoreCollectionView.indexPathsForVisibleItems()
+       var indexPaths = enterScoreCollectionView.indexPathsForVisibleItems()
+        
+        
+        let a = enterScoreCollectionView.cellForItemAtIndexPath(indexPaths.popLast()!)
    
     }
     
-    // Called when navigation controller Back button pressed
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        
-        if let controller = viewController as? PlayersTableViewController {
-        print("Did we press the BACK buton?")
-            
-            let noOfGroups = controller.groups.count
-            print("Number of groups is: \(noOfGroups)")
-        }
-    }
+    
     
     //MARK: -
     //MARK: ViewController LifeCycle
@@ -50,8 +44,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         navigationController?.delegate = self
         // DEBUG
-        
-        print("#### enterScoreVC Players array:\(players)")
+//        print("#### enterScoreVC Players array:\(players)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +69,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         cell.golfer = self.players[indexPath.section][indexPath.row]
         
-        cell.playerNameLabel.text = cell.golfer!.name
+        cell.playerNameLabel.text = cell.golfer!.firstName
         
         
         return cell
@@ -109,11 +102,15 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     //MARK: -
     //MARK: UICollectionViewDelegateFlowLayout
     
-    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let headerSizeWidth = self.view.bounds.width
+        let headerSizeHeight = CGFloat(48)
+        return CGSizeMake(headerSizeWidth, headerSizeHeight)
+    }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        let aSize = (self.view.bounds.width - 24.0)/4
+        let aSize = (self.view.bounds.width - 32.0)/3
         let cellSize = CGSizeMake(aSize, aSize)
         return cellSize
     }
@@ -147,6 +144,40 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
             // DEBUG
             print("BACK BACK")
             
+            let numberOfSections = enterScoreCollectionView.numberOfSections()
+//            enterScoreCollectionView.numberOfItemsInSection(numberOfSections)
+            
+            for section in 1...numberOfSections {
+                let sectionIndex = section - 1
+                // DEBUG
+                print("sectionIndex: \(sectionIndex)")
+                for item in 1...enterScoreCollectionView.numberOfItemsInSection(sectionIndex) {
+                    let cellIndex = item - 1
+                    // DEBUG
+                    print("cellIndex: \(cellIndex)")
+                    let cellIndexPath = NSIndexPath(forItem: cellIndex, inSection: sectionIndex)
+                    
+                    let cell = enterScoreCollectionView.cellForItemAtIndexPath(cellIndexPath) as! EnterScoreCollectionViewCell
+                    
+                    if let tournee = cell.golfer?.playsInA ,
+                    let golfer = cell.golfer {
+                         golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
+                    }
+                    
+                }
+  
+            }
+            
+            let tmpContext = players.first?.first?.managedObjectContext
+            
+            _ = try? tmpContext?.save()
+            
+            
+            
+            
+            
+            
+            
             // Get score data from collectionview cells
             let playersVC = segue.destinationViewController as! PlayersTableViewController
             let indexPaths = enterScoreCollectionView.indexPathsForVisibleItems()
@@ -158,16 +189,26 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                 if let targetCell = playersVC.tableView.cellForRowAtIndexPath(aPath) {
                     targetCell.detailTextLabel?.text = score
                     // DEBUG
-                    print("SCORE: \(targetCell.detailTextLabel?.text)")
-                    playersVC.tableView.reloadData()
+                    print("SCORE: \(targetCell.detailTextLabel!.text!)")
+                    //playersVC.tableView.reloadData()
+                    targetCell.setNeedsDisplay()
                 }
             }
             
             
         }
-        // DEBUG
-        //print("%%%%%% EnterScoreViewController prepareForSegue Sender: \(sender!) %%%%%%")
         
+    }
+    
+    // Called when navigation controller Back button pressed
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        
+        if let controller = viewController as? PlayersTableViewController {
+            print("Did we press the BACK buton?")
+            
+            let noOfGroups = controller.groups.count
+            print("Number of groups is: \(noOfGroups)")
+        }
     }
     
     

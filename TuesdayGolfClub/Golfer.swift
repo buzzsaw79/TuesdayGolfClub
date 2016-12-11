@@ -45,8 +45,8 @@ class Golfer: NSManagedObject {
     }
 
     class func golferInTournee(tournee: Tournee, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
-        
-        print("Golfer.golferInTournee")
+        // DEBUG
+        //print("Golfer.golferInTournee")
         
         let golferRequest = NSFetchRequest(entityName: "Golfer")
         
@@ -65,11 +65,11 @@ class Golfer: NSManagedObject {
     
     
     class func fetchGolferWithName(name: String, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
+        // DEBUG
+        //print("Golfer.fetchGolferWithName")
         
-        print("Golfer.fetchGolferWithName")
         
-        
-        let golferNameRequest = NSFetchRequest(entityName: "Golfer")
+        let golferNameRequest = NSFetchRequest(entityName: Constants.Entity.golferEntityString)
         golferNameRequest.predicate = NSPredicate(format: "name = %@", name)
         
         if let golfer = (try? context.executeFetchRequest(golferNameRequest))?.last as? Golfer {
@@ -77,16 +77,28 @@ class Golfer: NSManagedObject {
             
             if let tourneeDescription = NSEntityDescription.entityForName("Tournee", inManagedObjectContext: context)
             {
-            let newTournee = Tournee(entity: tourneeDescription,
-                                          insertIntoManagedObjectContext: context)
-                newTournee.course = Constants.courses.mack
-                newTournee.date = NSDate()
-                newTournee.day = NSDate.todayAsString()
-                newTournee.entryFee = 9
-                newTournee.mutableSetValueForKey("hasEntrants").addObject(golfer)
                 
-            
-            Golfer.golferInTournee(newTournee, inManagedObjectContext: golfer.managedObjectContext!)
+              let tourneeRequest = NSFetchRequest(entityName: Constants.Entity.tourneeEntityString)
+                tourneeRequest.predicate = NSPredicate(format: "day = %@", NSDate.todayAsString())
+                
+                do {
+                    try context.executeFetchRequest(tourneeRequest)
+                } catch {
+                    
+                }
+                
+                
+                
+//            let newTournee = Tournee(entity: tourneeDescription,
+//                                          insertIntoManagedObjectContext: context)
+//                newTournee.course = Constants.courses.mack
+//                newTournee.date = NSDate()
+//                newTournee.day = NSDate.todayAsString()
+//                newTournee.entryFee = 9
+//                newTournee.mutableSetValueForKey("hasEntrants").addObject(golfer)
+                
+//            ÷
+//            Golfer.golferInTournee(newTournee, inManagedObjectContext: golfer.managedObjectContext!)
             }
             return golfer
         }

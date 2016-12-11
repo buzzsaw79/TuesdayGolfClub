@@ -22,6 +22,19 @@ struct Constants {
         static let keith = "Keith Bamford"
         static let mick = "Mick Clarke"
         static let mario = "Mario DeAbreu"
+        static let jimmy = "Jimmy Sweeney"
+        static let graham = "Graham Clarke"
+        static let john = "John Cashman"
+        static let jeff = "Jeff Mabbitt"
+        static let nigel = "Nigel Maqueline"
+        static let jonny = "John Bolton"
+        static let adrian = "Adrian Harding"
+        static let dan = "Daniel DeAbreu"
+        static let james = "James DeAbreu"
+        static let steve = "Steve DeAbreu"
+        static let downsie = "Steve Downs"
+        static let kenny = "Kenny Barratt"
+        static let daFish = "Jimmy Simms"
     }
     
     struct courses {
@@ -41,6 +54,7 @@ struct Constants {
         static let golferEntityString = "Golfer"
         static let tourneeEntityString = "Tournee"
     }
+    
 }
 
 class alert: NSObject {
@@ -54,14 +68,14 @@ class alert: NSObject {
         
         //        alertCtrl.view.translatesAutoresizingMaskIntoConstraints = false
         
-        // Create the lert Action
-        let okAc = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+        // Create the alert Action
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
             (alert: UIAlertAction) -> Void in
             alertCtrl.dismissViewControllerAnimated(true, completion: nil)
         }
         
         // Ad Alert Actions to lert Controller
-        alertCtrl.addAction(okAc)
+        alertCtrl.addAction(okAction)
         
         // Display Alert Controller
         vc.presentViewController(alertCtrl, animated: true, completion: nil)

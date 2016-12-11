@@ -52,7 +52,7 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
     scoreTextField.placeholder = "Score"
     scoreTextField.drawPlaceholderInRect(reducedTextRect)
     
-    
+    playerNameLabel.adjustsFontSizeToFitWidth = true
     
     picker.dataSource = self
     picker.delegate = self

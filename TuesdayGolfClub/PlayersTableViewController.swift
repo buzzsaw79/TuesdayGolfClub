@@ -14,9 +14,7 @@ class PlayersTableViewController: UITableViewController {
     //MARK: -
     //MARK: Properties
     var playersArray = [Golfer]()
-    
     var groups = [[Golfer]]()
-    
     var theGroups = [[Int]]()
     
     lazy var context: NSManagedObjectContext = {
@@ -46,7 +44,8 @@ class PlayersTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("didSelectRowAtIndexPath")
+        // DEBUG
+        //print("didSelectRowAtIndexPath \(indexPath)")
     }
     
     
@@ -148,36 +147,32 @@ class PlayersTableViewController: UITableViewController {
      // MARK: - Navigation
     
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        print("Prepare for Seque")
+        // DEBUG
+//        print("PTVC Prepare for Seque")
         
         if segue.identifier == "enterScore" {
             if let enterScoreVC = segue.destinationViewController as? EnterScoreViewController {
-                print("Destination ViewController as EnterScoreViewController")
                 let playerCell = sender as! UITableViewCell
-                print("Player Cell")
-//                let testContext = playersArray.first?.managedObjectContext
                 
                 let golfer = Golfer.fetchGolferWithName(playerCell.textLabel!.text!, inManagedObjectContext: self.context)
-                print("Golfer Set")
-//                enterScoreVC.playerName = playerCell.textLabel!.text!
+               
                 enterScoreVC.playerName = golfer?.name
                 enterScoreVC.players = groups
                 
-                
-                print(playerCell.textLabel!.text!)
+                // DEBUG
+//                print(playerCell.textLabel!.text!)
                 print("golfer \(golfer.debugDescription)")
             }
             
         }
-     
-        print("PTVC prepareForSegue: \(sender.debugDescription)")
+        // DEBUG
+//        print("PTVC prepareForSegue: \(sender.debugDescription)")
         
      }
     
     @IBAction func back2(segue: UIStoryboardSegue) {
-        print("Unwinding")
-        tableView.reloadData()
+        // DEBUG
+//        print("Unwinding")
     }
     
     

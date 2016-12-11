@@ -36,7 +36,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Play" id="lGC-jC-Hdw">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="addPlayers:" destination="GiR-bo-tYP" id="Kog-lx-oB6"/>
+                                <action selector="startTournee:" destination="GiR-bo-tYP" id="Kog-lx-oB6"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ye6-ya-dBI">
@@ -159,21 +159,21 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YVc-MH-onV">
-                                <rect key="frame" x="0.0" y="80" width="600" height="430"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YVc-MH-onV">
+                                <rect key="frame" x="0.0" y="64" width="600" height="446"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="wKI-1q-h45">
                                     <size key="itemSize" width="150" height="150"/>
-                                    <size key="headerReferenceSize" width="50" height="57"/>
+                                    <size key="headerReferenceSize" width="50" height="48"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
+                                    <inset key="sectionInset" minX="8" minY="0.0" maxX="8" maxY="8"/>
                                 </collectionViewFlowLayout>
                                 <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grass1" id="RkY-mJ-v5a">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="446"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EnterScoreCell" id="VE3-6c-qsb" customClass="EnterScoreCollectionViewCell" customModule="TuesdayGolfClub" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="65" width="200" height="200"/>
+                                        <rect key="frame" x="8" y="48" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -182,8 +182,8 @@
                                                 <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grass" translatesAutoresizingMaskIntoConstraints="NO" id="eQF-dJ-qpZ">
                                                     <rect key="frame" x="8" y="8" width="184" height="184"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Uur-bY-oYJ">
-                                                    <rect key="frame" x="59" y="59" width="82" height="82"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Uur-bY-oYJ">
+                                                    <rect key="frame" x="78" y="78" width="44" height="44"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Uur-bY-oYJ" secondAttribute="height" multiplier="1:1" id="cZb-q7-860"/>
@@ -230,16 +230,16 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EnterScoreHeaderView" id="Q6s-Wl-EQD" customClass="EnterScoreHeaderView" customModule="TuesdayGolfClub" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="grass_fringe" translatesAutoresizingMaskIntoConstraints="NO" id="phn-6p-F5o">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="grass_fringe" translatesAutoresizingMaskIntoConstraints="NO" id="phn-6p-F5o">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnN-7q-mUx">
-                                            <rect key="frame" x="256" y="9" width="87" height="38.5"/>
+                                            <rect key="frame" x="256" y="5" width="87" height="38.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                            <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.15686274510000001" green="0.30980392159999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -258,11 +258,17 @@
                         <constraints>
                             <constraint firstItem="qZr-ao-dPC" firstAttribute="leading" secondItem="qng-o7-mTC" secondAttribute="leadingMargin" id="BiW-nK-haw"/>
                             <constraint firstItem="YVc-MH-onV" firstAttribute="top" secondItem="jIK-dU-YzY" secondAttribute="bottom" constant="16" id="Ew2-gt-cXq"/>
+                            <constraint firstItem="YVc-MH-onV" firstAttribute="top" secondItem="jIK-dU-YzY" secondAttribute="bottom" id="X2V-jb-UXC"/>
                             <constraint firstAttribute="trailing" secondItem="YVc-MH-onV" secondAttribute="trailing" id="YgE-KX-72d"/>
                             <constraint firstItem="qZr-ao-dPC" firstAttribute="top" secondItem="YVc-MH-onV" secondAttribute="bottom" constant="3" id="atk-j8-YUV"/>
                             <constraint firstItem="ROV-Yw-I31" firstAttribute="top" secondItem="qZr-ao-dPC" secondAttribute="bottom" constant="8" id="baA-eK-f85"/>
                             <constraint firstItem="YVc-MH-onV" firstAttribute="leading" secondItem="qng-o7-mTC" secondAttribute="leading" id="xmB-al-9oN"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ew2-gt-cXq"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="enterScoreCollectionView" destination="YVc-MH-onV" id="fcp-kA-Ida"/>
@@ -299,6 +305,6 @@
     <resources>
         <image name="grass" width="271" height="186"/>
         <image name="grass1" width="284" height="177"/>
-        <image name="grass_fringe" width="4101" height="725"/>
+        <image name="grass_fringe" width="3912" height="444"/>
     </resources>
 </document>
