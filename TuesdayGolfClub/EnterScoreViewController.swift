@@ -9,14 +9,21 @@
 import UIKit
 import CoreData
 
+protocol handleScoreDataDelegate {
+    func saveScores()
+}
+
+
 class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
     //MARK: -
     //MARK: Properties
     
     var playerName: String?
-    
     var players = [[Golfer]]()
+    // Temp score holder
+    var playersScores = [String:Int]()
+    
     
     @IBOutlet weak var enterScoreCollectionView: UICollectionView!
     
@@ -159,14 +166,24 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                     
                     let cell = enterScoreCollectionView.cellForItemAtIndexPath(cellIndexPath) as! EnterScoreCollectionViewCell
                     
-                    if let tournee = cell.golfer?.playsInA ,
-                    let golfer = cell.golfer {
-                         golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
+                    //  let tournee = cell.golfer?.playsInA ,
+                    
+                    if let golfer = cell.golfer {
+//                         golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
+                        playersScores.updateValue(Int(cell.scoreTextField.text!)!, forKey: golfer.name!)
+                        //playersScores[golfer.name!] = Int(cell.scoreTextField.text!)
+                        
+                        // DEBUG
+                        print("CELL GOLFER :-> \(cell.golfer)")
+                        print("GOLFER :-> \(golfer)")
                     }
                     
                 }
   
             }
+            
+            print("S C O R E S :-> \(playersScores)")
+            
             
             let tmpContext = players.first?.first?.managedObjectContext
             

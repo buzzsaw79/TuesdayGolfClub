@@ -106,6 +106,6 @@ class EnterScoreHeaderView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.headerColour()
     }
 }
