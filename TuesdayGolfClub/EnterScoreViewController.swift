@@ -28,14 +28,13 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var enterScoreCollectionView: UICollectionView!
     
     @IBAction func saveButton() {
+        let sortedByPlayersScoreArray = playersScores.sort { $0.1 > $1.1 }
+        
+        
+        
         // DEBUG
-//        print("Save button pressed!")
-        
-       var indexPaths = enterScoreCollectionView.indexPathsForVisibleItems()
-        
-        
-        let a = enterScoreCollectionView.cellForItemAtIndexPath(indexPaths.popLast()!)
-   
+        print("Save button pressed!")
+        print("🏁 sortedByPlayersScoreArray 🏁 -> \(sortedByPlayersScoreArray)")
     }
     
     
@@ -147,75 +146,39 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         if segue.identifier == "back2" {
             // Triggered by Unwind segue when "Save" button clicked
-            
-            // DEBUG
-            print("BACK BACK")
+            let playersVC = segue.destinationViewController as! PlayersTableViewController
             
             let numberOfSections = enterScoreCollectionView.numberOfSections()
-//            enterScoreCollectionView.numberOfItemsInSection(numberOfSections)
-            
             for section in 1...numberOfSections {
                 let sectionIndex = section - 1
-                // DEBUG
-                print("sectionIndex: \(sectionIndex)")
+                
                 for item in 1...enterScoreCollectionView.numberOfItemsInSection(sectionIndex) {
                     let cellIndex = item - 1
-                    // DEBUG
-                    print("cellIndex: \(cellIndex)")
                     let cellIndexPath = NSIndexPath(forItem: cellIndex, inSection: sectionIndex)
-                    
                     let cell = enterScoreCollectionView.cellForItemAtIndexPath(cellIndexPath) as! EnterScoreCollectionViewCell
                     
-                    //  let tournee = cell.golfer?.playsInA ,
-                    
-                    if let golfer = cell.golfer {
-//                         golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
-                        playersScores.updateValue(Int(cell.scoreTextField.text!)!, forKey: golfer.name!)
-                        //playersScores[golfer.name!] = Int(cell.scoreTextField.text!)
+                    // Get score data from collectionview cells
+                    if let golfer = cell.golfer, let targetCell = playersVC.tableView.cellForRowAtIndexPath(cellIndexPath) {
+                        //                  golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
                         
-                        // DEBUG
-                        print("CELL GOLFER :-> \(cell.golfer)")
-                        print("GOLFER :-> \(golfer)")
+                        playersScores.updateValue(Int(cell.scoreTextField.text!)!, forKey: golfer.name!)
+                        targetCell.detailTextLabel?.text = cell.scoreTextField.text
+                        targetCell.setNeedsDisplay()
                     }
                     
                 }
-  
+                
             }
             
             print("S C O R E S :-> \(playersScores)")
             
-            
-            let tmpContext = players.first?.first?.managedObjectContext
-            
-            _ = try? tmpContext?.save()
-            
-            
-            
-            
-            
-            
-            
-            // Get score data from collectionview cells
-            let playersVC = segue.destinationViewController as! PlayersTableViewController
-            let indexPaths = enterScoreCollectionView.indexPathsForVisibleItems()
-            
-            for aPath in indexPaths {
-                let cell = enterScoreCollectionView.cellForItemAtIndexPath(aPath) as! EnterScoreCollectionViewCell
-                let score = cell.scoreTextField.text
-                
-                if let targetCell = playersVC.tableView.cellForRowAtIndexPath(aPath) {
-                    targetCell.detailTextLabel?.text = score
-                    // DEBUG
-                    print("SCORE: \(targetCell.detailTextLabel!.text!)")
-                    //playersVC.tableView.reloadData()
-                    targetCell.setNeedsDisplay()
-                }
-            }
-            
-            
         }
         
     }
+    
+    
+    
+    
     
     // Called when navigation controller Back button pressed
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
