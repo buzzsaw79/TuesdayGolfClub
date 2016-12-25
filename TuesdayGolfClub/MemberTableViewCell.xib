@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="65"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="64.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="64"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="bottom" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="bXz-1b-ZH0">
@@ -31,42 +35,27 @@
                                     <constraint firstAttribute="height" constant="32" id="Ifa-E5-M5C"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="20"/>
-                                <color key="textColor" red="0.93333339689999995" green="0.32941177490000001" blue="0.15686275059999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="textColor" red="0.90519493818283081" green="0.23824572563171387" blue="0.12217423319816589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="18.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CX-Ov-V6R">
                                 <rect key="frame" x="231" y="23" width="53" height="32"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="27"/>
-                                <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="shadowColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="CaC-mV-i57" firstAttribute="centerY" secondItem="bXz-1b-ZH0" secondAttribute="centerY" id="BXK-8S-g8X"/>
-                            <constraint firstAttribute="trailing" secondItem="CaC-mV-i57" secondAttribute="trailing" constant="244" id="pjk-YJ-g3o"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="pjk-YJ-g3o"/>
-                            </mask>
-                        </variation>
                     </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="bXz-1b-ZH0" secondAttribute="trailing" id="B3Y-z7-Jeg"/>
                     <constraint firstItem="bXz-1b-ZH0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Fmj-gA-hEe"/>
                     <constraint firstItem="5CX-Ov-V6R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="23" id="SzJ-XH-QmG"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="5CX-Ov-V6R" secondAttribute="trailing" constant="-1" id="U9a-ci-y0W"/>
                     <constraint firstItem="bXz-1b-ZH0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="l3a-Xn-ukp"/>
                     <constraint firstAttribute="bottomMargin" secondItem="bXz-1b-ZH0" secondAttribute="bottom" constant="-6.5" id="lLR-vq-oQ0"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="U9a-ci-y0W"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="memberHandicapLabel" destination="5CX-Ov-V6R" id="LAA-md-Cjp"/>

@@ -9,20 +9,20 @@
 import Foundation
 
 
-extension NSDate {
+extension Date {
     
-    class func todayAsString() -> String {
+    static func todayAsString() -> String {
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .ShortStyle
-        dateFormatter.timeStyle = .NoStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
         
-        let today = NSDate()
+        let today = Date()
         
         // UK English Locale (en_GB)
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB")
+        dateFormatter.locale = Locale(identifier: "en_GB")
         
-        return dateFormatter.stringFromDate(today)
+        return dateFormatter.string(from: today)
     }
     
     

@@ -28,7 +28,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var enterScoreCollectionView: UICollectionView!
     
     @IBAction func saveButton() {
-        let sortedByPlayersScoreArray = playersScores.sort { $0.1 > $1.1 }
+        let sortedByPlayersScoreArray = playersScores.sorted { $0.1 > $1.1 }
         
         
         
@@ -61,16 +61,17 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     //MARK: -
     //MARK: UICollectionViewDataSource
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return players.count
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return players.count
+        return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return players[section].count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = enterScoreCollectionView.dequeueReusableCellWithReuseIdentifier(Constants.Storyboard.EnterScoreCellIdentifier, forIndexPath: indexPath) as! EnterScoreCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = enterScoreCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.Storyboard.EnterScoreCellIdentifier, for: indexPath) as! EnterScoreCollectionViewCell
         
         
         cell.golfer = self.players[indexPath.section][indexPath.row]
@@ -81,8 +82,8 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "EnterScoreHeaderView", forIndexPath: indexPath) as! EnterScoreHeaderView
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EnterScoreHeaderView", for: indexPath) as! EnterScoreHeaderView
         
         
         var headerTitleString = ""
@@ -108,30 +109,30 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     //MARK: -
     //MARK: UICollectionViewDelegateFlowLayout
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let headerSizeWidth = self.view.bounds.width
         let headerSizeHeight = CGFloat(48)
-        return CGSizeMake(headerSizeWidth, headerSizeHeight)
+        return CGSize(width: headerSizeWidth, height: headerSizeHeight)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let aSize = (self.view.bounds.width - 32.0)/3
-        let cellSize = CGSizeMake(aSize, aSize)
+        let cellSize = CGSize(width: aSize, height: aSize)
         return cellSize
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8.0
     }
     
     var CVCCount = 0
     
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         CVCCount = CVCCount + 1
         
@@ -142,23 +143,23 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     // MARK:
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "back2" {
             // Triggered by Unwind segue when "Save" button clicked
-            let playersVC = segue.destinationViewController as! PlayersTableViewController
+            let playersVC = segue.destination as! PlayersTableViewController
             
-            let numberOfSections = enterScoreCollectionView.numberOfSections()
-            for section in 1...numberOfSections {
-                let sectionIndex = section - 1
+            let numberOfSections = enterScoreCollectionView.numberOfSections
+            for section in 0..<numberOfSections {
+                let sectionIndex = section
                 
-                for item in 1...enterScoreCollectionView.numberOfItemsInSection(sectionIndex) {
-                    let cellIndex = item - 1
-                    let cellIndexPath = NSIndexPath(forItem: cellIndex, inSection: sectionIndex)
-                    let cell = enterScoreCollectionView.cellForItemAtIndexPath(cellIndexPath) as! EnterScoreCollectionViewCell
+                for item in 0..<enterScoreCollectionView.numberOfItems(inSection: sectionIndex) {
+                    let cellIndex = item
+                    let cellIndexPath = IndexPath(item: cellIndex, section: sectionIndex)
+                    let cell = enterScoreCollectionView.cellForItem(at: cellIndexPath) as! EnterScoreCollectionViewCell
                     
                     // Get score data from collectionview cells
-                    if let golfer = cell.golfer, let targetCell = playersVC.tableView.cellForRowAtIndexPath(cellIndexPath) {
+                    if let golfer = cell.golfer, let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) {
                         //                  golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
                         
                         playersScores.updateValue(Int(cell.scoreTextField.text!)!, forKey: golfer.name!)
@@ -181,7 +182,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     // Called when navigation controller Back button pressed
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         
         if let controller = viewController as? PlayersTableViewController {
             print("Did we press the BACK buton?")

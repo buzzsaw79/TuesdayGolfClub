@@ -25,6 +25,7 @@
 		30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988961D7A0E7C009EC210 /* Tournee.swift */; };
 		30C988A01D824583009EC210 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C9889F1D824583009EC210 /* Alert.swift */; };
 		30C988A21D82C571009EC210 /* today.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988A11D82C571009EC210 /* today.swift */; };
+		30F8E6581E08A48A008CD83F /* AddGolfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F8E6571E08A48A008CD83F /* AddGolfViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		30C988961D7A0E7C009EC210 /* Tournee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tournee.swift; sourceTree = "<group>"; };
 		30C9889F1D824583009EC210 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		30C988A11D82C571009EC210 /* today.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = today.swift; sourceTree = "<group>"; };
+		30F8E6571E08A48A008CD83F /* AddGolfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGolfViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				30C988931D79DB49009EC210 /* PlayersTableViewController.swift */,
 				3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */,
 				309D02D11D8FE71200853626 /* EnterScoreViewController.swift */,
+				30F8E6571E08A48A008CD83F /* AddGolfViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				TargetAttributes = {
 					3024A3781D7175E90005804F = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -214,6 +218,7 @@
 				3024A3A01D7657C30005804F /* UIColor+CustomColors.swift in Sources */,
 				30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */,
 				30C988941D79DB49009EC210 /* PlayersTableViewController.swift in Sources */,
+				30F8E6581E08A48A008CD83F /* AddGolfViewController.swift in Sources */,
 				30C988971D7A0E7C009EC210 /* Tournee+CoreDataProperties.swift in Sources */,
 				30C988A21D82C571009EC210 /* today.swift in Sources */,
 				3024A3971D7598800005804F /* Golfer.swift in Sources */,
@@ -339,6 +344,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKA.TuesdayGolfClub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -350,6 +356,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKA.TuesdayGolfClub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

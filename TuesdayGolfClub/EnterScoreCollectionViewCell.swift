@@ -12,7 +12,7 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
     //MARK: -
     //MARK: Properties
     
-    private var picker = UIPickerView()
+    fileprivate var picker = UIPickerView()
     
     var pickerViewScoreData = [Int]()
     
@@ -36,7 +36,7 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
         }
     }
     
-    func tagScoreTextField(textField: UITextField) -> UITextField {
+    func tagScoreTextField(_ textField: UITextField) -> UITextField {
         return UITextField()
     }
     
@@ -45,12 +45,12 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
         super.awakeFromNib()
         
     
-    let reducedTextRect = CGRectMake(scoreTextField.frame.minX, scoreTextField.frame.minY, scoreTextField.frame.width/2, scoreTextField.frame.height/4)
+    let reducedTextRect = CGRect(x: scoreTextField.frame.minX, y: scoreTextField.frame.minY, width: scoreTextField.frame.width/2, height: scoreTextField.frame.height/4)
     
     scoreTextField.delegate = self
     scoreTextField.adjustsFontSizeToFitWidth = true
     scoreTextField.placeholder = "Score"
-    scoreTextField.drawPlaceholderInRect(reducedTextRect)
+    scoreTextField.drawPlaceholder(in: reducedTextRect)
     
     playerNameLabel.adjustsFontSizeToFitWidth = true
     
@@ -63,30 +63,30 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
     
     picker.selectRow(pickerViewScoreData.count/2, inComponent: 0, animated: true)
     scoreTextField.inputView = picker
-        if scoreTextField.hasText() {
-            let tempScoreHolder = scoreTextField.text
-        }
+//        if !scoreTextField.hasText {
+//            scoreTextField.text = "0"
+//        }
     }
     
     
     //MARK: -
     //MARK: PickerView Delegate
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         return pickerViewScoreData.count
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         scoreTextField.text = String(pickerViewScoreData[row])
         scoreTextField.resignFirstResponder()
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return String(pickerViewScoreData[row])
     }
     

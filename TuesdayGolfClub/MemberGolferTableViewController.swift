@@ -14,13 +14,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     //MARK: -
     //MARK: Properties
     lazy var context: NSManagedObjectContext = {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.managedObjectContext
     }()
     
-    var fetchedResultsController: NSFetchedResultsController!
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     
-    var fetchRequest: NSFetchRequest?
+    var fetchRequest: NSFetchRequest<NSFetchRequestResult>?
     
     var players = [Golfer]()
     
@@ -28,27 +28,27 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     //MARK: -
     //MARK: IBActions
-    @IBAction func startTournee(sender: UIBarButtonItem) {
+    @IBAction func startTournee(_ sender: UIBarButtonItem) {
         
         // Create new Tournee
-        let entity = NSEntityDescription.entityForName(Constants.Entity.tourneeEntityString, inManagedObjectContext: self.context)
-        self.tournee = Tournee(entity: entity!, insertIntoManagedObjectContext: self.context)
+        let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.tourneeEntityString, in: self.context)
+        self.tournee = Tournee(entity: entity!, insertInto: self.context)
         
         self.tournee.course = Constants.courses.mack  //"Mackintosh"
-        self.tournee.date = NSDate()
-        self.tournee.day = NSDate.todayAsString()
-        self.tournee.mutableSetValueForKey("hasEntrants").addObjectsFromArray(self.players)
+        self.tournee.date = Date()
+        self.tournee.day = Date.todayAsString()
+        self.tournee.mutableSetValue(forKey: "hasEntrants").addObjects(from: self.players)
         self.tournee.entryFee = 9
         self.tournee.scores = [:]
-        self.tournee.completed = NSNumber(bool: false)
+        self.tournee.completed = NSNumber(value: false as Bool)
         
         let prizeFundInt = (tournee.hasEntrants?.count)! * Int(self.tournee.entryFee!)
         
-        self.tournee.prizeFund = NSDecimalNumber.init(integer: prizeFundInt)
+        self.tournee.prizeFund = NSDecimalNumber.init(value: prizeFundInt as Int)
         
         
         // DEBUG
-//        print("Tournee ID: \(self.tournee.objectID)")
+        //        print("Tournee ID: \(self.tournee.objectID)")
         
         
         do {
@@ -57,46 +57,46 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             print("Error saving tournee \(error.localizedDescription)")
         }
         
-        performSegueWithIdentifier("getPlayers", sender: self.tournee)
+        performSegue(withIdentifier: "getPlayers", sender: self.tournee)
         
         // DEBUG
         //printTournees()
-//        printGolfersAndPlayers()
+        //        printGolfersAndPlayers()
         
     }
     
-    @IBAction func addGolfer(sender: UIBarButtonItem) {
+    @IBAction func addGolfer(_ sender: UIBarButtonItem) {
         
         // Create AlertController
-        let alert = UIAlertController(title: "Add Golfer", message: nil, preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Add Golfer", message: nil, preferredStyle: .alert)
         
         // Add Textfield to Alert
-        alert.addTextFieldWithConfigurationHandler { (golferName) -> Void in
+        alert.addTextField { (golferName) -> Void in
             
             golferName.placeholder = "Enter Golfer Name"
         }
         
         // Add another Textfield to Alert
-        alert.addTextFieldWithConfigurationHandler { (golferHandicap) -> Void in
+        alert.addTextField { (golferHandicap) -> Void in
             golferHandicap.placeholder = "Enter Golfer Handicap"
         }
         // the add action for the textfield
-        let addAction = UIAlertAction(title: "Add", style: .Default) { _ in
-            let entity = NSEntityDescription.entityForName(Constants.Entity.golferEntityString, inManagedObjectContext: self.context)
-            let golfer = Golfer(entity: entity!, insertIntoManagedObjectContext: self.context)
+        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
+            let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.golferEntityString, in: self.context)
+            let golfer = Golfer(entity: entity!, insertInto: self.context)
             let nameTextField = alert.textFields?.first
             let handicapTextField = alert.textFields?.last
             golfer.name = nameTextField?.text
             
             
             golfer.membershipNumber = "123456"
-            golfer.clubHandicap = NSDecimalNumber(string: handicapTextField?.text) ?? 0.0
-            golfer.playingHandicap = golfer.clubHandicap?.decimalNumberByRoundingAccordingToBehavior(nil)
-//            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
+            golfer.clubHandicap = NSDecimalNumber(string: handicapTextField?.text) 
+            golfer.playingHandicap = golfer.clubHandicap?.rounding(accordingToBehavior: nil)
+            //            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
             
             
             
-            if let fullName = golfer.name?.componentsSeparatedByString(" ") {
+            if let fullName = golfer.name?.components(separatedBy: " ") {
                 
                 golfer.firstName = fullName.first!
                 golfer.surname = fullName.last!
@@ -112,23 +112,23 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         }
         
         // the cancel action for the textfield
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         // add the actions to the alert
         alert.addAction(cancelAction)
         alert.addAction(addAction)
         
         // present the alert
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
-
+    
     //MARK: -
     //MARK: View Conroller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fetchGolferRequest = NSFetchRequest(entityName: Constants.Entity.golferEntityString)
+        let fetchGolferRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.Entity.golferEntityString)
         let fetchGolferSort = NSSortDescriptor(key: "clubHandicap", ascending: true)
         fetchGolferRequest.sortDescriptors = [fetchGolferSort]
         
@@ -143,17 +143,17 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         // registering cell nib
         let memTVCNib = UINib(nibName: "MemberTableViewCell", bundle: nil)
-        tableView.registerNib(memTVCNib, forCellReuseIdentifier: "golferCell")
+        tableView.register(memTVCNib, forCellReuseIdentifier: "golferCell")
         
         fetchRequest = fetchGolferRequest
         
         // DEBUG
-//        printGolfersAndPlayers()
-//        printTournees()
-
+        //        printGolfersAndPlayers()
+        //        printTournees()
+        
     }
-
-    override func viewDidAppear(animated: Bool) {
+    
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
@@ -162,96 +162,96 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     //MARK: -
     //MARK: FetchedResultController Delegate
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
-        case .Insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Automatic)
-        case .Delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Automatic)
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
         default:
             break
         }
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
         default:
             break
         }
     }
-
+    
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         guard let sectionCount = fetchedResultsController.sections?.count else {
             return 0
         }
         return sectionCount
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionData = fetchedResultsController.sections?[section] else {
             return 0
         }
         return sectionData.numberOfObjects
     }
-
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Get Golfer object
-        let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
-        let cell:MemberTableViewCell! = tableView.dequeueReusableCellWithIdentifier("golferCell", forIndexPath: indexPath) as! MemberTableViewCell
-
+        let golfer = fetchedResultsController.object(at: indexPath) as! Golfer
+        let cell:MemberTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "golferCell", for: indexPath) as! MemberTableViewCell
+        
         //Configure the cell...
         cell.memberNamelabel?.text = golfer.name
-        cell.memberHandicapLabel?.text = String(golfer.clubHandicap ?? 0.0)
-
+        cell.memberHandicapLabel?.text = String(describing: golfer.clubHandicap ?? 0.0)
+        
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-        let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let golfer = fetchedResultsController.object(at: indexPath) as! Golfer
         players.append(golfer)
-
-    
+        
+        
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
-        let cell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
-        cell.textLabel?.textColor = UIColor.redColor()
+        let cell = tableView.cellForRow(at: indexPath)! as UITableViewCell
+        cell.textLabel?.textColor = UIColor.red
         cell.setNeedsDisplay()
         
-        let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
-
-        let index = players.indexOf(golfer)
-        players.removeAtIndex(index!)
+        let golfer = fetchedResultsController.object(at: indexPath) as! Golfer
+        
+        let index = players.index(of: golfer)
+        players.remove(at: index!)
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         switch editingStyle {
-        case .Delete:
-            let golfer = fetchedResultsController.objectAtIndexPath(indexPath) as! Golfer
-            context.deleteObject(golfer)
+        case .delete:
+            let golfer = fetchedResultsController.object(at: indexPath) as! Golfer
+            context.delete(golfer)
             do {
                 try context.save()
             } catch let error as NSError {
@@ -262,45 +262,45 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         }
     }
     
- 
-
+    
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     
     // Override to support editing the table view.
     
     
-
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "getPlayers" {
             
-            let playersController = segue.destinationViewController as! PlayersTableViewController
+            let playersController = segue.destination as! PlayersTableViewController
             
             do {
                 try self.context.save()
@@ -313,15 +313,17 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             
         }
     }
- 
+    
     
     //MARK: -
     //MARK: Helper Functions
     
-    private func printGolfersAndPlayers() {
+    fileprivate func printGolfersAndPlayers() {
         
-        context.performBlock {
-            if let results = try? self.context.executeFetchRequest(self.fetchRequest!) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Golfer")
+        
+        context.perform {
+            if let results = try? self.context.fetch(request) {
                 print("\(results.count) Golfers")
                 print("in managedObjectContext \(self.context)")
                 
@@ -336,12 +338,12 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
     }
     
-    private func printTournees() {
+    fileprivate func printTournees() {
         
-        let request = NSFetchRequest(entityName: "Tournee")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tournee")
         
-        context.performBlock {
-            if let results = try? self.context.executeFetchRequest(request) {
+        context.perform {
+            if let results = try? self.context.fetch(request) {
                 // DEBUG
                 print("\(results.count) Tournees in managedObjectContext \(self.context)")
                 
@@ -351,22 +353,22 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                     
                     // DEBUG
                     print("\(tournee.day!) \(tournee.course!) \(tournee.hasEntrants)")
-
-                    // Delete Tournee's
-//                    self.context.deleteObject(tournee)
-//
-//                    do {
-//                        try self.context.save()
-//                    } catch {
-//                        print("Couldn't save after deleting tournees")
-//                    }
                     
-//                    for object  in tournee.hasEntrants!  {
-//                        if let golfer = object as? Golfer  {
-//                            // DEBUG
-//                            print("Golfer in hasEntrants \(golfer)")
-//                        }
-//                    }
+                    // Delete Tournee's
+                    //                    self.context.deleteObject(tournee)
+                    //
+                    //                    do {
+                    //                        try self.context.save()
+                    //                    } catch {
+                    //                        print("Couldn't save after deleting tournees")
+                    //                    }
+                    
+                    //                    for object  in tournee.hasEntrants!  {
+                    //                        if let golfer = object as? Golfer  {
+                    //                            // DEBUG
+                    //                            print("Golfer in hasEntrants \(golfer)")
+                    //                        }
+                    //                    }
                     
                 }
                 
@@ -376,6 +378,6 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         
     }
-     
-
+    
+    
 }

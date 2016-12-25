@@ -18,7 +18,7 @@ class PlayersTableViewController: UITableViewController {
     var theGroups = [[Int]]()
     
     lazy var context: NSManagedObjectContext = {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.managedObjectContext
     }()
     
@@ -43,25 +43,30 @@ class PlayersTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // DEBUG
         //print("didSelectRowAtIndexPath \(indexPath)")
+        
+        let sectionNo = indexPath.section
+        
+        
+        
     }
     
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return theGroups.count
     }
     
     
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return theGroups[section].count
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("playerCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath)
 
         configureCell(cell, indexPath: indexPath)
         
@@ -72,14 +77,14 @@ class PlayersTableViewController: UITableViewController {
             let golfer = groups[indexPath.section][indexPath.row]
             
             cell.textLabel?.text = golfer.name
-            cell.detailTextLabel?.text = String(golfer.playingHandicap!)
+            cell.detailTextLabel?.text = String(describing: golfer.playingHandicap!)
         }
   
         return cell
     }
 
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         var headerTitleString = ""
         switch section {
@@ -97,12 +102,12 @@ class PlayersTableViewController: UITableViewController {
         return headerTitleString
     }
     
-    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
         let headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel?.textAlignment = .Center
-        headerView.textLabel?.textColor = UIColor.whiteColor()
+        headerView.textLabel?.textAlignment = .center
+        headerView.textLabel?.textColor = UIColor.white
         headerView.backgroundView?.backgroundColor = UIColor.headerColour()
 
     }
@@ -146,12 +151,12 @@ class PlayersTableViewController: UITableViewController {
     
      // MARK: - Navigation
     
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // DEBUG
 //        print("PTVC Prepare for Seque")
         
         if segue.identifier == "enterScore" {
-            if let enterScoreVC = segue.destinationViewController as? EnterScoreViewController {
+            if let enterScoreVC = segue.destination as? EnterScoreViewController {
                 let playerCell = sender as! UITableViewCell
                 
                 let golfer = Golfer.fetchGolferWithName(playerCell.textLabel!.text!, inManagedObjectContext: self.context)
@@ -170,9 +175,15 @@ class PlayersTableViewController: UITableViewController {
         
      }
     
-    @IBAction func back2(segue: UIStoryboardSegue) {
+    @IBAction func back2(_ segue: UIStoryboardSegue) {
         // DEBUG
 //        print("Unwinding")
+        
+        if segue.identifier == "back2" {
+            // do something
+            print("Should do something here!")
+        }
+        
     }
     
     
@@ -180,7 +191,7 @@ class PlayersTableViewController: UITableViewController {
     //MARK: -
     //MARK: Helper Functions
     
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+    func configureCell(_ cell: UITableViewCell, indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = UIColor.evenCellColour()
@@ -196,7 +207,7 @@ class PlayersTableViewController: UITableViewController {
         
     }
 
-    func populateGroups(players:Int) {
+    func populateGroups(_ players:Int) {
         
         switch players {
         case 3: theGroups = [[1,2,3]]
@@ -222,7 +233,7 @@ class PlayersTableViewController: UITableViewController {
     
 
     
-    func randomiseGolfers(players:[Golfer]) -> [[Golfer]] {
+    func randomiseGolfers(_ players:[Golfer]) -> [[Golfer]] {
         
         self.populateGroups(players.count)
         
@@ -234,15 +245,15 @@ class PlayersTableViewController: UITableViewController {
 
         if !golfers.isEmpty {
             
-            for (outerIndex, aGroup) in theGroups.enumerate() {
+            for (outerIndex, aGroup) in theGroups.enumerated() {
                 
                 playingGroups.append([Golfer]())
                 
-                for (_, _) in aGroup.enumerate() {
+                for (_, _) in aGroup.enumerated() {
                     
                     // get random golfer from array
                     let randomIndex = Int(arc4random_uniform(UInt32(golfers.count)))
-                    let golfer = golfers.removeAtIndex(randomIndex)
+                    let golfer = golfers.remove(at: randomIndex)
                     
                     // DEBUG - Check array has golfers in it
                     // print("randomiseGolfers() -> \(golfer.name!) \(golfer.clubHandicap!)")

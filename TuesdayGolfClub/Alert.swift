@@ -60,25 +60,25 @@ struct Constants {
 class alert: NSObject {
     
     
-    static func show(title: String, message: String, vc: UIViewController) {
+    static func show(_ title: String, message: String, vc: UIViewController) {
         
         
         // Create the Controller
-        let alertCtrl = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertCtrl = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         //        alertCtrl.view.translatesAutoresizingMaskIntoConstraints = false
         
         // Create the alert Action
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
             (alert: UIAlertAction) -> Void in
-            alertCtrl.dismissViewControllerAnimated(true, completion: nil)
+            alertCtrl.dismiss(animated: true, completion: nil)
         }
         
         // Ad Alert Actions to lert Controller
         alertCtrl.addAction(okAction)
         
         // Display Alert Controller
-        vc.presentViewController(alertCtrl, animated: true, completion: nil)
+        vc.present(alertCtrl, animated: true, completion: nil)
         
         
     }

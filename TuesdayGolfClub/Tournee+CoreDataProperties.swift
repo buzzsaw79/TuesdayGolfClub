@@ -15,7 +15,7 @@ import CoreData
 extension Tournee {
 
     @NSManaged var course: String?
-    @NSManaged var date: NSDate?
+    @NSManaged var date: Date?
     @NSManaged var day: String?
     @NSManaged var entryFee: NSDecimalNumber?
     @NSManaged var par3Winners: NSObject?

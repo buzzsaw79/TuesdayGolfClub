@@ -30,7 +30,7 @@ class Golfer: NSManagedObject {
         let golferHandicaps = [18.7, 17.8, 20.2, 20.1, 10.7, 18.4]
         
         if golferHandicaps.count == golferNames.count {
-            for (index, aName) in golferNames.enumerate() {
+            for (index, aName) in golferNames.enumerated() {
                 self.golferDictionary.updateValue(golferHandicaps[index], forKey: aName)
                 
             }
@@ -44,11 +44,11 @@ class Golfer: NSManagedObject {
         
     }
 
-    class func golferInTournee(tournee: Tournee, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
+    class func golferInTournee(_ tournee: Tournee, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
         // DEBUG
         //print("Golfer.golferInTournee")
         
-        let golferRequest = NSFetchRequest(entityName: "Golfer")
+        let golferRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Golfer")
         
         if let golfer = tournee.hasEntrants?.allObjects[0] as! Golfer? {
         
@@ -64,25 +64,25 @@ class Golfer: NSManagedObject {
     }
     
     
-    class func fetchGolferWithName(name: String, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
+    class func fetchGolferWithName(_ name: String, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
         // DEBUG
         //print("Golfer.fetchGolferWithName")
         
         
-        let golferNameRequest = NSFetchRequest(entityName: Constants.Entity.golferEntityString)
+        let golferNameRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.Entity.golferEntityString)
         golferNameRequest.predicate = NSPredicate(format: "name = %@", name)
         
-        if let golfer = (try? context.executeFetchRequest(golferNameRequest))?.last as? Golfer {
+        if let golfer = (try? context.fetch(golferNameRequest))?.last as? Golfer {
             // Tournee() producing null results
             
-            if let tourneeDescription = NSEntityDescription.entityForName("Tournee", inManagedObjectContext: context)
+            if let tourneeDescription = NSEntityDescription.entity(forEntityName: "Tournee", in: context)
             {
                 
-              let tourneeRequest = NSFetchRequest(entityName: Constants.Entity.tourneeEntityString)
-                tourneeRequest.predicate = NSPredicate(format: "day = %@", NSDate.todayAsString())
+              let tourneeRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.Entity.tourneeEntityString)
+                tourneeRequest.predicate = NSPredicate(format: "day = %@", Date.todayAsString())
                 
                 do {
-                    try context.executeFetchRequest(tourneeRequest)
+                    try context.fetch(tourneeRequest)
                 } catch {
                     
                 }
