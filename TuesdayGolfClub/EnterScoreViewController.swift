@@ -62,8 +62,8 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     //MARK: UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return players.count
-        return 1
+        return players.count
+//        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -105,30 +105,84 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         return headerView
     }
+    /*
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        // if indexPath contains the specified section AND
+        //    the condition for hiding this section is `true`
+        //       return CGFloat(0)
+        // else
+        //    return super.tableView(tableView, heightForRowAt: indexPath)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        // similar logic to set header height
+    }
+    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //MARK: -
     //MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        if section == 1 {
+            
         let headerSizeWidth = self.view.bounds.width
         let headerSizeHeight = CGFloat(48)
         return CGSize(width: headerSizeWidth, height: headerSizeHeight)
+        
+        
+            
+        } else {
+            return CGSize(width: 0, height: 0)
+        }
+        
+        
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+        if indexPath.section == 1 {
         let aSize = (self.view.bounds.width - 32.0)/3
         let cellSize = CGSize(width: aSize, height: aSize)
-        return cellSize
+            return cellSize
+        } else {
+            return CGSize(width: 0, height: 0)
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        
+//        return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
+//        
+////        if section == 1 {
+////            return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
+////        } else {
+////            return UIEdgeInsetsMake(0, 0, 0, 0)
+////        }
+//    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8.0
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+////        if section == 1 {
+////            return CGFloat(0)
+////        } else {
+////            return CGFloat(8.0)
+////        }
+//        
+//        return CGFloat(8.0)
+//    }
     
     var CVCCount = 0
     
@@ -161,9 +215,11 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                     // Get score data from collectionview cells
                     if let golfer = cell.golfer, let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) {
                         //                  golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
-                        
-                        playersScores.updateValue(Int(cell.scoreTextField.text!)!, forKey: golfer.name!)
+                        // Causes crash when enterScoreVC cell are empty
+                        playersScores.updateValue(Int(cell.scoreTextField.text!) ?? 0, forKey: golfer.name!)
                         targetCell.detailTextLabel?.text = cell.scoreTextField.text
+                        targetCell.detailTextLabel?.textColor = UIColor.richRed()
+                        targetCell.detailTextLabel?.attributedText?.size()
                         targetCell.setNeedsDisplay()
                     }
                     

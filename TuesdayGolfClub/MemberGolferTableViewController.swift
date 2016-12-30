@@ -311,6 +311,8 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             playersController.playersArray = self.players
             playersController.todaysTournee = self.tournee
             
+        } else if segue.identifier == "Add Golfer" {
+            
         }
     }
     

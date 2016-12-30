@@ -48,6 +48,8 @@ class PlayersTableViewController: UITableViewController {
         //print("didSelectRowAtIndexPath \(indexPath)")
         
         let sectionNo = indexPath.section
+        let cell = tableView.cellForRow(at: indexPath)
+        let golfer = groups[indexPath.section][indexPath.row]
         
         
         
@@ -113,6 +115,7 @@ class PlayersTableViewController: UITableViewController {
     }
     
    
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -163,7 +166,7 @@ class PlayersTableViewController: UITableViewController {
                
                 enterScoreVC.playerName = golfer?.name
                 enterScoreVC.players = groups
-                
+                playerCell
                 // DEBUG
 //                print(playerCell.textLabel!.text!)
                 print("golfer \(golfer.debugDescription)")
