@@ -48,7 +48,7 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
         golfer.playingHandicap = golfer.clubHandicap?.rounding(accordingToBehavior: nil)
         //            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
         
-        
+        golfer.image = UIImageJPEGRepresentation(golferImageView.image!, 1.0) as NSData?
         
         if let fullName = golfer.name?.components(separatedBy: " ") {
             

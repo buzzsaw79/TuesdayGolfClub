@@ -2,27 +2,29 @@
 //  Golfer+CoreDataProperties.swift
 //  TuesdayGolfClub
 //
-//  Created by Keith Bamford on 30/11/2016.
-//  Copyright © 2016 AKA Consultants. All rights reserved.
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
+//  Created by Keith Bamford on 20/01/2017.
+//  Copyright © 2017 AKA Consultants. All rights reserved.
 //
 
 import Foundation
 import CoreData
 
+
 extension Golfer {
 
-    @NSManaged var clubHandicap: NSDecimalNumber?
-    @NSManaged var firstName: String?
-    @NSManaged var membershipNumber: String?
-    @NSManaged var name: String?
-    @NSManaged var playingHandicap: NSNumber?
-    @NSManaged var scores: [String:Int]?
-    // @NSManaged var scores: NSObject?
-    @NSManaged var surname: String?
-    @NSManaged var tuesdayHandicap: NSNumber?
-    @NSManaged var playsInA: Tournee?
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Golfer> {
+        return NSFetchRequest<Golfer>(entityName: "Golfer");
+    }
+
+    @NSManaged public var clubHandicap: NSDecimalNumber?
+    @NSManaged public var firstName: String?
+    @NSManaged public var membershipNumber: String?
+    @NSManaged public var name: String?
+    @NSManaged public var playingHandicap: NSNumber?
+    @NSManaged public var scores: NSObject?
+    @NSManaged public var surname: String?
+    @NSManaged public var tuesdayHandicap: NSNumber?
+    @NSManaged public var image: NSData?
+    @NSManaged public var playsInA: Tournee?
 
 }

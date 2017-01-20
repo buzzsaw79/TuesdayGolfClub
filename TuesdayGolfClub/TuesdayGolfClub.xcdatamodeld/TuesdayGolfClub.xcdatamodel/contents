@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="15G1217" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="15G1217" minimumToolsVersion="Xcode 7.3" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Golfer" representedClassName=".Golfer" syncable="YES">
         <attribute name="clubHandicap" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="membershipNumber" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="playingHandicap" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
@@ -23,7 +24,7 @@
         <relationship name="hasEntrants" transient="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="Golfer" inverseName="playsInA" inverseEntity="Golfer" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Golfer" positionX="-351" positionY="-163" width="128" height="180"/>
+        <element name="Golfer" positionX="-351" positionY="-163" width="128" height="195"/>
         <element name="Tournee" positionX="-54" positionY="0" width="128" height="178"/>
     </elements>
 </model>
