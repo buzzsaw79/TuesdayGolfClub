@@ -21,7 +21,7 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
     @IBOutlet weak var scoreTextField: UITextField!
     
     var golfer:Golfer?
-    
+    var isScoreUpdated = false
     
     var unselected: Bool? {
         didSet {
@@ -49,15 +49,16 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
     
     scoreTextField.delegate = self
     scoreTextField.adjustsFontSizeToFitWidth = true
-    scoreTextField.placeholder = "Score"
+    scoreTextField.placeholder = "enter\nscore"
     scoreTextField.drawPlaceholder(in: reducedTextRect)
+
     
     playerNameLabel.adjustsFontSizeToFitWidth = true
     
     picker.dataSource = self
     picker.delegate = self
     
-    for index in 13...48 {
+    for index in 10...51 {
     pickerViewScoreData.append(index)
     }
     
@@ -109,3 +110,5 @@ class EnterScoreHeaderView: UICollectionReusableView {
         self.backgroundColor = UIColor.headerColour()
     }
 }
+
+

@@ -24,13 +24,16 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     // Temp score holder
     var playersScores = [String:Int]()
     
+    weak var cvDelegate: UICollectionViewDelegate?
+    weak var cvDataSource: UICollectionViewDataSource?
+    
     
     @IBOutlet weak var enterScoreCollectionView: UICollectionView!
     
     @IBAction func saveButton() {
+        playersScores = getDataOutOfEntireCollectionView()
+        
         let sortedByPlayersScoreArray = playersScores.sorted { $0.1 > $1.1 }
-        
-        
         
         // DEBUG
         print("Save button pressed!")
@@ -45,8 +48,8 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        enterScoreCollectionView.delegate = self
-        enterScoreCollectionView.dataSource = self
+        enterScoreCollectionView.delegate = self.cvDelegate!
+        enterScoreCollectionView.dataSource = self.cvDataSource!
         
         navigationController?.delegate = self
         // DEBUG
@@ -76,8 +79,11 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         cell.golfer = self.players[indexPath.section][indexPath.row]
         
-        cell.playerNameLabel.text = cell.golfer!.firstName
-        
+        cell.playerNameLabel.text = cell.golfer!.name
+        if cell.isScoreUpdated {
+            
+            cell.scoreTextField.text = "Updated"
+        }
         
         return cell
     }
@@ -103,64 +109,28 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         headerView.sectionHeaderTitle.text = headerTitleString
         
+        
         return headerView
     }
-    /*
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        // if indexPath contains the specified section AND
-        //    the condition for hiding this section is `true`
-        //       return CGFloat(0)
-        // else
-        //    return super.tableView(tableView, heightForRowAt: indexPath)
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
-    {
-        // similar logic to set header height
-    }
-    */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     //MARK: -
     //MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-        if section == 1 {
             
         let headerSizeWidth = self.view.bounds.width
         let headerSizeHeight = CGFloat(48)
         return CGSize(width: headerSizeWidth, height: headerSizeHeight)
-        
-        
-            
-        } else {
-            return CGSize(width: 0, height: 0)
-        }
-        
-        
-        
-        
+  
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 1 {
+        
         let aSize = (self.view.bounds.width - 32.0)/3
         let cellSize = CGSize(width: aSize, height: aSize)
             return cellSize
-        } else {
-            return CGSize(width: 0, height: 0)
-        }
+        
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -210,16 +180,23 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                 for item in 0..<enterScoreCollectionView.numberOfItems(inSection: sectionIndex) {
                     let cellIndex = item
                     let cellIndexPath = IndexPath(item: cellIndex, section: sectionIndex)
-                    let cell = enterScoreCollectionView.cellForItem(at: cellIndexPath) as! EnterScoreCollectionViewCell
+                    // !!! CRASH - cellForItem only returns visible cells !!!
+                    let cell = enterScoreCollectionView.cellForItem(at: cellIndexPath) as? EnterScoreCollectionViewCell
+                    
+                    
                     
                     // Get score data from collectionview cells
-                    if let golfer = cell.golfer, let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) {
+                    if let golfer = cell?.golfer{
+                        let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) as! PlayersTableViewCell
                         //                  golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
                         // Causes crash when enterScoreVC cell are empty
-                        playersScores.updateValue(Int(cell.scoreTextField.text!) ?? 0, forKey: golfer.name!)
-                        targetCell.detailTextLabel?.text = cell.scoreTextField.text
+//                        playersScores.updateValue(Int((cell?.scoreTextField.text!)!) ?? 0, forKey: golfer.name!)
+                        targetCell.textLabel?.text = golfer.name!
+                        targetCell.detailTextLabel?.text = cell?.scoreTextField.text
                         targetCell.detailTextLabel?.textColor = UIColor.richRed()
                         targetCell.detailTextLabel?.attributedText?.size()
+                        targetCell.isSelected = true
+                        targetCell.isScoreUpdated = true
                         targetCell.setNeedsDisplay()
                     }
                     
@@ -232,6 +209,41 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         
     }
+    
+    
+    func getDataOutOfEntireCollectionView() -> [String:Int] {
+        var playersScores = [String:Int]()
+        
+        // Store original CV frame and get content size
+        let refCVOrigin = self.enterScoreCollectionView.frame.origin
+        let refCVSize = self.enterScoreCollectionView.frame.size
+        let contentSize = self.enterScoreCollectionView.collectionViewLayout.collectionViewContentSize
+        
+        // expand CV size to match content size and redraw it
+        self.enterScoreCollectionView.frame = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
+        self.enterScoreCollectionView.collectionViewLayout.invalidateLayout()
+        self.enterScoreCollectionView.reloadData()
+        
+        // Attempt to Get data from EnterScoreCollectionViewCell
+        let allCells:[EnterScoreCollectionViewCell] = self.enterScoreCollectionView.visibleCells as! [EnterScoreCollectionViewCell]
+        
+        print("all Cells count = \(allCells.count)")
+        
+        for scoreCell in allCells {
+            let golfer = scoreCell.golfer!
+            let scoreString = scoreCell.scoreTextField.text!
+//            playersScores.updateValue(Int(scoreString)!, forKey: golfer.name!)
+            playersScores.updateValue(Int((scoreCell.scoreTextField.text!)) ?? 0, forKey: golfer.name!)
+        }
+        
+        
+        // restore original CV frame
+        self.enterScoreCollectionView.frame = CGRect(x: refCVOrigin.x, y: refCVOrigin.y, width: refCVSize.width, height: refCVSize.height)
+        
+        
+        return playersScores
+    }
+    
     
     
     
@@ -247,6 +259,5 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
             print("Number of groups is: \(noOfGroups)")
         }
     }
-    
     
 }

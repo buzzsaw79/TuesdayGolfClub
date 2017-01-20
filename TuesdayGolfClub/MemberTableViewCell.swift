@@ -10,13 +10,15 @@ import UIKit
 
 class MemberTableViewCell: UITableViewCell {
     
-    
+    //MARK: -
+    //MARK: Outlets
     @IBOutlet weak var memberImage: UIImageView!
     @IBOutlet weak var memberHandicapLabel: UILabel!
     @IBOutlet weak var memberNamelabel: UILabel!
     
     
-
+    //MARK: -
+    //MARK: View Controller Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,7 +35,9 @@ class MemberTableViewCell: UITableViewCell {
         
         
     }
-
+    
+    //MARK: -
+    //MARK: UITableViewCell Methods - Overridden!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

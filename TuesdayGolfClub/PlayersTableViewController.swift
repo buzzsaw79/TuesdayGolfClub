@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class PlayersTableViewController: UITableViewController {
+class PlayersTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: -
     //MARK: Properties
@@ -23,7 +23,7 @@ class PlayersTableViewController: UITableViewController {
     }()
     
     var todaysTournee: Tournee!
-    
+//    var sectionNo: Int = 0
     
     //MARK: -
     //MARK: View Controller Lifecycle
@@ -47,7 +47,7 @@ class PlayersTableViewController: UITableViewController {
         // DEBUG
         //print("didSelectRowAtIndexPath \(indexPath)")
         
-        let sectionNo = indexPath.section
+        
         let cell = tableView.cellForRow(at: indexPath)
         let golfer = groups[indexPath.section][indexPath.row]
         
@@ -67,10 +67,10 @@ class PlayersTableViewController: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> PlayersTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath)  as! PlayersTableViewCell
 
-        configureCell(cell, indexPath: indexPath)
+        let configuredCell = configureCell(cell, indexPath: indexPath)
         
         
         
@@ -78,11 +78,12 @@ class PlayersTableViewController: UITableViewController {
 
             let golfer = groups[indexPath.section][indexPath.row]
             
-            cell.textLabel?.text = golfer.name
-            cell.detailTextLabel?.text = String(describing: golfer.playingHandicap!)
+            configuredCell.textLabel?.text = golfer.name
+            configuredCell.detailTextLabel?.text = String(describing: golfer.playingHandicap!)
+            configuredCell.section = indexPath.section
         }
   
-        return cell
+        return configuredCell
     }
 
     
@@ -151,6 +152,105 @@ class PlayersTableViewController: UITableViewController {
      }
      */
     
+    //MARK: -
+    //MARK: UICollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return groups.count
+//                return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return groups[section].count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Storyboard.EnterScoreCellIdentifier, for: indexPath) as! EnterScoreCollectionViewCell
+        
+        cell.golfer = self.groups[indexPath.section][indexPath.row]
+        
+        cell.playerNameLabel.text = cell.golfer!.name
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EnterScoreHeaderView", for: indexPath) as! EnterScoreHeaderView
+        
+        
+        var headerTitleString = ""
+        switch indexPath.section {
+        case 0:
+            headerTitleString = "First Group"
+        case 1:
+            headerTitleString = "Second Group"
+        case 2:
+            headerTitleString = "Third Group"
+        case 3:
+            headerTitleString = "Forth Group"
+        default:
+            headerTitleString = "\(indexPath.section+1)th Group"
+        }
+        
+        
+        headerView.sectionHeaderTitle.text = headerTitleString
+        
+        
+        return headerView
+    }
+    
+    
+    //MARK: -
+    //MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        let headerSizeWidth = self.view.bounds.width
+        let headerSizeHeight = CGFloat(48)
+        return CGSize(width: headerSizeWidth, height: headerSizeHeight)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let aSize = (self.view.bounds.width - 32.0)/3
+        let cellSize = CGSize(width: aSize, height: aSize)
+        return cellSize
+        
+    }
+    
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //
+    //        return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
+    //
+    ////        if section == 1 {
+    ////            return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
+    ////        } else {
+    ////            return UIEdgeInsetsMake(0, 0, 0, 0)
+    ////        }
+    //    }
+    
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    ////        if section == 1 {
+    ////            return CGFloat(0)
+    ////        } else {
+    ////            return CGFloat(8.0)
+    ////        }
+    //
+    //        return CGFloat(8.0)
+    //    }
+    
+    var CVCCount = 0
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        CVCCount = CVCCount + 1
+        
+        // DEBUG
+        //print("\(CVCCount)About to display EnterScoreCollectionViewCell: \(cell)")
+    }
+
     
      // MARK: - Navigation
     
@@ -160,16 +260,33 @@ class PlayersTableViewController: UITableViewController {
         
         if segue.identifier == "enterScore" {
             if let enterScoreVC = segue.destination as? EnterScoreViewController {
-                let playerCell = sender as! UITableViewCell
+                let playerCell = sender as! PlayersTableViewCell
+                
+                // Construct IndexPath for cell
+                let cellsIndexPath = IndexPath(item: playerCell.row!, section: playerCell.section!)
+                
                 
                 let golfer = Golfer.fetchGolferWithName(playerCell.textLabel!.text!, inManagedObjectContext: self.context)
                
                 enterScoreVC.playerName = golfer?.name
                 enterScoreVC.players = groups
-                playerCell
+                
+                // Set UICollectionView delegates
+                enterScoreVC.cvDelegate = self
+                enterScoreVC.cvDataSource = self
+                playerCell.isSelected = true
                 // DEBUG
 //                print(playerCell.textLabel!.text!)
                 print("golfer \(golfer.debugDescription)")
+                
+                if playerCell.isScoreUpdated {
+                    print("\(playerCell.textLabel?.text)'s score has been updated: \(playerCell.isScoreUpdated)")
+                    let upDatedCell = enterScoreVC.enterScoreCollectionView?.cellForItem(at: cellsIndexPath) as? EnterScoreCollectionViewCell
+                    upDatedCell?.scoreTextField.text = playerCell.detailTextLabel?.text
+                }
+                
+                
+                
             }
             
         }
@@ -194,7 +311,7 @@ class PlayersTableViewController: UITableViewController {
     //MARK: -
     //MARK: Helper Functions
     
-    func configureCell(_ cell: UITableViewCell, indexPath: IndexPath) -> UITableViewCell {
+    func configureCell(_ cell: PlayersTableViewCell, indexPath: IndexPath) -> PlayersTableViewCell {
         
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = UIColor.evenCellColour()
@@ -205,6 +322,10 @@ class PlayersTableViewController: UITableViewController {
             cell.textLabel!.textColor = UIColor.oddCellTextColour()
             cell.detailTextLabel!.textColor = UIColor.oddCellTextColour()
         }
+        cell.row = indexPath.row
+        cell.section = indexPath.section
+        
+        
         
         return cell
         
@@ -273,9 +394,16 @@ class PlayersTableViewController: UITableViewController {
         //print("🔬 playingGroups: \(playingGroups)")
         return playingGroups
     }
-    
-    
+   
+}
 
+
+
+class PlayersTableViewCell: UITableViewCell {
+    var isScoreUpdated = false
+    var golfer: Golfer?
+    var section: Int?
+    var row: Int?
     
     
 }

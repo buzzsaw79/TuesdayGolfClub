@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AddGolfViewController: UIViewController {
+class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: - Outlets
     @IBOutlet weak var golferImageView: UIImageView!
@@ -17,11 +17,15 @@ class AddGolfViewController: UIViewController {
     @IBOutlet weak var golferHandicapTextField: UITextField!
     @IBOutlet weak var golferMembershipNoTextField: UITextField!
     
+    //MARK: -
+    //MARK: Properties
     
     lazy var context: NSManagedObjectContext = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.managedObjectContext
     }()
+    
+    var imagePicker = UIImagePickerController()
 
     // MARK: - Actions
     @IBAction func cancelBtnPressed(_ sender: UIBarButtonItem) {
@@ -65,20 +69,58 @@ class AddGolfViewController: UIViewController {
         
     }
     
+    @IBAction func addPicButton(_ sender: UIButton) {
+        print("Add PIC PRESSED")
+        
+        //present(imagePicker!, animated: true, completion: nil)
+//        
+        imagePicker.allowsEditing = true
+//        imagePicker.sourceType = .photoLibrary
+//        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        //self.imagePicker = UIImagePickerController()
+        self.imagePicker.delegate = self
+        
+//        golferImageView.layer.cornerRadius = 20
+//        golferImageView.clipsToBounds = true
+        
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    //MARK: -
+    //MARK: ImagePickerController Delegate methods
     
-    
-    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self.golferImageView.image = pickedImage
+            
+            print("PICKED AN EDITED IMAGE!!!")
+        } else if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.golferImageView.image = pickedImage
+            let imageJPG = UIImageJPEGRepresentation(pickedImage, 1.0)
+            print("PICKED AN ORIGINAL IMAGE!!!")
+            self.golferImageView.image = UIImage(data: imageJPG!)
+        }
+        
+//        self.imageView.image = [UIImage imageWithData:self.myEvent.picture];
+        dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
     
     /*
     // MARK: - Navigation

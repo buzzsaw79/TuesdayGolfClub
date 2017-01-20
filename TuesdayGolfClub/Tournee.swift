@@ -15,13 +15,7 @@ class Tournee: NSManagedObject {
 
     //MARK: -
     //MARK: Computed Properties
-    
-    
-    
-//    enum courseString: String {
-//        case MAC = "Mackintosh"
-//        case BUT = "Button"
-//    }
+
     
     var playerScore:[Golfer:Int] {
         return [Golfer:Int]()
@@ -77,8 +71,8 @@ class Tournee: NSManagedObject {
         return nil
     }
     
-    func calculatePrizeMoney(_ numberOfEntrants: Int, entranceFee: Int) -> Array<Int> {
-        var prizes = [Int]()
+    func calculatePrizeMoney(_ numberOfEntrants: Int, entranceFee: Int) -> Array<Double> {
+        var prizes = [Double]()
         let totalPrizeMoney = Double(numberOfEntrants * entranceFee)
         let parThreePrizeMoney = Double(numberOfEntrants) * 0.5 * Double(numberOfParThrees)
         
@@ -86,7 +80,9 @@ class Tournee: NSManagedObject {
         
         switch numberOfEntrants {
         case 1:
-            prizes = [0]
+            prizes = [pot]
+        case 2:
+            prizes = [pot, 0.0]
         default:
             prizes = [1]
         }
@@ -94,6 +90,20 @@ class Tournee: NSManagedObject {
         
             
         return prizes
+    }
+    
+    
+    func calculateAvgScore(scores: [Int]) -> Double {
+        if !scores.isEmpty {
+            var sum = 0
+            for score in scores {
+                sum += score
+            }
+            return Double(sum / scores.count)
+        } else {
+            return 0.0
+        }
+        
     }
     
     //MARK: -
