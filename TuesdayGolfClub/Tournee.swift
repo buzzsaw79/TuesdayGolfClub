@@ -17,9 +17,7 @@ class Tournee: NSManagedObject {
     //MARK: Computed Properties
 
     
-    var playerScore:[Golfer:Int] {
-        return [Golfer:Int]()
-    }
+    var playerScore:[Golfer:Int]?
     
     let numberOfParThrees = 4
     
@@ -29,7 +27,7 @@ class Tournee: NSManagedObject {
     
     //MARK: -
     //MARK: Tournee creation and life cycle
-    class func tourneeWithGolfers(_ golfers:[Golfer], inManagedObjectContext context:NSManagedObjectContext) -> Tournee? {
+    class func tourneeWith(_ golfers:[Golfer], inManagedObjectContext context:NSManagedObjectContext) -> Tournee? {
         
         let today = Date()
         
@@ -47,10 +45,14 @@ class Tournee: NSManagedObject {
             tournee.day = tournee.todayAsString()
             tournee.completed = false
             tournee.entryFee = 9
+            tournee.scores = [Golfer:Int]()
             
+            tournee.mutableSetValue(forKey: "hasEntrants").addObjects(from: golfers)
             
             for golfer in golfers {
-                //tournee.mutableSetValueForKey("hasEntrants").addObject(golfer)
+                
+
+                tournee.mutableSetValue(forKey: "hasEntrants").add(golfer)
                 // company.mutableSetValueForKey("hasEntrants").addObject(employees)
                 golfer.playsInA = tournee
 
@@ -87,21 +89,23 @@ class Tournee: NSManagedObject {
             prizes = [1]
         }
         
-        
+        if numberOfEntrants % 2 == 0 {
+            
+        }
             
         return prizes
     }
     
     
-    func calculateAvgScore(scores: [Int]) -> Double {
+    func calculateAvgScore(scores: [Int]) -> Double? {
         if !scores.isEmpty {
-            var sum = 0
+            var sum = 0.0
             for score in scores {
-                sum += score
+                sum += Double(score)
             }
-            return Double(sum / scores.count)
+            return sum / Double(scores.count)
         } else {
-            return 0.0
+            return nil
         }
         
     }
@@ -109,7 +113,7 @@ class Tournee: NSManagedObject {
     //MARK: -
     //MARK: Helper Functions
     
-    fileprivate func todayAsString() -> String? {
+    func todayAsString() -> String? {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short

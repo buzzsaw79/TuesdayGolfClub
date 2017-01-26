@@ -21,6 +21,18 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     var playerName: String?
     var players = [[Golfer]]()
+    
+    var todaysTournee: Tournee? {
+        didSet {
+            if let moc = todaysTournee?.managedObjectContext {
+                manObjCon = moc
+            }
+        }
+    }
+    
+    
+    var manObjCon: NSManagedObjectContext?
+    
     // Temp score holder
     var playersScores = [String:Int]()
     
@@ -38,6 +50,8 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         // DEBUG
         print("Save button pressed!")
         print("🏁 sortedByPlayersScoreArray 🏁 -> \(sortedByPlayersScoreArray)")
+        
+//        playersScores = sortedByPlayersScoreArray
     }
     
     
@@ -47,7 +61,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("VIEWDIDLOAD")
         enterScoreCollectionView.delegate = self.cvDelegate!
         enterScoreCollectionView.dataSource = self.cvDataSource!
         
@@ -170,6 +184,9 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "back2" {
+            
+            print("PREPARE = back2")
+            
             // Triggered by Unwind segue when "Save" button clicked
             let playersVC = segue.destination as! PlayersTableViewController
             
@@ -187,10 +204,11 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                     
                     // Get score data from collectionview cells
                     if let golfer = cell?.golfer{
-                        let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) as! PlayersTableViewCell
-                        //                  golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: tournee.day!)
+//                        golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: Tournee.tod)
                         // Causes crash when enterScoreVC cell are empty
-//                        playersScores.updateValue(Int((cell?.scoreTextField.text!)!) ?? 0, forKey: golfer.name!)
+                        playersScores.updateValue(Int((cell?.scoreTextField.text!)!) ?? 0, forKey: golfer.name!)
+                        let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) as! PlayersTableViewCell
+                        
                         targetCell.textLabel?.text = golfer.name!
                         targetCell.detailTextLabel?.text = cell?.scoreTextField.text
                         targetCell.detailTextLabel?.textColor = UIColor.richRed()
@@ -212,6 +230,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     func getDataOutOfEntireCollectionView() -> [String:Int] {
+        print("GETDATAOUTOFENTIRECOLLECTIONVIEW")
         var playersScores = [String:Int]()
         
         // Store original CV frame and get content size
@@ -222,16 +241,15 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         // expand CV size to match content size and redraw it
         self.enterScoreCollectionView.frame = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
         self.enterScoreCollectionView.collectionViewLayout.invalidateLayout()
-        self.enterScoreCollectionView.reloadData()
+//        self.enterScoreCollectionView.reloadData()
         
         // Attempt to Get data from EnterScoreCollectionViewCell
-        let allCells:[EnterScoreCollectionViewCell] = self.enterScoreCollectionView.visibleCells as! [EnterScoreCollectionViewCell]
+        let allCells = self.enterScoreCollectionView.visibleCells as! [EnterScoreCollectionViewCell]
         
         print("all Cells count = \(allCells.count)")
         
         for scoreCell in allCells {
             let golfer = scoreCell.golfer!
-            let scoreString = scoreCell.scoreTextField.text!
 //            playersScores.updateValue(Int(scoreString)!, forKey: golfer.name!)
             playersScores.updateValue(Int((scoreCell.scoreTextField.text!)) ?? 0, forKey: golfer.name!)
         }

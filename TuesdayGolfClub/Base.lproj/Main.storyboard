@@ -78,57 +78,53 @@
                                     <constraint firstAttribute="height" constant="190" id="vh2-Xt-DLR"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="redraw" axis="vertical" distribution="fillProportionally" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Dzj-sw-4Jk">
-                                <rect key="frame" x="16" y="298" width="340" height="176"/>
+                            <stackView contentMode="redraw" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Dzj-sw-4Jk">
+                                <rect key="frame" x="16" y="298" width="343" height="176"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tMx-Ve-CNd">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="A40-LF-pH2"/>
-                                        </constraints>
+                                        <rect key="frame" x="52.5" y="0.0" width="238.5" height="22"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Golfer Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="25x-Rt-tae">
-                                        <rect key="frame" x="0.0" y="26" width="140" height="30"/>
+                                        <rect key="frame" x="52.5" y="26" width="238.5" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Handicap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="StJ-Yn-KmF">
-                                        <rect key="frame" x="0.0" y="60" width="71" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="71" id="ScA-6V-Dfb"/>
-                                        </constraints>
+                                        <rect key="frame" x="52.5" y="60" width="238.5" height="22"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Golfer Handicap" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KDY-VP-adt">
-                                        <rect key="frame" x="0.0" y="86" width="163.5" height="30"/>
+                                        <rect key="frame" x="52.5" y="86" width="238.5" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Membership No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxv-ar-s2R">
-                                        <rect key="frame" x="0.0" y="120" width="124" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="124" id="mF1-s0-u8a"/>
-                                        </constraints>
+                                        <rect key="frame" x="52.5" y="120" width="238.5" height="22"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Golfer Membership Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VvC-Yn-iKx">
-                                        <rect key="frame" x="0.0" y="146" width="238.5" height="30"/>
+                                        <rect key="frame" x="52.5" y="146" width="238.5" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
+                                <color key="backgroundColor" red="0.82524985210000001" green="0.774244029" blue="0.37522556350000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="340" id="F2A-23-YLp"/>
+                                    <constraint firstItem="VvC-Yn-iKx" firstAttribute="width" secondItem="Sxv-ar-s2R" secondAttribute="width" id="73u-cJ-YoU"/>
+                                    <constraint firstItem="KDY-VP-adt" firstAttribute="width" secondItem="StJ-Yn-KmF" secondAttribute="width" id="9bw-zX-L71"/>
+                                    <constraint firstItem="25x-Rt-tae" firstAttribute="width" secondItem="tMx-Ve-CNd" secondAttribute="width" id="SSl-TT-1Pv"/>
+                                    <constraint firstItem="25x-Rt-tae" firstAttribute="width" secondItem="KDY-VP-adt" secondAttribute="width" id="fqs-3Z-3ce"/>
+                                    <constraint firstItem="25x-Rt-tae" firstAttribute="width" secondItem="VvC-Yn-iKx" secondAttribute="width" id="tVD-AK-aUl"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrb-Qq-YNG">
@@ -153,7 +149,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Dzj-sw-4Jk" secondAttribute="trailing" constant="3" id="CcE-xQ-Sgm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dzj-sw-4Jk" secondAttribute="trailing" id="CcE-xQ-Sgm"/>
                             <constraint firstItem="m09-7Z-flU" firstAttribute="leading" secondItem="pxU-yn-FTd" secondAttribute="leading" id="DqR-x0-XnB"/>
                             <constraint firstItem="hrb-Qq-YNG" firstAttribute="centerX" secondItem="HLg-cR-uCt" secondAttribute="centerX" id="JiR-xM-uQH"/>
                             <constraint firstItem="m09-7Z-flU" firstAttribute="leading" secondItem="HLg-cR-uCt" secondAttribute="leadingMargin" constant="86" id="LbH-BU-pgU"/>
@@ -246,6 +242,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMc-D5-zBi">
+                                <rect key="frame" x="67" y="269" width="375" height="340"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZr-ao-dPC">
                                 <rect key="frame" x="16" y="580" width="42" height="35"/>
                                 <constraints>
@@ -273,7 +274,7 @@
                                 </imageView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EnterScoreCell" id="VE3-6c-qsb" customClass="EnterScoreCollectionViewCell" customModule="TuesdayGolfClub" customModuleProvider="target">
-                                        <rect key="frame" x="87.5" y="48" width="200" height="200"/>
+                                        <rect key="frame" x="88" y="48" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
