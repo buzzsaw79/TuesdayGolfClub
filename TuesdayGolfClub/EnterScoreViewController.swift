@@ -203,8 +203,12 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                     
                     
                     // Get score data from collectionview cells
-                    if let golfer = cell?.golfer{
-//                        golfer.scores?.updateValue(Int(cell.scoreTextField.text!)!, forKey: Tournee.tod)
+                    if let golfer = cell?.golfer {
+                        
+                        let scoreInt = Int((cell?.scoreTextField.text)!)!
+                        let day = self.todaysTournee?.todayAsString() ?? "today"
+                        
+                        golfer.scores.updateValue(scoreInt, forKey: day)
                         // Causes crash when enterScoreVC cell are empty
                         playersScores.updateValue(Int((cell?.scoreTextField.text!)!) ?? 0, forKey: golfer.name!)
                         let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) as! PlayersTableViewCell
@@ -223,6 +227,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
             }
             
             print("S C O R E S :-> \(playersScores)")
+            print("G O L F E R S:-> \(players)")
             
         }
         

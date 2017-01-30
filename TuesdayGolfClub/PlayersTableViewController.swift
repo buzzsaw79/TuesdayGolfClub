@@ -270,6 +270,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
                
                 enterScoreVC.playerName = golfer?.name
                 enterScoreVC.players = groups
+                enterScoreVC.todaysTournee = self.todaysTournee
                 
                 // Set UICollectionView delegates
                 enterScoreVC.cvDelegate = self

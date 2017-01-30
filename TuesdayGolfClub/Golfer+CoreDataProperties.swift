@@ -21,7 +21,7 @@ extension Golfer {
     @NSManaged public var membershipNumber: String?
     @NSManaged public var name: String?
     @NSManaged public var playingHandicap: NSNumber?
-    @NSManaged public var scores: NSObject?
+    @NSManaged public var scores: Dictionary<String, Int>//[String:Int]?
     @NSManaged public var surname: String?
     @NSManaged public var tuesdayHandicap: NSNumber?
     @NSManaged public var image: NSData?
