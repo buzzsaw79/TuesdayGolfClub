@@ -43,7 +43,7 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
         golfer.name = golferNameTextField.text
         
         
-        golfer.membershipNumber = "123456"
+        golfer.membershipNumber = golferMembershipNoTextField.text ?? "12345"
         golfer.clubHandicap = NSDecimalNumber(string: golferHandicapTextField?.text)
         golfer.playingHandicap = golfer.clubHandicap?.rounding(accordingToBehavior: nil)
         //            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
@@ -63,7 +63,7 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
         } catch let error as NSError {
             print("Error saving golfer \(error.localizedDescription)")
         }
-        
+        Golfer.saveGolfer(golfer: golfer)
         
         _ = self.navigationController?.popViewController(animated: true)
         
@@ -88,8 +88,8 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
         //self.imagePicker = UIImagePickerController()
         self.imagePicker.delegate = self
         
-//        golferImageView.layer.cornerRadius = 20
-//        golferImageView.clipsToBounds = true
+        golferImageView.layer.cornerRadius = golferImageView.frame.width/2
+        golferImageView.clipsToBounds = true
         
         
         

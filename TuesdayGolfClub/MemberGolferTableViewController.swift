@@ -31,36 +31,12 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     @IBAction func startTournee(_ sender: UIBarButtonItem) {
         
         // Create new Tournee
-        let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.tourneeEntityString, in: self.context)
-        self.tournee = Tournee(entity: entity!, insertInto: self.context)
-        
-        self.tournee.course = Constants.courses.mack  //"Mackintosh"
-        self.tournee.date = Date()
-        self.tournee.day = Date.todayAsString()
-        self.tournee.mutableSetValue(forKey: "hasEntrants").addObjects(from: self.players)
-        self.tournee.entryFee = 9
-        self.tournee.scores = [Golfer:Int]()
-        self.tournee.completed = NSNumber(value: false as Bool)
-        
-        let prizeFundInt: Int = (tournee.hasEntrants?.count)! * Int(self.tournee.entryFee!)
-        
-        self.tournee.prizeFund = NSDecimalNumber.init(value: prizeFundInt as Int)
-        
-        
-        // DEBUG
-        //        print("Tournee ID: \(self.tournee.objectID)")
-        
-        
-        do {
-            try self.context.save()
-        } catch let error as NSError {
-            print("Error saving tournee \(error.localizedDescription)")
-        }
-        
+        self.tournee = Tournee.createAndSaveTournee(with: self.players, inManagedObjectContext: self.context)
+
         performSegue(withIdentifier: "getPlayers", sender: self.tournee)
         
         // DEBUG
-        printTournees()
+        // printTournees()
         //        printGolfersAndPlayers()
         
     }

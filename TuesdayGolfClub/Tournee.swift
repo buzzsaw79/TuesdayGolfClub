@@ -16,18 +16,13 @@ class Tournee: NSManagedObject {
     //MARK: -
     //MARK: Computed Properties
 
-    
     var playerScore:[Golfer:Int]?
     
     let numberOfParThrees = 4
-    
-    
-    
-    
-    
+
     //MARK: -
     //MARK: Tournee creation and life cycle
-    class func tourneeWith(_ golfers:[Golfer], inManagedObjectContext context:NSManagedObjectContext) -> Tournee? {
+    class func createAndSaveTournee(with golfers:[Golfer], inManagedObjectContext context:NSManagedObjectContext) -> Tournee? {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tournee")
         request.predicate = NSPredicate(format: "date < %@", Date() as CVarArg)
@@ -36,26 +31,16 @@ class Tournee: NSManagedObject {
             return tournee
         } else if let tournee = NSEntityDescription.insertNewObject(forEntityName: "Tournee", into: context) as? Tournee {
             
-            tournee.date = Date()
+            tournee.date = Date() as NSDate?
             tournee.course = Constants.courses.but
             tournee.day = tournee.todayAsString()
             tournee.completed = false
-            tournee.entryFee = 9
-            tournee.scores = [Golfer:Int]()
-            
+            tournee.entryFee = NSDecimalNumber(value: Constants.Tournee.entryFee)
+            tournee.scores = [Golfer:Int]() as NSObject?
+            // add golfers to tournee
             tournee.mutableSetValue(forKey: "hasEntrants").addObjects(from: golfers)
             
-            for golfer in golfers {
-                tournee.mutableSetValue(forKey: "hasEntrants").add(golfer)
-                // company.mutableSetValueForKey("hasEntrants").addObject(employees)
-                golfer.playsInA = tournee
-            }
-            
-            do {
-                try context.save()
-            } catch let error {
-                print("Unable to save within tourneeWithGolfers func - ERROR: \(error)")
-            }
+            Tournee.saveTournee(tournee: tournee)
             
             return tournee
   
@@ -70,6 +55,16 @@ class Tournee: NSManagedObject {
         } catch let error {
             print("Unable to save within saveTournee func - ERROR: \(error)")
         }
+    }
+    
+    func validateAndComplete() -> Bool {
+        // Validate all data before saving
+        
+        return false
+    }
+    
+    func addScores(dictionary: [String:Int]) -> Bool {
+        return false
     }
     
     func calculatePrizeMoney(_ numberOfEntrants: Int, entranceFee: Int) -> Array<Double> {
@@ -96,7 +91,7 @@ class Tournee: NSManagedObject {
         if numberOfEntrants % 2 == 0 {
             
         }
-            
+        
         return prizes
     }
     
@@ -124,11 +119,11 @@ class Tournee: NSManagedObject {
         dateFormatter.timeStyle = .none
         
         let today = Date()
-        
+        let tomorrow = today.addingTimeInterval(60*60*24)
         // UK English Locale (en_GB)
         dateFormatter.locale = Locale(identifier: "en_GB")
         
-        return dateFormatter.string(from: today)
+        return dateFormatter.string(from: tomorrow)
     }
     
     fileprivate func dateAsString(_ date: Date) -> String? {

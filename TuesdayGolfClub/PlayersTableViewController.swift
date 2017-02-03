@@ -219,27 +219,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         return cellSize
         
     }
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    //
-    //        return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
-    //
-    ////        if section == 1 {
-    ////            return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
-    ////        } else {
-    ////            return UIEdgeInsetsMake(0, 0, 0, 0)
-    ////        }
-    //    }
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    ////        if section == 1 {
-    ////            return CGFloat(0)
-    ////        } else {
-    ////            return CGFloat(8.0)
-    ////        }
-    //
-    //        return CGFloat(8.0)
-    //    }
+ 
     
     var CVCCount = 0
     
@@ -278,7 +258,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
                 playerCell.isSelected = true
                 // DEBUG
 //                print(playerCell.textLabel!.text!)
-                print("golfer \(golfer.debugDescription)")
+//                print("golfer \(golfer.debugDescription)")
                 
                 if playerCell.isScoreUpdated {
                     print("\(playerCell.textLabel?.text)'s score has been updated: \(playerCell.isScoreUpdated)")

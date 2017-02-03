@@ -50,9 +50,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         // DEBUG
         print("Save button pressed!")
         print("🏁 sortedByPlayersScoreArray 🏁 -> \(sortedByPlayersScoreArray)")
-        
-//        playersScores = sortedByPlayersScoreArray
-    }
+        }
     
     
     
@@ -220,6 +218,11 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                         targetCell.isSelected = true
                         targetCell.isScoreUpdated = true
                         targetCell.setNeedsDisplay()
+                        
+                        // Save golfer back to CoreData
+                        if Golfer.saveGolfer(golfer: golfer) {
+                            print("\(golfer.name!)'s score saved!")
+                        }
                     }
                     
                 }

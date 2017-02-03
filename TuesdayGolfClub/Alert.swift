@@ -55,6 +55,11 @@ struct Constants {
         static let tourneeEntityString = "Tournee"
     }
     
+    struct Tournee {
+        static let entryFee = 9
+        
+    }
+    
 }
 
 class alert: NSObject {
