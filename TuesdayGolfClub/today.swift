@@ -26,9 +26,43 @@ extension Date {
         return dateFormatter.string(from: today)
     }
     
+    static func dateAsString(_ date: Date) -> String? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
+        // UK English Locale (en_GB)
+        dateFormatter.locale = Locale(identifier: "en_GB")
+        
+        return dateFormatter.string(from: date)
+    }
     
+    var tomorrow: Date {
+        let tomorrow = Date().addingTimeInterval(60*60*24)
+        return tomorrow
+    }
+    
+    
+    var weekToday: Date {
+        let weekToday = Date().addingTimeInterval(60*60*24*7)
+        return weekToday
+    }
+  
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    @IBAction func addGolfer(_ sender: UIBarButtonItem) {
 //
