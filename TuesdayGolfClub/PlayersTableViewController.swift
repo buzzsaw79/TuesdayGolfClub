@@ -48,8 +48,8 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         //print("didSelectRowAtIndexPath \(indexPath)")
         
         
-        let cell = tableView.cellForRow(at: indexPath)
-        let golfer = groups[indexPath.section][indexPath.row]
+//        let cell = tableView.cellForRow(at: indexPath)
+//        let golfer = groups[indexPath.section][indexPath.row]
         
         
         
@@ -79,7 +79,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
             let golfer = groups[indexPath.section][indexPath.row]
             
             configuredCell.textLabel?.text = golfer.name
-            configuredCell.detailTextLabel?.text = String(describing: golfer.playingHandicap!)
+            configuredCell.detailTextLabel?.text = golfer.playingHndcpAsString
             configuredCell.section = indexPath.section
         }
   

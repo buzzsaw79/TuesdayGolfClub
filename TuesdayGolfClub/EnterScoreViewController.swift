@@ -13,8 +13,9 @@ protocol handleScoreDataDelegate {
     func saveScores()
 }
 
+var globalInt: Int = 0
 
-class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
+class EnterScoreViewController: UIViewController, UINavigationControllerDelegate {
     
     //MARK: -
     //MARK: Properties
@@ -42,14 +43,27 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     @IBOutlet weak var enterScoreCollectionView: UICollectionView!
     
+    //MARK: -
+    //MARK: Actions
+    
     @IBAction func saveButton() {
         playersScores = getDataOutOfEntireCollectionView()
-        
+        print("🏁 playersScoreDictionary 🏁 -> \(playersScores)")
         let sortedByPlayersScoreArray = playersScores.sorted { $0.1 > $1.1 }
+        
+        
+        if (todaysTournee?.addScores(dictionary: playersScores))!{
+            print("Scores added to Today's Tournee")
+        }
         
         // DEBUG
         print("Save button pressed!")
         print("🏁 sortedByPlayersScoreArray 🏁 -> \(sortedByPlayersScoreArray)")
+        
+        todaysTournee?.completed = true
+        Tournee.saveTournee(tournee: todaysTournee!)
+        
+        
         }
     
     
@@ -59,13 +73,12 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("VIEWDIDLOAD")
+
         enterScoreCollectionView.delegate = self.cvDelegate!
         enterScoreCollectionView.dataSource = self.cvDataSource!
         
         navigationController?.delegate = self
-        // DEBUG
-//        print("#### enterScoreVC Players array:\(players)")
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +89,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
     //MARK: -
     //MARK: UICollectionViewDataSource
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    /*func numberOfSections(in collectionView: UICollectionView) -> Int {
         return players.count
 //        return 1
     }
@@ -174,7 +187,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         
         // DEBUG
         //print("\(CVCCount)About to display EnterScoreCollectionViewCell: \(cell)")
-    }
+    } */
     
     // MARK:
     // MARK: - Navigation
@@ -204,11 +217,11 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                     if let golfer = cell?.golfer {
                         
                         let scoreInt = Int((cell?.scoreTextField.text)!)!
-                        let day = self.todaysTournee?.todayAsString() ?? "today"
+                        //let day = Date.tomorrow
+                        let day = Date.todayAsString()
                         
-                        golfer.scores.updateValue(scoreInt, forKey: day)
-                        // Causes crash when enterScoreVC cell are empty
-                        playersScores.updateValue(Int((cell?.scoreTextField.text!)!) ?? 0, forKey: golfer.name!)
+                        _ = golfer.addScore(date: day, score: scoreInt)
+                        
                         let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) as! PlayersTableViewCell
                         
                         targetCell.textLabel?.text = golfer.name!
@@ -229,7 +242,7 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
                 
             }
             
-            print("S C O R E S :-> \(playersScores)")
+            //print("S C O R E S :-> \(playersScores)")
             print("G O L F E R S:-> \(players)")
             
         }
@@ -254,15 +267,14 @@ class EnterScoreViewController: UIViewController, UICollectionViewDelegate, UICo
         // Attempt to Get data from EnterScoreCollectionViewCell
         let allCells = self.enterScoreCollectionView.visibleCells as! [EnterScoreCollectionViewCell]
         
-        print("all Cells count = \(allCells.count)")
+        // DEBUG
+        //print("all Cells count = \(allCells.count)")
         
         for scoreCell in allCells {
             let golfer = scoreCell.golfer!
-//            playersScores.updateValue(Int(scoreString)!, forKey: golfer.name!)
             playersScores.updateValue(Int((scoreCell.scoreTextField.text!)) ?? 0, forKey: golfer.name!)
         }
-        
-        
+ 
         // restore original CV frame
         self.enterScoreCollectionView.frame = CGRect(x: refCVOrigin.x, y: refCVOrigin.y, width: refCVSize.width, height: refCVSize.height)
         

@@ -38,15 +38,20 @@ extension Date {
         return dateFormatter.string(from: date)
     }
     
-    var tomorrow: Date {
+    static var tomorrow: String {
         let tomorrow = Date().addingTimeInterval(60*60*24)
-        return tomorrow
+        return Date.dateAsString(tomorrow)!
     }
     
     
-    var weekToday: Date {
+    static var weekToday: String {
         let weekToday = Date().addingTimeInterval(60*60*24*7)
-        return weekToday
+        return Date.dateAsString(weekToday)!
+    }
+    
+    static var yesterday: String {
+        let yesterday = Date().addingTimeInterval(-60*60*24)
+        return Date.dateAsString(yesterday)!
     }
   
     

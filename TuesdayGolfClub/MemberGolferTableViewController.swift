@@ -70,7 +70,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         // DEBUG
         //        printGolfersAndPlayers()
-        //        printTournees()
+                printTournees()
         
     }
     
@@ -264,8 +264,8 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
     
     fileprivate func printTournees() {
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tournee")
-        
+        let request = Tournee.tourneeFetchRequest()
+        globalInt = 1
         context.perform {
             if let results = try? self.context.fetch(request) {
                 // DEBUG
@@ -273,7 +273,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                 
                 
                 for aTournee in results {
-                    let tournee = aTournee as! Tournee
+                    let tournee = aTournee 
                     
                     // DEBUG
                     print("\(tournee.day!) \(tournee.course!) \(tournee.hasEntrants)")

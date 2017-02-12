@@ -35,8 +35,6 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     @IBAction func saveGolfer(_ sender: Any) {
-        print("saveGolfer!")
-        
         let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.golferEntityString, in: self.context)
         let golfer = Golfer(entity: entity!, insertInto: self.context)
         
@@ -45,24 +43,11 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         golfer.membershipNumber = golferMembershipNoTextField.text ?? "12345"
         golfer.clubHandicap = NSDecimalNumber(string: golferHandicapTextField?.text)
-        golfer.playingHandicap = golfer.clubHandicap?.rounding(accordingToBehavior: nil)
+//        golfer.playingHandicap = golfer.clubHandicap?.rounding(accordingToBehavior: nil)
         //            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
         
         golfer.image = UIImageJPEGRepresentation(golferImageView.image!, 1.0) as NSData?
         
-        if let fullName = golfer.name?.components(separatedBy: " ") {
-            
-            golfer.firstName = fullName.first!
-            golfer.surname = fullName.last!
-            
-        }
-        
-        
-        do {
-            try self.context.save()
-        } catch let error as NSError {
-            print("Error saving golfer \(error.localizedDescription)")
-        }
         Golfer.saveGolfer(golfer: golfer)
         
         _ = self.navigationController?.popViewController(animated: true)

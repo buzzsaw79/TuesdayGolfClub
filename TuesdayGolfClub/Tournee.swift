@@ -25,20 +25,17 @@ class Tournee: NSManagedObject {
     class func createAndSaveTournee(with golfers:[Golfer], inManagedObjectContext context:NSManagedObjectContext) -> Tournee? {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tournee")
-        request.predicate = NSPredicate(format: "date < %@", Date() as CVarArg)
+        request.predicate = NSPredicate(format: "day < %@", Date.todayAsString())
         
-        if let tournee = (try? context.fetch(request))?.first as? Tournee {
-            return tournee
-        } else if let tournee = NSEntityDescription.insertNewObject(forEntityName: "Tournee", into: context) as? Tournee {
+        if let tournee = NSEntityDescription.insertNewObject(forEntityName: "Tournee", into: context) as? Tournee {
             
-            tournee.date = Date() as NSDate?
             tournee.course = Constants.courses.but
-            tournee.day = tournee.todayAsString()
+            tournee.day = Date.tomorrow
             tournee.completed = false
-            tournee.entryFee = NSDecimalNumber(value: Constants.Tournee.entryFee)
-            tournee.scores = [Golfer:Int]() as NSObject?
+            tournee.scores = [String:Int]()
             // add golfers to tournee
-            tournee.mutableSetValue(forKey: "hasEntrants").addObjects(from: golfers)
+            let golferSet = NSSet.init(array: golfers)
+            tournee.addToHasEntrants(golferSet)
             
             Tournee.saveTournee(tournee: tournee)
             
@@ -59,12 +56,26 @@ class Tournee: NSManagedObject {
     
     func validateAndComplete() -> Bool {
         // Validate all data before saving
-        
+        let numberOfEntrants = self.hasEntrants.count
+        if scores.count == numberOfEntrants {
+            
+        }
+        // Check we have par 3 winners
+        if (par3Winners?.count)! > 0 && (par3Winners?.count)! <= numberOfParThrees {
+            
+        }
+        // Calculate average score
+        let scoresArray = scores.values.sorted()
+        let todaysAvg = calculateAvgScore(scores: scoresArray)
         return false
     }
     
     func addScores(dictionary: [String:Int]) -> Bool {
-        return false
+        
+        for item in dictionary {
+            self.scores.updateValue(item.value, forKey: item.key)
+        }
+        return true
     }
     
     func calculatePrizeMoney(_ numberOfEntrants: Int, entranceFee: Int) -> Array<Double> {
@@ -110,31 +121,6 @@ class Tournee: NSManagedObject {
     }
     
     //MARK: -
-    //MARK: Helper Functions
     
-    func todayAsString() -> String? {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .none
-        
-        let today = Date()
-        let tomorrow = today.addingTimeInterval(60*60*24)
-        // UK English Locale (en_GB)
-        dateFormatter.locale = Locale(identifier: "en_GB")
-        
-        return dateFormatter.string(from: tomorrow)
-    }
     
-    fileprivate func dateAsString(_ date: Date) -> String? {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .none
-        
-        // UK English Locale (en_GB)
-        dateFormatter.locale = Locale(identifier: "en_GB")
-        
-        return dateFormatter.string(from: date)
-    }
 }

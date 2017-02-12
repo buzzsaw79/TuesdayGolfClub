@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit // Not good OOP
 
-
+typealias Handicap = NSDecimalNumber
 
 class Golfer: NSManagedObject {
     
@@ -23,7 +23,39 @@ class Golfer: NSManagedObject {
         }
     }
     
-    var golferDictionary: [String:Double] {
+    var firstName: String {
+        if let fullName = self.name?.components(separatedBy: " ") {
+            return fullName.first!
+        }
+       return "No name"
+    }
+    
+    var surname: String {
+        if let fullName = self.name?.components(separatedBy: " ") {
+            return fullName.last!
+        }
+        return "No name"
+    }
+    
+    var playingHndcp: Int {
+        get {
+        
+            let handicap = self.clubHandicap!.rounding(accordingToBehavior: nil)
+            return Int.init(handicap)
+            
+        }
+    }
+    
+    var playingHndcpAsString: String {
+        get {
+            
+            let handicap = self.clubHandicap!.rounding(accordingToBehavior: nil)
+            return String(describing: handicap)
+            
+        }
+    }
+    
+    var golferDictionary: [String:Handicap] {
         
         // Test Data....
         let golferNames = ["Keith Bamford",
@@ -45,15 +77,16 @@ class Golfer: NSManagedObject {
                            "Jimmy Simms",
                            "Jimmy Sweeney"]
         
-        let golferHandicaps = [17.5, 17.1, 16.5, 26.1, 16.7, 16.4, 21.2, 17.8, 21.7, 25.5, 21.8, 16.2, 5.9, 11.4, 12.8, 13.8, 10.5, 18.4]
+        let golferHandicaps:[Handicap] = [17.5, 17.1, 16.5, 26.1, 16.7, 16.4, 21.2, 17.8, 21.7, 25.5, 21.8, 16.2, 5.9, 11.4, 12.8, 13.8, 10.5, 18.4]
         
-        var _golferDictionary = [String:Double]()
+        var _golferDictionary = [String:Handicap]()
         
         if golferHandicaps.count == golferNames.count {
             for (index, aName) in golferNames.enumerated() {
                 _golferDictionary.updateValue(golferHandicaps[index], forKey: aName)
             }
         }
+        print(_golferDictionary)
         return _golferDictionary
         
     }
@@ -76,17 +109,9 @@ class Golfer: NSManagedObject {
         
         golfer.membershipNumber = membershipNo
         golfer.clubHandicap = NSDecimalNumber(value: handicap)
-        golfer.playingHandicap = golfer.clubHandicap?.rounding(accordingToBehavior: nil)
-        //            golfer.playsInA = Tournee.tourneeContainingGolfer(golfer)
+//        golfer.playingHandicap = golfer.playingHndcp as NSNumber?
         
         golfer.image = UIImageJPEGRepresentation(image, 1.0) as NSData?
-        
-        if let fullName = golfer.name?.components(separatedBy: " ") {
-            
-            golfer.firstName = fullName.first!
-            golfer.surname = fullName.last!
-            
-        }
 
         return golfer
     }
@@ -94,7 +119,7 @@ class Golfer: NSManagedObject {
     class func saveGolfer(golfer: Golfer) -> Bool {
         do {
             try golfer.managedObjectContext?.save()
-            print("\(golfer.name!)'s score saved!")
+            //print("\(golfer.name!)'s score saved!")
             return true
         } catch let error {
             print("Unable to save within saveGolfer func - ERROR: \(error)")
@@ -103,54 +128,13 @@ class Golfer: NSManagedObject {
     }
     
     
-    
-    
-    
-
-    class func golferInTournee(_ tournee: Tournee, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
-        // DEBUG
-        //print("Golfer.golferInTournee")
-        
-        let golferRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Golfer")
-        
-        if let golfer = tournee.hasEntrants?.allObjects[0] as! Golfer? {
-        
-        golferRequest.predicate = NSPredicate(format: "name = %@", golfer.name!)
-        
-        
-        }
-        
-        
-        
-        
-        return nil
-    }
-    
-    
     class func fetchGolferWithName(_ name: String, inManagedObjectContext context: NSManagedObjectContext) -> Golfer? {
-        // DEBUG
-        //print("Golfer.fetchGolferWithName")
-        
-        
+
         let golferNameRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.Entity.golferEntityString)
         golferNameRequest.predicate = NSPredicate(format: "name = %@", name)
         
         if let golfer = (try? context.fetch(golferNameRequest))?.last as? Golfer {
-            // Tournee() producing null results
             
-            if let tourneeDescription = NSEntityDescription.entity(forEntityName: "Tournee", in: context)
-            {
-                
-              let tourneeRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.Entity.tourneeEntityString)
-                tourneeRequest.predicate = NSPredicate(format: "day = %@", Date.todayAsString())
-                
-                do {
-                    try context.fetch(tourneeRequest)
-                } catch {
-                    // Handle ERROR
-                }
-
-            }
             return golfer
         }
         return nil
@@ -160,6 +144,9 @@ class Golfer: NSManagedObject {
     //MARK: Methods
     
     func addScore(date: String, score: Int) -> Bool {
+        if scores.updateValue(score, forKey: date) == nil {
+            return true
+        }
         return false
     }
     
