@@ -181,10 +181,10 @@
             </objects>
             <point key="canvasLocation" x="2069.5999999999999" y="43.628185907046479"/>
         </scene>
-        <!--Players-->
+        <!--Players TableView Controller-->
         <scene sceneID="h5t-yr-7E6">
             <objects>
-                <tableViewController title="Players" id="tCd-4p-MAa" customClass="PlayersTableViewController" customModule="TuesdayGolfClub" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Players TableView Controller" id="tCd-4p-MAa" customClass="PlayersTableViewController" customModule="TuesdayGolfClub" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ErH-MV-hOc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -225,6 +225,9 @@
                     </tableView>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="ppo-Wn-rTx" kind="presentation" identifier="showSingleGroup" id="Yv6-gX-q1o"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngV-sF-WQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -454,11 +457,12 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZY9-8s-SO2" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tz0-ub-hd1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Tz0-ub-hd1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.40689903497695923" green="0.823494553565979" blue="0.063231557607650757" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="italicSystem" pointSize="0.0"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>

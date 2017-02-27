@@ -16,6 +16,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     var playersArray = [Golfer]()
     var groups = [[Golfer]]()
     var theGroups = [[Int]]()
+    var tmpSection: Int = 0
     
     lazy var context: NSManagedObjectContext = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -48,11 +49,18 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         //print("didSelectRowAtIndexPath \(indexPath)")
         
         
-//        let cell = tableView.cellForRow(at: indexPath)
-//        let golfer = groups[indexPath.section][indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath) as! PlayersTableViewCell
+        let golfer = groups[indexPath.section][indexPath.row]
         
+//        tmpSection = indexPath.section
+//        globalInt = tmpSection
         
-        
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tmpSection = indexPath.section
+        globalInt = tmpSection
+        return indexPath
     }
     
     
@@ -156,19 +164,19 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     //MARK: UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return groups.count
-//                return 1
+//        return groups.count
+                return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return groups[section].count
+        return groups[tmpSection].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Storyboard.EnterScoreCellIdentifier, for: indexPath) as! EnterScoreCollectionViewCell
         
-        cell.golfer = self.groups[indexPath.section][indexPath.row]
+        cell.golfer = self.groups[tmpSection][indexPath.row]
         
         cell.playerNameLabel.text = cell.golfer!.name
         
@@ -252,7 +260,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
                 enterScoreVC.players = groups
                 enterScoreVC.todaysTournee = self.todaysTournee
                 
-                // Set UICollectionView delegates
+                // Set UICollectionView delegate and datasource
                 enterScoreVC.cvDelegate = self
                 enterScoreVC.cvDataSource = self
                 playerCell.isSelected = true
@@ -312,9 +320,9 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         
     }
 
-    func populateGroups(_ players:Int) {
+    func populateGroups(_ numberOfPlayers:Int) {
         
-        switch players {
+        switch numberOfPlayers {
         case 3: theGroups = [[1,2,3]]
         case 4: theGroups = [[1,2],[3,4]]   // 2x2
         case 5: theGroups = [[1,2],[3,4,5]]     // 1x2, 1x3

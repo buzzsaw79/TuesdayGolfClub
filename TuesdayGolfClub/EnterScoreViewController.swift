@@ -13,7 +13,7 @@ protocol handleScoreDataDelegate {
     func saveScores()
 }
 
-var globalInt: Int = 0
+var globalInt: Int?
 
 class EnterScoreViewController: UIViewController, UINavigationControllerDelegate {
     
@@ -78,6 +78,9 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         enterScoreCollectionView.dataSource = self.cvDataSource!
         
         navigationController?.delegate = self
+        
+        // DEBUG
+        print("EnterScoreViewController viewDidLoad: \(globalInt)")
 
     }
     
@@ -85,111 +88,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    //MARK: -
-    //MARK: UICollectionViewDataSource
-    
-    /*func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return players.count
-//        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return players[section].count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = enterScoreCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.Storyboard.EnterScoreCellIdentifier, for: indexPath) as! EnterScoreCollectionViewCell
-        
-        
-        cell.golfer = self.players[indexPath.section][indexPath.row]
-        
-        cell.playerNameLabel.text = cell.golfer!.name
-        if cell.isScoreUpdated {
-            
-            cell.scoreTextField.text = "Updated"
-        }
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EnterScoreHeaderView", for: indexPath) as! EnterScoreHeaderView
-        
-        
-        var headerTitleString = ""
-        switch indexPath.section {
-        case 0:
-            headerTitleString = "First Group"
-        case 1:
-            headerTitleString = "Second Group"
-        case 2:
-            headerTitleString = "Third Group"
-        case 3:
-            headerTitleString = "Forth Group"
-        default:
-            headerTitleString = "\(indexPath.section+1)th Group"
-        }
-        
-        
-        headerView.sectionHeaderTitle.text = headerTitleString
-        
-        
-        return headerView
-    }
 
-    
-    //MARK: -
-    //MARK: UICollectionViewDelegateFlowLayout
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-            
-        let headerSizeWidth = self.view.bounds.width
-        let headerSizeHeight = CGFloat(48)
-        return CGSize(width: headerSizeWidth, height: headerSizeHeight)
-  
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let aSize = (self.view.bounds.width - 32.0)/3
-        let cellSize = CGSize(width: aSize, height: aSize)
-            return cellSize
-        
-    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        
-//        return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
-//        
-////        if section == 1 {
-////            return UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0)
-////        } else {
-////            return UIEdgeInsetsMake(0, 0, 0, 0)
-////        }
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-////        if section == 1 {
-////            return CGFloat(0)
-////        } else {
-////            return CGFloat(8.0)
-////        }
-//        
-//        return CGFloat(8.0)
-//    }
-    
-    var CVCCount = 0
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        CVCCount = CVCCount + 1
-        
-        // DEBUG
-        //print("\(CVCCount)About to display EnterScoreCollectionViewCell: \(cell)")
-    } */
-    
-    // MARK:
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -215,14 +114,14 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
                     
                     // Get score data from collectionview cells
                     if let golfer = cell?.golfer {
-                        
+                        let newIndexPath = IndexPath(item: cellIndex, section: globalInt!)
                         let scoreInt = Int((cell?.scoreTextField.text)!)!
                         //let day = Date.tomorrow
                         let day = Date.todayAsString()
                         
                         _ = golfer.addScore(date: day, score: scoreInt)
                         
-                        let targetCell = playersVC.tableView.cellForRow(at: cellIndexPath) as! PlayersTableViewCell
+                        if let targetCell = playersVC.tableView.cellForRow(at: newIndexPath) as! PlayersTableViewCell? {
                         
                         targetCell.textLabel?.text = golfer.name!
                         targetCell.detailTextLabel?.text = cell?.scoreTextField.text
@@ -234,10 +133,10 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
                         
                         // Save golfer back to CoreData
                         if Golfer.saveGolfer(golfer: golfer) {
-                            print("\(golfer.name!)'s score saved!")
+                            print("\(golfer.name!)'s score of \(cell?.scoreTextField.text) saved!")
                         }
                     }
-                    
+                    }
                 }
                 
             }
