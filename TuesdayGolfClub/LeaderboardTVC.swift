@@ -1,14 +1,14 @@
 //
-//  EnterScoreTVC.swift
+//  LeaderboardTVC.swift
 //  TuesdayGolfClub
 //
-//  Created by Keith Bamford on 08/01/2017.
+//  Created by Keith Bamford on 30/01/2018.
 //  Copyright © 2017 AKA Consultants. All rights reserved.
 //
 
 import UIKit
 
-class EnterScoreTVC: UIViewController {
+class LeaderboardTVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

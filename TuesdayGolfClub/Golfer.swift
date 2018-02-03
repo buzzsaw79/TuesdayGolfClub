@@ -41,7 +41,7 @@ class Golfer: NSManagedObject {
         get {
         
             let handicap = self.clubHandicap!.rounding(accordingToBehavior: nil)
-            return Int.init(handicap)
+            return Int.init(truncating: handicap)
             
         }
     }
@@ -112,7 +112,8 @@ class Golfer: NSManagedObject {
 //        golfer.playingHandicap = golfer.playingHndcp as NSNumber?
         
         golfer.image = UIImageJPEGRepresentation(image, 1.0) as NSData?
-
+        _ = self.saveGolfer(golfer: golfer)
+        
         return golfer
     }
     

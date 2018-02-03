@@ -38,7 +38,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         // DEBUG
         // printTournees()
         //        printGolfersAndPlayers()
-        
+      
     }
     
 
@@ -139,7 +139,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         //Configure the cell...
         cell.memberNamelabel?.text = golfer.name
         cell.memberHandicapLabel?.text = String(describing: golfer.clubHandicap ?? 0.0)
-        cell.memberImage.image = UIImage(data: golfer.image as! Data)
+        cell.memberImage.image = UIImage(data: golfer.image! as Data)
         
         return cell
     }
@@ -276,7 +276,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                     let tournee = aTournee 
                     
                     // DEBUG
-                    print("\(tournee.day!) \(tournee.course!) \(tournee.hasEntrants)")
+                    print("OOOOOOOOOOOOO -- \(tournee.day!) -- \(tournee.course!) -- \(tournee.hasEntrants) -- OOOOOOOOOOOO")
                     
                     // Delete Tournee's
                     //                    self.context.deleteObject(tournee)

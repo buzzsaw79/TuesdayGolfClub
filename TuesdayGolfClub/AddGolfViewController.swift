@@ -48,7 +48,7 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         golfer.image = UIImageJPEGRepresentation(golferImageView.image!, 1.0) as NSData?
         
-        Golfer.saveGolfer(golfer: golfer)
+        _ = Golfer.saveGolfer(golfer: golfer)
         
         _ = self.navigationController?.popViewController(animated: true)
         

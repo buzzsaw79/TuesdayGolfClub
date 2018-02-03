@@ -15,6 +15,7 @@ protocol handleScoreDataDelegate {
 
 var globalInt: Int?
 
+
 class EnterScoreViewController: UIViewController, UINavigationControllerDelegate {
     
     //MARK: -
@@ -22,6 +23,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
     
     var playerName: String?
     var players = [[Golfer]]()
+    var headerText: String = " "
     
     var todaysTournee: Tournee? {
         didSet {
@@ -79,8 +81,10 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         
         navigationController?.delegate = self
         
+        //enterScoreHeaderView.sectionHeaderTitle
+        
         // DEBUG
-        print("EnterScoreViewController viewDidLoad: \(globalInt)")
+        print("EnterScoreViewController viewDidLoad: \(String(describing: globalInt!+1))")
 
     }
     
@@ -115,11 +119,13 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
                     // Get score data from collectionview cells
                     if let golfer = cell?.golfer {
                         let newIndexPath = IndexPath(item: cellIndex, section: globalInt!)
-                        let scoreInt = Int((cell?.scoreTextField.text)!)!
+                        if let scoreInt = Int((cell?.scoreTextField.text!)!) {
                         //let day = Date.tomorrow
                         let day = Date.todayAsString()
-                        
                         _ = golfer.addScore(date: day, score: scoreInt)
+                        } else {
+                            print("No value input!")
+                        }
                         
                         if let targetCell = playersVC.tableView.cellForRow(at: newIndexPath) as! PlayersTableViewCell? {
                         
@@ -133,7 +139,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
                         
                         // Save golfer back to CoreData
                         if Golfer.saveGolfer(golfer: golfer) {
-                            print("\(golfer.name!)'s score of \(cell?.scoreTextField.text) saved!")
+                            print("\(golfer.name!)'s score of \(String(describing: cell?.scoreTextField.text)) saved!")
                         }
                     }
                     }
@@ -167,11 +173,21 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         let allCells = self.enterScoreCollectionView.visibleCells as! [EnterScoreCollectionViewCell]
         
         // DEBUG
-        //print("all Cells count = \(allCells.count)")
+        print("all Cells count = \(allCells.count)")
         
         for scoreCell in allCells {
             let golfer = scoreCell.golfer!
-            playersScores.updateValue(Int((scoreCell.scoreTextField.text!)) ?? 0, forKey: golfer.name!)
+            // NEED TO CHECK FOR EMPTY CELLS TO AVOID CRASH
+            if let score = scoreCell.scoreTextField.text {
+                if score.isEmpty {
+                    print("You need to input a score for \(golfer.name!)")
+                } else {
+                    playersScores.updateValue(Int(score)!, forKey: golfer.name!)
+                }
+    
+            } else {
+                print("Insert value NOW!")
+            }
         }
  
         // restore original CV frame

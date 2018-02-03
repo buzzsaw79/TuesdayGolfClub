@@ -36,8 +36,9 @@ class Tournee: NSManagedObject {
             // add golfers to tournee
             let golferSet = NSSet.init(array: golfers)
             tournee.addToHasEntrants(golferSet)
-            
+            print("test test test Golfer Set: \(golferSet)")
             Tournee.saveTournee(tournee: tournee)
+            print("\nhasEntrants: \(tournee.hasEntrants.allObjects)")
             
             return tournee
   
@@ -67,6 +68,7 @@ class Tournee: NSManagedObject {
         // Calculate average score
         let scoresArray = scores.values.sorted()
         let todaysAvg = calculateAvgScore(scores: scoresArray)
+        print("Todays Average = \(todaysAvg)")
         return false
     }
     
@@ -107,7 +109,7 @@ class Tournee: NSManagedObject {
     }
     
     
-    func calculateAvgScore(scores: [Int]) -> Double? {
+    func calculateAvgScore(scores: [Int]) -> Double {
         if !scores.isEmpty {
             var sum = 0.0
             for score in scores {
@@ -115,7 +117,7 @@ class Tournee: NSManagedObject {
             }
             return sum / Double(scores.count)
         } else {
-            return nil
+            return 0.0
         }
         
     }

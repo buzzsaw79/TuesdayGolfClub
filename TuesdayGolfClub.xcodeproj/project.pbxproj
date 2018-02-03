@@ -26,7 +26,7 @@
 		30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988961D7A0E7C009EC210 /* Tournee.swift */; };
 		30C988A01D824583009EC210 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C9889F1D824583009EC210 /* Alert.swift */; };
 		30C988A21D82C571009EC210 /* today.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C988A11D82C571009EC210 /* today.swift */; };
-		30CE1C171E22D6CE00A56B63 /* EnterScoreTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CE1C161E22D6CE00A56B63 /* EnterScoreTVC.swift */; };
+		30CE1C171E22D6CE00A56B63 /* LeaderboardTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CE1C161E22D6CE00A56B63 /* LeaderboardTVC.swift */; };
 		30F8E6581E08A48A008CD83F /* AddGolfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F8E6571E08A48A008CD83F /* AddGolfViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +52,7 @@
 		30C988961D7A0E7C009EC210 /* Tournee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tournee.swift; sourceTree = "<group>"; };
 		30C9889F1D824583009EC210 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		30C988A11D82C571009EC210 /* today.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = today.swift; sourceTree = "<group>"; };
-		30CE1C161E22D6CE00A56B63 /* EnterScoreTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterScoreTVC.swift; sourceTree = "<group>"; };
+		30CE1C161E22D6CE00A56B63 /* LeaderboardTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTVC.swift; sourceTree = "<group>"; };
 		30F8E6571E08A48A008CD83F /* AddGolfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGolfViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,7 +139,7 @@
 				3024A3921D75812D0005804F /* MemberGolferTableViewController.swift */,
 				309D02D11D8FE71200853626 /* EnterScoreViewController.swift */,
 				30F8E6571E08A48A008CD83F /* AddGolfViewController.swift */,
-				30CE1C161E22D6CE00A56B63 /* EnterScoreTVC.swift */,
+				30CE1C161E22D6CE00A56B63 /* LeaderboardTVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -171,12 +171,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "AKA Consultants";
 				TargetAttributes = {
 					3024A3781D7175E90005804F = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0920;
 					};
 				};
 			};
@@ -222,7 +222,7 @@
 				302208AB1DA4F0E50039AECE /* EnterScoreCollectionViewCell.swift in Sources */,
 				3024A3931D75812D0005804F /* MemberGolferTableViewController.swift in Sources */,
 				3024A3A01D7657C30005804F /* UIColor+CustomColors.swift in Sources */,
-				30CE1C171E22D6CE00A56B63 /* EnterScoreTVC.swift in Sources */,
+				30CE1C171E22D6CE00A56B63 /* LeaderboardTVC.swift in Sources */,
 				30C988981D7A0E7C009EC210 /* Tournee.swift in Sources */,
 				30C988941D79DB49009EC210 /* PlayersTableViewController.swift in Sources */,
 				30F8E6581E08A48A008CD83F /* AddGolfViewController.swift in Sources */,
@@ -268,14 +268,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -303,6 +309,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -316,14 +323,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -344,6 +357,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -355,11 +369,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TuesdayGolfClub/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKA.TuesdayGolfClub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -369,10 +385,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TuesdayGolfClub/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKA.TuesdayGolfClub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

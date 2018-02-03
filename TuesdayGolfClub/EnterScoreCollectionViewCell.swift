@@ -36,11 +36,7 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
         }
     }
     
-    func tagScoreTextField(_ textField: UITextField) -> UITextField {
-        return UITextField()
-    }
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -49,7 +45,7 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
     
     scoreTextField.delegate = self
     scoreTextField.adjustsFontSizeToFitWidth = true
-    scoreTextField.placeholder = "enter\nscore"
+    scoreTextField.placeholder = "enter score"
     scoreTextField.drawPlaceholder(in: reducedTextRect)
 
     
@@ -101,13 +97,15 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
 // MARK: -
 
 class EnterScoreHeaderView: UICollectionReusableView {
-    
-    
+
     @IBOutlet weak var sectionHeaderTitle: UILabel!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = UIColor.headerColour()
+        self.backgroundColor = UIColor.white
+       
     }
 }
 

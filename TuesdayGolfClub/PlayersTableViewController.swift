@@ -47,16 +47,16 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // DEBUG
         //print("didSelectRowAtIndexPath \(indexPath)")
-        
-        
         let cell = tableView.cellForRow(at: indexPath) as! PlayersTableViewCell
         let golfer = groups[indexPath.section][indexPath.row]
         
+        performSegue(withIdentifier: "enterScore", sender: cell)
+
 //        tmpSection = indexPath.section
 //        globalInt = tmpSection
         
     }
-    
+ 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         tmpSection = indexPath.section
         globalInt = tmpSection
@@ -186,25 +186,10 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EnterScoreHeaderView", for: indexPath) as! EnterScoreHeaderView
         
-        
-        var headerTitleString = ""
-        switch indexPath.section {
-        case 0:
-            headerTitleString = "First Group"
-        case 1:
-            headerTitleString = "Second Group"
-        case 2:
-            headerTitleString = "Third Group"
-        case 3:
-            headerTitleString = "Forth Group"
-        default:
-            headerTitleString = "\(indexPath.section+1)th Group"
-        }
-        
-        
+        var headerTitleString = "Enter Score for Group " + String(describing: globalInt!+1)
+
         headerView.sectionHeaderTitle.text = headerTitleString
-        
-        
+
         return headerView
     }
     
@@ -214,15 +199,15 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-        let headerSizeWidth = self.view.bounds.width
-        let headerSizeHeight = CGFloat(48)
+        let headerSizeWidth = CGFloat(self.view.bounds.width)
+        let headerSizeHeight = CGFloat(50)
         return CGSize(width: headerSizeWidth, height: headerSizeHeight)
         
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let aSize = (self.view.bounds.width - 32.0)/3
+        let aSize = (collectionView.frame.width - 30.0)/2
         let cellSize = CGSize(width: aSize, height: aSize)
         return cellSize
         
@@ -236,7 +221,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         CVCCount = CVCCount + 1
         
         // DEBUG
-        //print("\(CVCCount)About to display EnterScoreCollectionViewCell: \(cell)")
+        print("\(CVCCount) About to display EnterScoreCollectionViewCell: \(cell)")
     }
 
     
@@ -252,24 +237,27 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
                 
                 // Construct IndexPath for cell
                 let cellsIndexPath = IndexPath(item: playerCell.row!, section: playerCell.section!)
-                
+                // DEBUG
+                print("SECTION No = \(String(describing: playerCell.section!))")
                 
                 let golfer = Golfer.fetchGolferWithName(playerCell.textLabel!.text!, inManagedObjectContext: self.context)
                
                 enterScoreVC.playerName = golfer?.name
                 enterScoreVC.players = groups
                 enterScoreVC.todaysTournee = self.todaysTournee
+                enterScoreVC.headerText = String(describing: playerCell.section!)
+                
                 
                 // Set UICollectionView delegate and datasource
                 enterScoreVC.cvDelegate = self
                 enterScoreVC.cvDataSource = self
-                playerCell.isSelected = true
+                playerCell.isSelected = false
                 // DEBUG
 //                print(playerCell.textLabel!.text!)
 //                print("golfer \(golfer.debugDescription)")
                 
                 if playerCell.isScoreUpdated {
-                    print("\(playerCell.textLabel?.text)'s score has been updated: \(playerCell.isScoreUpdated)")
+                    print("\(String(describing: playerCell.textLabel?.text))'s score has been updated: \(playerCell.isScoreUpdated)")
                     let upDatedCell = enterScoreVC.enterScoreCollectionView?.cellForItem(at: cellsIndexPath) as? EnterScoreCollectionViewCell
                     upDatedCell?.scoreTextField.text = playerCell.detailTextLabel?.text
                 }
