@@ -86,7 +86,8 @@ class Golfer: NSManagedObject {
                 _golferDictionary.updateValue(golferHandicaps[index], forKey: aName)
             }
         }
-        print(_golferDictionary)
+        //DEBUG
+//        print(_golferDictionary)
         return _golferDictionary
         
     }
@@ -120,6 +121,7 @@ class Golfer: NSManagedObject {
     class func saveGolfer(golfer: Golfer) -> Bool {
         do {
             try golfer.managedObjectContext?.save()
+            //DEBUG
             //print("\(golfer.name!)'s score saved!")
             return true
         } catch let error {
@@ -145,7 +147,7 @@ class Golfer: NSManagedObject {
     //MARK: Methods
     
     func addScore(date: String, score: Int) -> Bool {
-        if scores.updateValue(score, forKey: date) == nil {
+        if scores?.updateValue(score, forKey: date) == nil {
             return true
         }
         return false

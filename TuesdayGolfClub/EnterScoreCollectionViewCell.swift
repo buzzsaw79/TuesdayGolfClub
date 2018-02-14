@@ -28,8 +28,10 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
             if let trueOrFalse = unselected {
                 switch trueOrFalse {
                 case true:
+                    //DEBUG
                     print("Its true, I tell you!")
                 case false:
+                    //DEBUG
                     print("Its false")
                 }
             }

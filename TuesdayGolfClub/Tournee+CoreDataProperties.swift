@@ -2,8 +2,9 @@
 //  Tournee+CoreDataProperties.swift
 //  TuesdayGolfClub
 //
-//  Created by Keith Bamford on 06/02/2017.
-//  Copyright © 2017 AKA Consultants. All rights reserved.
+//  Created by Keith Bamford on 14/02/2018.
+//  Copyright © 2018 AKA Consultants. All rights reserved.
+//
 //
 
 import Foundation
@@ -13,7 +14,7 @@ import CoreData
 extension Tournee {
 
     @nonobjc public class func tourneeFetchRequest() -> NSFetchRequest<Tournee> {
-        return NSFetchRequest<Tournee>(entityName: "Tournee");
+        return NSFetchRequest<Tournee>(entityName: "Tournee")
     }
 
     @NSManaged public var completed: NSNumber?
@@ -21,8 +22,9 @@ extension Tournee {
     @NSManaged public var day: String?
     @NSManaged public var par3Winners: [Golfer]?
     @NSManaged public var prizeFund: NSDecimalNumber?
-    @NSManaged public var scores: [String:Int]
-    @NSManaged public var hasEntrants: NSSet
+    @NSManaged public var scores: [String:Int]?
+    @NSManaged public var playingGroups: [[Golfer]]?
+    @NSManaged public var hasEntrants: NSSet?
 
 }
 

@@ -55,6 +55,7 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func addPicButton(_ sender: UIButton) {
+        //DEBUG
         print("Add PIC PRESSED")
         
         //present(imagePicker!, animated: true, completion: nil)
@@ -90,11 +91,12 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             self.golferImageView.image = pickedImage
-            
+            //DEBUG
             print("PICKED AN EDITED IMAGE!!!")
         } else if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.golferImageView.image = pickedImage
             let imageJPG = UIImageJPEGRepresentation(pickedImage, 1.0)
+            //DEBUG
             print("PICKED AN ORIGINAL IMAGE!!!")
             self.golferImageView.image = UIImage(data: imageJPG!)
         }

@@ -70,7 +70,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         // DEBUG
         //        printGolfersAndPlayers()
-                printTournees()
+//                printTournees()
         
     }
     
@@ -248,11 +248,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         
         context.perform {
             if let results = try? self.context.fetch(request) {
+                //DEBUG
                 print("\(results.count) Golfers")
                 print("in managedObjectContext \(self.context)")
                 
                 for aGolfer in results {
                     let golfer = aGolfer as! Golfer
+                    //DEBUG
                     print("\(golfer.name!) \(golfer.clubHandicap!)")
                     
                 }
@@ -276,7 +278,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                     let tournee = aTournee 
                     
                     // DEBUG
-                    print("OOOOOOOOOOOOO -- \(tournee.day!) -- \(tournee.course!) -- \(tournee.hasEntrants) -- OOOOOOOOOOOO")
+//                    print("OOOOOOOOOOOOO -- \(tournee.day!) -- \(tournee.course!) -- \(String(describing: tournee.hasEntrants)) -- OOOOOOOOOOOO")
                     
                     // Delete Tournee's
                     //                    self.context.deleteObject(tournee)

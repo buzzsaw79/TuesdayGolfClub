@@ -318,10 +318,8 @@
                                         <constraints>
                                             <constraint firstItem="Uur-bY-oYJ" firstAttribute="centerX" secondItem="VE3-6c-qsb" secondAttribute="centerX" id="26q-be-037"/>
                                             <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="Uur-bY-oYJ" secondAttribute="bottom" constant="8" id="9Df-kJ-D1C"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Uur-bY-oYJ" secondAttribute="trailing" constant="8" id="BcK-fV-dEK"/>
                                             <constraint firstItem="eQF-dJ-qpZ" firstAttribute="top" secondItem="VE3-6c-qsb" secondAttribute="top" id="Btk-Ru-Y4U"/>
                                             <constraint firstItem="eQF-dJ-qpZ" firstAttribute="leading" secondItem="VE3-6c-qsb" secondAttribute="leading" id="JWm-z6-84D"/>
-                                            <constraint firstItem="Uur-bY-oYJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VE3-6c-qsb" secondAttribute="leading" constant="8" id="X8U-tN-0jn"/>
                                             <constraint firstItem="erl-MH-9Re" firstAttribute="width" secondItem="VE3-6c-qsb" secondAttribute="width" id="ih5-VT-qBT"/>
                                             <constraint firstItem="Uur-bY-oYJ" firstAttribute="top" relation="lessThanOrEqual" secondItem="erl-MH-9Re" secondAttribute="bottom" constant="8" id="m9q-MU-1a1"/>
                                             <constraint firstAttribute="trailing" secondItem="eQF-dJ-qpZ" secondAttribute="trailing" id="p1W-Lr-fyT"/>

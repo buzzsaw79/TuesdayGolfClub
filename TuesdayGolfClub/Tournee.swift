@@ -36,14 +36,16 @@ class Tournee: NSManagedObject {
             // add golfers to tournee
             let golferSet = NSSet.init(array: golfers)
             tournee.addToHasEntrants(golferSet)
-            print("test test test Golfer Set: \(golferSet)")
+            //DEBUG
+//            print("test test test Golfer Set: \(golferSet)")
             Tournee.saveTournee(tournee: tournee)
-            print("\nhasEntrants: \(tournee.hasEntrants.allObjects)")
+            //DEBUG
+//            print("\nhasEntrants: \(String(describing: tournee.hasEntrants?.allObjects))")
             
             return tournee
   
         }
- 
+
         return nil
     }
     
@@ -57,8 +59,8 @@ class Tournee: NSManagedObject {
     
     func validateAndComplete() -> Bool {
         // Validate all data before saving
-        let numberOfEntrants = self.hasEntrants.count
-        if scores.count == numberOfEntrants {
+        let numberOfEntrants = self.hasEntrants?.count
+        if scores?.count == numberOfEntrants {
             
         }
         // Check we have par 3 winners
@@ -66,8 +68,9 @@ class Tournee: NSManagedObject {
             
         }
         // Calculate average score
-        let scoresArray = scores.values.sorted()
-        let todaysAvg = calculateAvgScore(scores: scoresArray)
+        let scoresArray = scores?.values.sorted()
+        let todaysAvg = calculateAvgScore(scores: scoresArray!)
+        //DEBUG
         print("Todays Average = \(todaysAvg)")
         return false
     }
@@ -75,7 +78,8 @@ class Tournee: NSManagedObject {
     func addScores(dictionary: [String:Int]) -> Bool {
         
         for item in dictionary {
-            self.scores.updateValue(item.value, forKey: item.key)
+//            self.scores?.updateValue(item.value, forKey: item.key)
+            self.scores?.updateValue(item.value, forKey: item.key)
         }
         return true
     }

@@ -257,6 +257,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
 //                print("golfer \(golfer.debugDescription)")
                 
                 if playerCell.isScoreUpdated {
+                    //DEBUG
                     print("\(String(describing: playerCell.textLabel?.text))'s score has been updated: \(playerCell.isScoreUpdated)")
                     let upDatedCell = enterScoreVC.enterScoreCollectionView?.cellForItem(at: cellsIndexPath) as? EnterScoreCollectionViewCell
                     upDatedCell?.scoreTextField.text = playerCell.detailTextLabel?.text
@@ -278,6 +279,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         
         if segue.identifier == "back2" {
             // do something
+            //DEBUG
             print("Should do something here!")
         }
         

@@ -22,6 +22,7 @@ class MemberTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        //DEBUG
 //        print("MTVCell called awakefromNib")
         
 //        self.backgroundColor = UIColor.evenCellColour()
@@ -40,7 +41,7 @@ class MemberTableViewCell: UITableViewCell {
     //MARK: UITableViewCell Methods - Overridden!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+        //DEBUG
 //        print("--- MemberTableViewCell.setSelected called ---")
 
         // Configure the view for the selected state
