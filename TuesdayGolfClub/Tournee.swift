@@ -37,10 +37,10 @@ class Tournee: NSManagedObject {
             let golferSet = NSSet.init(array: golfers)
             tournee.addToHasEntrants(golferSet)
             //DEBUG
-//            print("test test test Golfer Set: \(golferSet)")
+//            print("TS Golfer Set: \(golferSet)\n")
             Tournee.saveTournee(tournee: tournee)
             //DEBUG
-//            print("\nhasEntrants: \(String(describing: tournee.hasEntrants?.allObjects))")
+//            print("TS hasEntrants: \(String(describing: tournee.hasEntrants?.allObjects))\n")
             
             return tournee
   
@@ -53,7 +53,7 @@ class Tournee: NSManagedObject {
         do {
             try tournee.managedObjectContext?.save()
         } catch let error {
-            print("Unable to save within saveTournee func - ERROR: \(error)")
+            print("TS Unable to save within saveTournee func - ERROR: \(error)\n")
         }
     }
     
@@ -71,7 +71,7 @@ class Tournee: NSManagedObject {
         let scoresArray = scores?.values.sorted()
         let todaysAvg = calculateAvgScore(scores: scoresArray!)
         //DEBUG
-        print("Todays Average = \(todaysAvg)")
+        print("TS Todays Average = \(todaysAvg)\n")
         return false
     }
     

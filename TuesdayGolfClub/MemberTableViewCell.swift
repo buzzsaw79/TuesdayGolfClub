@@ -23,7 +23,7 @@ class MemberTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         //DEBUG
-//        print("MTVCell called awakefromNib")
+//        print("MTVCell called awakefromNib\n")
         
 //        self.backgroundColor = UIColor.evenCellColour()
         memberNamelabel.textColor = UIColor.evenCellTextColour()
@@ -42,7 +42,7 @@ class MemberTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         //DEBUG
-//        print("--- MemberTableViewCell.setSelected called ---")
+//        print("MTVCell --- MemberTableViewCell.setSelected called ---\n")
 
         // Configure the view for the selected state
         if(!selected) {

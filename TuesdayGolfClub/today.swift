@@ -111,7 +111,7 @@ extension Date {
 //            do {
 //                try self.context.save()
 //            } catch let error as NSError {
-//                print("Error saving golfer \(error.localizedDescription)")
+//                print("TodayS Error saving golfer \(error.localizedDescription)\n")
 //            }
 //        }
 //

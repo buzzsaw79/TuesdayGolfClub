@@ -87,7 +87,7 @@ class Golfer: NSManagedObject {
             }
         }
         //DEBUG
-//        print(_golferDictionary)
+        print("GS _golferDictionary: \(_golferDictionary)\n")
         return _golferDictionary
         
     }
@@ -122,10 +122,10 @@ class Golfer: NSManagedObject {
         do {
             try golfer.managedObjectContext?.save()
             //DEBUG
-            //print("\(golfer.name!)'s score saved!")
+            //print("GS \(golfer.name!)'s score saved in saveGolfer()\n")
             return true
         } catch let error {
-            print("Unable to save within saveGolfer func - ERROR: \(error)")
+            print("GS Unable to save within saveGolfer func - ERROR: \(error)\n")
             return false
         }
     }

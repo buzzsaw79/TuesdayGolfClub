@@ -51,18 +51,18 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
     @IBAction func saveButton() {
         playersScores = getDataOutOfEntireCollectionView()
         //DEBUG
-//        print("🏁 playersScoreDictionary 🏁 -> \(playersScores)")
+        //        print("ESVC playersScoreDictionary: \(playersScores)\n")
         let sortedByPlayersScoreArray = playersScores.sorted { $0.1 > $1.1 }
         
         
         if (todaysTournee?.addScores(dictionary: playersScores))!{
             //DEBUG
-            print("Scores added to Today's Tournee")
+            print("ESVC Scores added to Today's Tournee\n")
         }
         
         // DEBUG
-        print("Save button pressed!")
-        print("🏁 sortedByPlayersScoreArray 🏁 -> \(sortedByPlayersScoreArray)")
+        print("ESVC Save button pressed!\n")
+        print("ESVC sortedByPlayersScoreArray: \(sortedByPlayersScoreArray)\n")
         
         todaysTournee?.completed = true
         Tournee.saveTournee(tournee: todaysTournee!)
@@ -86,7 +86,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         //enterScoreHeaderView.sectionHeaderTitle
         
         // DEBUG
-//        print("EnterScoreViewController viewDidLoad: \(String(describing: globalInt!+1))")
+//        print("ESVC viewDidLoad: \(String(describing: globalInt!+1))")
 
     }
     
@@ -101,7 +101,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         
         if segue.identifier == "back2" {
             //DEBUG
-            print("PREPARE = back2")
+            print("ESVC PREPARE = back2")
             
             // Triggered by Unwind segue when "Save" button clicked
             let playersVC = segue.destination as! PlayersTableViewController
@@ -126,7 +126,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
                         let day = Date.todayAsString()
                         _ = golfer.addScore(date: day, score: scoreInt)
                         } else {
-                            print("No value input!")
+                            print("ESVC No value input!")
                         }
                         
                         if let targetCell = playersVC.tableView.cellForRow(at: newIndexPath) as! PlayersTableViewCell? {
@@ -142,7 +142,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
                         // Save golfer back to CoreData
                         if Golfer.saveGolfer(golfer: golfer) {
                             //DEBUG
-                            print("\(golfer.name!)'s score of \(String(describing: cell?.scoreTextField.text)) saved!")
+                            print("ESVC \(golfer.name!)'s score of \(String(describing: cell?.scoreTextField.text)) saved!\n")
                         }
                     }
                     }
@@ -150,8 +150,8 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
                 
             }
             
-            //print("S C O R E S :-> \(playersScores)")
-//            print("G O L F E R S:-> \(players)")
+            //print("ESVC S C O R E S :-> \(playersScores)\n")
+//            print("ESVC G O L F E R S:-> \(players)\n")
             
         }
         
@@ -160,7 +160,7 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
     
     func getDataOutOfEntireCollectionView() -> [String:Int] {
         //DEBUG
-        print("GETDATAOUTOFENTIRECOLLECTIONVIEW")
+        print("ESVC GETDATAOUTOFENTIRECOLLECTIONVIEW")
         var playersScores = [String:Int]()
         
         // Store original CV frame and get content size
@@ -177,21 +177,21 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         let allCells = self.enterScoreCollectionView.visibleCells as! [EnterScoreCollectionViewCell]
         
         // DEBUG
-//        print("all Cells count = \(allCells.count)")
+//        print("ESVC all Cells count = \(allCells.count)\n")
         
         for scoreCell in allCells {
             let golfer = scoreCell.golfer!
             // NEED TO CHECK FOR EMPTY CELLS TO AVOID CRASH
             if let score = scoreCell.scoreTextField.text {
                 if score.isEmpty {
-                    print("You need to input a score for \(golfer.name!)")
+                    print("ESVC You need to input a score for \(golfer.name!)\n")
                 } else {
                     playersScores.updateValue(Int(score)!, forKey: golfer.name!)
                 }
     
             } else {
                 //DEBUG
-                print("Insert value NOW!")
+                print("ESVC Insert value NOW!\n")
             }
         }
  
@@ -212,11 +212,11 @@ class EnterScoreViewController: UIViewController, UINavigationControllerDelegate
         
         if let controller = viewController as? PlayersTableViewController {
             //DEBUG
-            print("Did we press the BACK buton?")
+            print("ESVC NavigationController - Did we press the BACK buton?\n")
             
             let noOfGroups = controller.groups.count
             //DEBUG
-            print("Number of groups is: \(noOfGroups)")
+            print("ESVC NavigationController - Number of groups is: \(noOfGroups)\n")
         }
     }
     

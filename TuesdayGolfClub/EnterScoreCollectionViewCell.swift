@@ -29,10 +29,10 @@ class EnterScoreCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, U
                 switch trueOrFalse {
                 case true:
                     //DEBUG
-                    print("Its true, I tell you!")
+                    print("ESCVCell Its true, I tell you!\n")
                 case false:
                     //DEBUG
-                    print("Its false")
+                    print("ESCVCell Its false\n")
                 }
             }
         }

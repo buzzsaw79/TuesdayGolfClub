@@ -46,7 +46,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // DEBUG
-        //print("didSelectRowAtIndexPath \(indexPath)")
+        //print("PTVC didSelectRowAtIndexPath \(indexPath)\n")
         let cell = tableView.cellForRow(at: indexPath) as! PlayersTableViewCell
         let golfer = groups[indexPath.section][indexPath.row]
         
@@ -221,7 +221,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         CVCCount = CVCCount + 1
         
         // DEBUG
-        print("\(CVCCount) About to display EnterScoreCollectionViewCell: \(cell)")
+        print("PTVC \(CVCCount) About to display EnterScoreCollectionViewCell: \(cell)\n")
     }
 
     
@@ -229,7 +229,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // DEBUG
-//        print("PTVC Prepare for Seque")
+//        print("PTVC Prepare for Seque\n")
         
         if segue.identifier == "enterScore" {
             if let enterScoreVC = segue.destination as? EnterScoreViewController {
@@ -238,7 +238,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
                 // Construct IndexPath for cell
                 let cellsIndexPath = IndexPath(item: playerCell.row!, section: playerCell.section!)
                 // DEBUG
-                print("SECTION No = \(String(describing: playerCell.section!))")
+//                print("PTVC SECTION No = \(String(describing: playerCell.section!))\n")
                 
                 let golfer = Golfer.fetchGolferWithName(playerCell.textLabel!.text!, inManagedObjectContext: self.context)
                
@@ -253,12 +253,12 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
                 enterScoreVC.cvDataSource = self
                 playerCell.isSelected = false
                 // DEBUG
-//                print(playerCell.textLabel!.text!)
-//                print("golfer \(golfer.debugDescription)")
+                print("PTVC playerCell: \(playerCell.textLabel!.text!)\n")
+//                print("PTVC golfer \(golfer.debugDescription)\n")
                 
                 if playerCell.isScoreUpdated {
                     //DEBUG
-                    print("\(String(describing: playerCell.textLabel?.text))'s score has been updated: \(playerCell.isScoreUpdated)")
+                    print("PTVC \(String(describing: playerCell.textLabel?.text))'s score has been updated: \(playerCell.isScoreUpdated)\n")
                     let upDatedCell = enterScoreVC.enterScoreCollectionView?.cellForItem(at: cellsIndexPath) as? EnterScoreCollectionViewCell
                     upDatedCell?.scoreTextField.text = playerCell.detailTextLabel?.text
                 }
@@ -275,12 +275,12 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
     
     @IBAction func back2(_ segue: UIStoryboardSegue) {
         // DEBUG
-//        print("Unwinding")
+//        print("PTVC Unwinding\n")
         
         if segue.identifier == "back2" {
             // do something
             //DEBUG
-            print("Should do something here!")
+            print("PTVC Should do something here!\n")
         }
         
     }
@@ -359,7 +359,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
                     let golfer = golfers.remove(at: randomIndex)
                     
                     // DEBUG - Check array has golfers in it
-                    // print("randomiseGolfers() -> \(golfer.name!) \(golfer.clubHandicap!)")
+                    // print("PTVC randomiseGolfers() -> \(golfer.name!) \(golfer.clubHandicap!)\n")
                     
                     // Multi-Dimensional Array Population
                     playingGroups[outerIndex].append(golfer)
@@ -370,7 +370,7 @@ class PlayersTableViewController: UITableViewController, UICollectionViewDelegat
         }
         
         // DEBUG - Check playingGroups is properly populated
-        //print("🔬 playingGroups: \(playingGroups)")
+        //print("PTVC playingGroups: \(playingGroups)\n")
         return playingGroups
     }
    

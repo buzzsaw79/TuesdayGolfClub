@@ -36,7 +36,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         performSegue(withIdentifier: "getPlayers", sender: self.tournee)
         
         // DEBUG
-        // printTournees()
+         printTournees()
         //        printGolfersAndPlayers()
       
     }
@@ -59,7 +59,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         do {
             try fetchedResultsController.performFetch()
         } catch let error as NSError {
-            print("Unable to perform Golfer fetch: \(error.localizedDescription)")
+            print("MGTVC Unable to perform Golfer fetch: \(error.localizedDescription)\n")
         }
         
         // registering cell nib
@@ -177,7 +177,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             do {
                 try context.save()
             } catch let error as NSError {
-                print("Error saving context after delete! \(error.localizedDescription)")
+                print("MGTVC Error saving context after delete! \(error.localizedDescription)")
             }
         default:
             break
@@ -227,7 +227,7 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
             do {
                 try self.context.save()
             } catch let err as NSError {
-                print("CoreData error whilst saving: ERROR:- \(err)")
+                print("MGTVC CoreData error whilst saving: ERROR:- \(err)")
             }
             
             playersController.playersArray = self.players
@@ -249,13 +249,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         context.perform {
             if let results = try? self.context.fetch(request) {
                 //DEBUG
-                print("\(results.count) Golfers")
-                print("in managedObjectContext \(self.context)")
+                print("MGTVC \(results.count) Golfers")
+                print("in managedObjectContext \(self.context)\n")
                 
                 for aGolfer in results {
                     let golfer = aGolfer as! Golfer
                     //DEBUG
-                    print("\(golfer.name!) \(golfer.clubHandicap!)")
+                    print("MGTVC \(golfer.name!) \(golfer.clubHandicap!)\n")
                     
                 }
             }
@@ -271,14 +271,14 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
         context.perform {
             if let results = try? self.context.fetch(request) {
                 // DEBUG
-                print("\(results.count) Tournees in managedObjectContext \(self.context)")
+                print("MGTVC \(results.count) Tournees in managedObjectContext \(self.context) from printTournees()/n")
                 
                 
                 for aTournee in results {
                     let tournee = aTournee 
                     
                     // DEBUG
-//                    print("OOOOOOOOOOOOO -- \(tournee.day!) -- \(tournee.course!) -- \(String(describing: tournee.hasEntrants)) -- OOOOOOOOOOOO")
+//                    print("MGTVC -- \(tournee.day!) -- \(tournee.course!) -- \(String(describing: tournee.hasEntrants)) -- \n")
                     
                     // Delete Tournee's
                     //                    self.context.deleteObject(tournee)
@@ -286,13 +286,13 @@ class MemberGolferTableViewController: UITableViewController, NSFetchedResultsCo
                     //                    do {
                     //                        try self.context.save()
                     //                    } catch {
-                    //                        print("Couldn't save after deleting tournees")
+                    //                        print("MGTVC Couldn't save after deleting tournees\n")
                     //                    }
                     
                     //                    for object  in tournee.hasEntrants!  {
                     //                        if let golfer = object as? Golfer  {
                     //                            // DEBUG
-                    //                            print("Golfer in hasEntrants \(golfer)")
+                    //                            print("MGTVC Golfer in hasEntrants \(golfer)\n")
                     //                        }
                     //                    }
                     
