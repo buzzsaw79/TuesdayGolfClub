@@ -30,7 +30,7 @@ class AddGolfViewController: UIViewController, UIImagePickerControllerDelegate, 
     // MARK: - Actions
     @IBAction func cancelBtnPressed(_ sender: UIBarButtonItem) {
        _ = self.navigationController?.popViewController(animated: true)
-        
+       dismiss(animated: true, completion: nil)
     }
     
     

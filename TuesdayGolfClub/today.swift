@@ -58,7 +58,16 @@ extension Date {
 }
 
 
-
+//func addAlert(title: String) -> UIAlertController {
+//        // Create AlertController
+//        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+//     //Add Textfield to Alert
+//            alert.addTextField { (golferName) -> Void in
+//                    golferName.text = "Enter a score for \(golferName)"
+//            }
+//    
+//    //alert.addTextField(configurationHandler: <#T##((UITextField) -> Void)?##((UITextField) -> Void)?##(UITextField) -> Void#>)
+//}
 
 
 

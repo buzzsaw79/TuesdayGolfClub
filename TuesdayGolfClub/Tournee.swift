@@ -16,7 +16,7 @@ class Tournee: NSManagedObject {
     //MARK: -
     //MARK: Computed Properties
 
-    var playerScore:[Golfer:Int]?
+    //var playerScore:[Golfer:Int]?
     
     let numberOfParThrees = 4
 
